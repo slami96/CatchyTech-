@@ -10,47 +10,55 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #333;
-      overflow-x: hidden;
-      background-color: #000;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+      background-color: #000; /* Default background */
     }
-    
+
+    /* Ensure vertical scrolling is possible if content overflows viewport */
+    body {
+       overflow-y: auto; /* Or scroll, auto is usually sufficient */
+    }
+
     section {
-      height: 100vh;
+      height: 100vh; /* Each section takes full viewport height */
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      position: relative; /* Important for positioning child elements and for ScrollTrigger */
     }
-    
+
     /* Intro Section */
     .intro {
       background-color: #000;
       color: white;
-      overflow: hidden;
+      overflow: hidden; /* Hide overflowing particles */
     }
-    
+
     .logo-container {
       position: relative;
       width: 300px;
       height: 300px;
+      z-index: 1; /* Ensure logo is above particles */
     }
-    
+
     .logo-circle {
       position: absolute;
       width: 300px;
       height: 300px;
       border: 2px solid rgba(255, 255, 255, 0.2);
       border-radius: 50%;
+      top: 0;
+      left: 0;
     }
-    
+
     .logo-inner {
       position: absolute;
       top: 50%;
@@ -59,18 +67,18 @@
       font-size: 36px;
       font-weight: 900;
       letter-spacing: 1px;
-      opacity: 0;
+      opacity: 0; /* Start hidden for animation */
     }
-    
+
     .particles-container {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      z-index: 0;
+      z-index: 0; /* Behind logo */
     }
-    
+
     .particle {
       position: absolute;
       background-color: white;
@@ -78,36 +86,37 @@
       height: 2px;
       border-radius: 50%;
     }
-    
+
     /* Product Section */
     .product {
       background: linear-gradient(135deg, #111, #222);
-      overflow: hidden;
+      overflow: hidden; /* Prevent content spill */
     }
-    
+
     .product-container {
       display: flex;
       width: 100%;
       max-width: 1200px;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 40px; /* Added more padding */
+      gap: 40px; /* Add gap between text and image */
     }
-    
+
     .product-text {
-      width: 40%;
+      width: 45%; /* Adjusted width */
       color: white;
     }
-    
+
     .product-title {
       font-size: 42px;
       font-weight: 700;
       margin-bottom: 20px;
       line-height: 1.2;
-      opacity: 0;
-      transform: translateX(-50px);
+      opacity: 0; /* Start hidden */
+      transform: translateX(-50px); /* Start off-screen */
     }
-    
+
     .product-description {
       font-size: 18px;
       line-height: 1.6;
@@ -115,14 +124,14 @@
       opacity: 0;
       transform: translateX(-50px);
     }
-    
+
     .product-highlights {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 30px;
     }
-    
+
     .highlight {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
@@ -130,9 +139,9 @@
       font-size: 16px;
       font-weight: 500;
       opacity: 0;
-      transform: scale(0.8);
+      transform: scale(0.8); /* Start smaller */
     }
-    
+
     .product-cta {
       display: inline-block;
       background: linear-gradient(90deg, #ff6b6b, #f35588);
@@ -143,30 +152,36 @@
       text-decoration: none;
       font-size: 16px;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(20px); /* Start lower */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effect */
     }
-    
+    .product-cta:hover {
+        transform: translateY(15px);
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    }
+
     .product-image-container {
-      width: 50%;
+      width: 45%; /* Adjusted width */
       position: relative;
-      height: 600px;
-      perspective: 1000px;
+      height: 600px; /* Fixed height for perspective */
+      perspective: 1000px; /* Enable 3D perspective */
     }
-    
+
     .product-image {
       position: absolute;
       top: 50%;
       left: 50%;
+      /* Center and prepare for rotation */
       transform: translate(-50%, -50%) rotateY(0deg);
       width: 300px;
       height: 600px;
       background-color: #222;
       border-radius: 40px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       overflow: hidden;
-      transform-style: preserve-3d;
+      transform-style: preserve-3d; /* Needed for 3D children */
     }
-    
+
     .phone-screen {
       position: absolute;
       top: 10px;
@@ -177,16 +192,16 @@
       border-radius: 30px;
       overflow: hidden;
     }
-    
+
     .screen-content {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.2); /* Slight overlay */
     }
-    
+
     .phone-notch {
       position: absolute;
       top: 20px;
@@ -195,20 +210,20 @@
       width: 120px;
       height: 25px;
       background-color: #000;
-      border-radius: 20px;
+      border-radius: 0 0 20px 20px; /* Rounded bottom corners */
       z-index: 2;
     }
-    
+
     .phone-button {
       position: absolute;
-      right: -5px;
+      right: -5px; /* Slightly outside */
       top: 120px;
       width: 5px;
       height: 60px;
       background-color: #111;
       border-radius: 2px 0 0 2px;
     }
-    
+
     .phone-reflections {
       position: absolute;
       top: 0;
@@ -222,15 +237,17 @@
         rgba(255, 255, 255, 0) 80%,
         rgba(255, 255, 255, 0.1) 100%
       );
-      border-radius: 30px;
+      border-radius: 30px; /* Match screen radius */
+      pointer-events: none; /* Don't interfere with mouse events */
     }
-    
+
     /* Features Section */
     .features {
       background-color: white;
-      overflow: hidden;
+      overflow: hidden; /* Contain animations */
+      padding: 80px 0; /* Add padding */
     }
-    
+
     .features-container {
       display: flex;
       flex-direction: column;
@@ -238,7 +255,7 @@
       width: 90%;
       max-width: 1200px;
     }
-    
+
     .features-title {
       font-size: 48px;
       font-weight: 800;
@@ -247,14 +264,15 @@
       opacity: 0;
       transform: translateY(30px);
     }
-    
+
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      /* Responsive grid */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
       width: 100%;
     }
-    
+
     .feature-box {
       background-color: #f8f8f8;
       border-radius: 20px;
@@ -263,8 +281,13 @@
       text-align: center;
       opacity: 0;
       transform: translateY(50px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+    .feature-box:hover {
+        transform: translateY(40px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
     .feature-icon {
       width: 70px;
       height: 70px;
@@ -277,49 +300,52 @@
       color: white;
       font-size: 30px;
     }
-    
+
     .feature-title {
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 15px;
     }
-    
+
     .feature-description {
       font-size: 16px;
       line-height: 1.5;
       color: #666;
     }
-    
+
     /* 3D Objects Section */
     .objects {
       background-color: #181818;
       overflow: hidden;
     }
-    
+
     .objects-container {
       display: flex;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 100%;
+      gap: 100px; /* Space between objects */
+      padding: 50px; /* Padding around container */
     }
-    
-    .cube-container {
+
+    .cube-container, .pyramid-container {
       position: relative;
       width: 200px;
       height: 200px;
       perspective: 1000px;
-      margin: 0 100px;
+      /* Removed margin to use gap instead */
     }
-    
+
     .cube {
       width: 100%;
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      transform: rotateX(0deg) rotateY(0deg);
+      transform: rotateX(0deg) rotateY(0deg); /* Initial state */
     }
-    
+
     .cube-face {
       position: absolute;
       width: 200px;
@@ -330,135 +356,106 @@
       justify-content: center;
       align-items: center;
       font-size: 24px;
+      font-weight: bold;
       color: white;
+      backface-visibility: hidden; /* Hide back of faces */
     }
-    
-    .front  { transform: rotateY(0deg) translateZ(100px); background: rgba(255, 0, 89, 0.3); }
-    .back   { transform: rotateY(180deg) translateZ(100px); background: rgba(0, 255, 200, 0.3); }
-    .right  { transform: rotateY(90deg) translateZ(100px); background: rgba(255, 196, 0, 0.3); }
-    .left   { transform: rotateY(-90deg) translateZ(100px); background: rgba(0, 123, 255, 0.3); }
-    .top    { transform: rotateX(90deg) translateZ(100px); background: rgba(178, 0, 255, 0.3); }
-    .bottom { transform: rotateX(-90deg) translateZ(100px); background: rgba(98, 255, 0, 0.3); }
-    
-    .pyramid-container {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      perspective: 1000px;
-      margin: 0 100px;
-    }
-    
+
+    /* Position cube faces */
+    .front  { transform: rotateY(0deg) translateZ(100px); background: rgba(255, 0, 89, 0.5); }
+    .back   { transform: rotateY(180deg) translateZ(100px); background: rgba(0, 255, 200, 0.5); }
+    .right  { transform: rotateY(90deg) translateZ(100px); background: rgba(255, 196, 0, 0.5); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); background: rgba(0, 123, 255, 0.5); }
+    .top    { transform: rotateX(90deg) translateZ(100px); background: rgba(178, 0, 255, 0.5); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); background: rgba(98, 255, 0, 0.5); }
+
     .pyramid {
       width: 100%;
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      transform: rotateX(-20deg) rotateY(0deg);
+      transform: rotateX(-20deg) rotateY(0deg); /* Initial tilt */
     }
-    
+
     .pyramid-face {
       position: absolute;
+      /* Triangle using borders */
       width: 0;
       height: 0;
       border-left: 100px solid transparent;
       border-right: 100px solid transparent;
-      border-bottom: 200px solid rgba(255, 255, 255, 0.3);
-      transform-origin: 50% 100%;
+      border-bottom-width: 200px; /* Height of triangle */
+      border-bottom-style: solid;
+      /* Position triangles */
+      top: 0px; /* Adjust to center */
+      left: 0px;
+      transform-origin: 50% 0%; /* Rotate around the top center point */
+      backface-visibility: hidden;
     }
-    
-    .pyramid-front  { transform: rotateY(0deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(255, 0, 89, 0.3); }
-    .pyramid-right  { transform: rotateY(90deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(255, 196, 0, 0.3); }
-    .pyramid-back   { transform: rotateY(180deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(0, 255, 200, 0.3); }
-    .pyramid-left   { transform: rotateY(-90deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(0, 123, 255, 0.3); }
-    .pyramid-bottom {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background-color: rgba(178, 0, 255, 0.3);
-      transform: rotateX(90deg) translateZ(100px);
+    .pyramid-face.pyramid-bottom {
+        /* Override triangle styles for base */
+        border: none;
+        width: 200px;
+        height: 200px;
+        top: auto; /* Reset positioning */
+        left: auto;
+        background-color: rgba(178, 0, 255, 0.5); /* Bottom color */
+        /* Position base */
+        transform: translateY(0px) rotateX(-90deg) translateZ(-100px); /* Position relative to pyramid center */
+        transform-origin: 50% 50%;
     }
-    
-    /* SVG Section */
-    .svg-animation {
-      background-color: #001220;
-      overflow: hidden;
-    }
-    
-    .svg-container {
-      width: 100%;
-      max-width: 800px;
-      height: 500px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    svg {
-      width: 100%;
-      height: 100%;
-    }
-    
-    .svg-circle {
-      fill: none;
-      stroke: white;
-      stroke-width: 2px;
-      stroke-dasharray: 0;
-      stroke-dashoffset: 0;
-    }
-    
-    .svg-path {
-      fill: none;
-      stroke: white;
-      stroke-width: 2px;
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-    }
-    
-    .svg-text {
-      fill: white;
-      font-size: 24px;
-      opacity: 0;
-    }
-    
+
+    /* Position pyramid faces (simplified transforms) */
+    /* Height of pyramid approx sqrt(100^2 + 200^2) ~ 223.6 */
+    /* Apex is at (0, -100, 0) if base centered at origin on xz plane*/
+    /* Angle approx atan(200/100) = 63.4 deg */
+    .pyramid-front  { transform: rotateY(0deg) translateZ(100px) rotateX(63.4deg); border-bottom-color: rgba(255, 0, 89, 0.5); }
+    .pyramid-right  { transform: rotateY(90deg) translateZ(100px) rotateX(63.4deg); border-bottom-color: rgba(255, 196, 0, 0.5); }
+    .pyramid-back   { transform: rotateY(180deg) translateZ(100px) rotateX(63.4deg); border-bottom-color: rgba(0, 255, 200, 0.5); }
+    .pyramid-left   { transform: rotateY(-90deg) translateZ(100px) rotateX(63.4deg); border-bottom-color: rgba(0, 123, 255, 0.5); }
+
     /* Canvas Section */
     .canvas-section {
       background-color: #000;
-      overflow: hidden;
+      overflow: hidden; /* Contain canvas */
     }
-    
+
     #particleCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 0; /* Behind text */
     }
-    
+
     .canvas-text {
       position: relative;
-      z-index: 1;
+      z-index: 1; /* Above canvas */
       color: white;
       text-align: center;
+      padding: 20px; /* Add padding */
     }
-    
+
     .canvas-title {
       font-size: 60px;
       font-weight: 800;
       margin-bottom: 20px;
+      /* Gradient text effect */
       background: linear-gradient(90deg, #ff6b6b, #f35588, #4158D0, #C850C0, #FFCC70);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      opacity: 0;
+      opacity: 0; /* Start hidden */
     }
-    
+
     .canvas-description {
       font-size: 24px;
       max-width: 600px;
       margin: 0 auto;
-      opacity: 0;
+      opacity: 0; /* Start hidden */
     }
-    
+
     /* Navigation dots */
     .nav-dots {
       position: fixed;
@@ -467,9 +464,9 @@
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      z-index: 10;
+      z-index: 10; /* Ensure dots are above everything */
     }
-    
+
     .nav-dot {
       width: 12px;
       height: 12px;
@@ -479,12 +476,12 @@
       cursor: pointer;
       transition: background-color 0.3s, transform 0.3s;
     }
-    
+
     .nav-dot.active {
       background-color: white;
-      transform: scale(1.3);
+      transform: scale(1.3); /* Make active dot larger */
     }
-    
+
     /* Scroll indicator */
     .scroll-indicator {
       position: absolute;
@@ -496,8 +493,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      z-index: 5; /* Above canvas but below nav dots */
+      opacity: 0.8; /* Start visible */
+      transition: opacity 0.5s ease;
     }
-    
+
     .scroll-arrow {
       margin-top: 10px;
       width: 20px;
@@ -507,7 +507,7 @@
       transform: rotate(45deg);
       animation: scrollArrow 2s infinite;
     }
-    
+
     @keyframes scrollArrow {
       0% {
         transform: rotate(45deg) translate(0, 0);
@@ -521,10 +521,80 @@
         opacity: 0.4;
       }
     }
+
+    /* Hide scroll indicator after first scroll */
+    body.scrolled .scroll-indicator {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .product-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .product-text, .product-image-container {
+            width: 80%; /* Take more width when stacked */
+        }
+        .product-image-container {
+            height: 500px; /* Adjust height */
+            margin-top: 40px;
+        }
+        .product-image {
+             width: 250px; /* Smaller phone */
+             height: 500px;
+        }
+        .features-grid {
+             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .objects-container {
+            gap: 50px;
+        }
+    }
+
+     @media (max-width: 768px) {
+        .features-title {
+            font-size: 36px;
+        }
+        .canvas-title {
+            font-size: 40px;
+        }
+        .canvas-description {
+            font-size: 18px;
+        }
+        .nav-dots {
+            right: 15px; /* Move dots closer */
+        }
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            margin: 8px 0;
+        }
+        .objects-container {
+             flex-direction: column; /* Stack 3D objects */
+             padding: 30px;
+        }
+         .cube-container, .pyramid-container {
+            width: 150px;
+            height: 150px;
+        }
+        .cube-face {
+             width: 150px; height: 150px; font-size: 18px;
+        }
+        /* Adjust cube face transforms for 150px size */
+        .front  { transform: rotateY(0deg) translateZ(75px); }
+        .back   { transform: rotateY(180deg) translateZ(75px); }
+        .right  { transform: rotateY(90deg) translateZ(75px); }
+        .left   { transform: rotateY(-90deg) translateZ(75px); }
+        .top    { transform: rotateX(90deg) translateZ(75px); }
+        .bottom { transform: rotateX(-90deg) translateZ(75px); }
+        /* Pyramid adjustments might be more complex */
+    }
+
   </style>
 </head>
 <body>
-  <!-- Navigation Dots -->
   <div class="nav-dots">
     <div class="nav-dot active" data-section="0"></div>
     <div class="nav-dot" data-section="1"></div>
@@ -532,8 +602,7 @@
     <div class="nav-dot" data-section="3"></div>
     <div class="nav-dot" data-section="4"></div>
   </div>
-  
-  <!-- Canvas Section (now first) -->
+
   <section class="canvas-section" id="section-0">
     <canvas id="particleCanvas"></canvas>
     <div class="canvas-text">
@@ -545,8 +614,7 @@
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
-  <!-- Intro Section (now second) -->
+
   <section class="intro" id="section-1">
     <div class="particles-container" id="particlesContainer"></div>
     <div class="logo-container">
@@ -554,8 +622,7 @@
       <div class="logo-inner">NOVA</div>
     </div>
   </section>
-  
-  <!-- Product Section -->
+
   <section class="product" id="section-2">
     <div class="product-container">
       <div class="product-text">
@@ -581,8 +648,7 @@
       </div>
     </div>
   </section>
-  
-  <!-- Features Section -->
+
   <section class="features" id="section-3">
     <div class="features-container">
       <h2 class="features-title">Exceptional Features</h2>
@@ -620,8 +686,7 @@
       </div>
     </div>
   </section>
-  
-  <!-- 3D Objects Section -->
+
   <section class="objects" id="section-4">
     <div class="objects-container">
       <div class="cube-container">
@@ -640,407 +705,455 @@
           <div class="pyramid-face pyramid-right"></div>
           <div class="pyramid-face pyramid-back"></div>
           <div class="pyramid-face pyramid-left"></div>
-          <div class="pyramid-bottom"></div>
-        </div>
+          <div class="pyramid-face pyramid-bottom"></div> </div>
       </div>
     </div>
-  </section>>
-    <canvas id="particleCanvas"></canvas>
-    <div class="canvas-text">
-      <h2 class="canvas-title">Experience The Future</h2>
-      <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
-    </div>
   </section>
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollToPlugin.min.js"></script>
-  
+
   <script>
     // Register plugins
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-    
-    // Create particles for intro section
-    function createParticles() {
+
+    // --- Particle Creation (Intro Section) ---
+    function createIntroParticles() {
       const container = document.getElementById('particlesContainer');
+      if (!container) return; // Exit if container not found
       const numParticles = 100;
-      
+
       for (let i = 0; i < numParticles; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        
-        // Random position
+
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
-        
-        // Random opacity
         particle.style.opacity = Math.random() * 0.5 + 0.1;
-        
-        // Random size
-        const size = Math.random() * 4 + 1;
+        const size = Math.random() * 3 + 1; // Smaller size range
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        
+
         container.appendChild(particle);
-        
-        // Animate each particle
+
+        // Animate each particle gently
         gsap.to(particle, {
-          x: Math.random() * 200 - 100,
-          y: Math.random() * 200 - 100,
-          duration: Math.random() * 10 + 10,
+          x: (Math.random() - 0.5) * 100, // Reduced movement range
+          y: (Math.random() - 0.5) * 100,
+          duration: Math.random() * 15 + 10, // Slower duration
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut"
         });
       }
     }
-    
-    // Initialize intro animations
+
+    // --- Initialize Intro Animations ---
     function initIntro() {
-      createParticles();
-      
-      // Logo animation
-      const introTl = gsap.timeline();
-      
-      introTl.to('.logo-circle', {
-        rotation: 360,
-        duration: 20,
-        repeat: -1,
-        ease: "none"
-      })
-      .to('.logo-inner', {
-        opacity: 1,
-        duration: 2,
-        ease: "power2.out"
-      }, 0);
-      
-      // Create a pulsing effect
-      gsap.to('.logo-circle', {
-        scale: 1.1,
-        opacity: 0.8,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
+      createIntroParticles(); // Create particles for the intro section
+
+      const logoCircle = document.querySelector('.intro .logo-circle');
+      const logoInner = document.querySelector('.intro .logo-inner');
+
+      if (logoCircle && logoInner) {
+          // Logo animation timeline
+          const introTl = gsap.timeline({
+              scrollTrigger: {
+                  trigger: ".intro",
+                  start: "top bottom", // Start animation when intro bottom hits viewport top
+                  toggleActions: "play none none none" // Play once on enter
+              }
+          });
+
+          introTl.to(logoCircle, {
+              rotation: 360,
+              duration: 30, // Slower rotation
+              repeat: -1,
+              ease: "none"
+            }, 0)
+            .fromTo(logoCircle, // Pulse effect
+                { scale: 1, opacity: 0.2 },
+                { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0)
+            .to(logoInner, { // Fade in text
+              opacity: 1,
+              duration: 1.5,
+              ease: "power2.out"
+            }, 0.5); // Start text fade slightly after circle appears
+      }
     }
-    
-    // Initialize product section animations
+
+    // --- Initialize Product Section Animations ---
     function initProduct() {
-      ScrollTrigger.create({
-        trigger: ".product",
-        start: "top center",
-        onEnter: () => {
-          gsap.to('.product-title', {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power2.out"
-          });
-          
-          gsap.to('.product-description', {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            delay: 0.2,
-            ease: "power2.out"
-          });
-          
-          gsap.to('.highlight', {
-            opacity: 1,
-            scale: 1,
-            stagger: 0.1,
-            duration: 0.5,
-            delay: 0.4,
-            ease: "back.out(1.7)"
-          });
-          
-          gsap.to('.product-cta', {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: 0.8,
-            ease: "power2.out"
-          });
-        },
-        once: true
-      });
-      
-      // Phone 3D rotation
-      const phoneTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".product",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
+       const productSection = document.querySelector('.product');
+       if (!productSection) return;
+
+        // Text and elements fade-in animation
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: productSection,
+                start: "top 60%", // Trigger when 60% of section is visible
+                toggleActions: "play none none reverse" // Play on enter, reverse on leave
+            }
+        })
+        .to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6") // Overlap slightly
+        .to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5")
+        .to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+
+        // Phone 3D rotation based on scroll progress within the section
+        const phoneImage = document.querySelector('.product-image');
+        if (phoneImage) {
+            gsap.to(phoneImage, {
+                rotationY: 30, // Max rotation angle
+                ease: "none",
+                scrollTrigger: {
+                    trigger: productSection,
+                    start: "top bottom", // Start rotating when section enters viewport
+                    end: "bottom top", // End rotating when section leaves viewport
+                    scrub: 1 // Smooth scrubbing effect
+                }
+            });
         }
-      });
-      
-      phoneTl.to('.product-image', {
-        rotationY: 360,
-        duration: 5,
-        ease: "none"
-      });
-      
-      // Screen gradient animation
-      gsap.to('.phone-screen', {
-        background: 'linear-gradient(135deg, #FFCC70, #C850C0, #4158D0)',
-        duration: 10,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
+
+        // Screen gradient animation (continuous)
+        const phoneScreen = document.querySelector('.phone-screen');
+        if (phoneScreen) {
+            gsap.to(phoneScreen, {
+                background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', // Animate to different angle/colors
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
     }
-    
-    // Initialize features section animations
+
+    // --- Initialize Features Section Animations ---
     function initFeatures() {
-      ScrollTrigger.create({
-        trigger: ".features",
-        start: "top 70%",
-        onEnter: () => {
-          gsap.to('.features-title', {
+        const featuresSection = document.querySelector('.features');
+        if (!featuresSection) return;
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: featuresSection,
+                start: "top 70%", // Trigger slightly earlier
+                toggleActions: "play none none reverse"
+            }
+        })
+        .to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to('.feature-box', {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power2.out"
-          });
-          
-          gsap.to('.feature-box', {
-            y: 0,
-            opacity: 1,
-            stagger: 0.1,
-            duration: 0.8,
-            delay: 0.3,
+            stagger: 0.15, // Slightly more stagger
+            duration: 0.7,
             ease: "power3.out"
-          });
-        },
-        once: true
-      });
+        }, "-=0.5"); // Start boxes animation slightly before title finishes
     }
-    
-    // Initialize 3D objects animations
+
+    // --- Initialize 3D Objects Animations ---
     function init3DObjects() {
-      // Check if elements exist before animating
+      const objectsSection = document.querySelector('.objects');
       const cube = document.getElementById('cube');
       const pyramid = document.getElementById('pyramid');
-      
-      if (cube) {
-        // Continuous rotation
-        gsap.to('#cube', {
-          rotationX: 360,
-          rotationY: 360,
-          duration: 20,
-          repeat: -1,
-          ease: "none"
-        });
-        
-        // Mouse movement affects rotation
-        document.addEventListener('mousemove', (e) => {
-          const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
-          const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
-          
-          gsap.to('#cube', {
-            rotationX: yPos,
-            rotationY: -xPos,
-            duration: 1,
-            overwrite: 'auto'
-          });
-        });
+      if (!objectsSection || (!cube && !pyramid)) return;
+
+      // Mouse move interaction for the whole section
+      let mouseX = 0, mouseY = 0;
+      let targetX = 0, targetY = 0;
+      const windowHalfX = window.innerWidth / 2;
+      const windowHalfY = window.innerHeight / 2;
+      const sensitivity = 15; // How much objects react to mouse
+
+      function onMouseMove(event) {
+        mouseX = (event.clientX - windowHalfX);
+        mouseY = (event.clientY - windowHalfY);
       }
-      
-      if (pyramid) {
-        gsap.to('#pyramid', {
-          rotationY: 360,
-          duration: 15,
-          repeat: -1,
-          ease: "none"
-        });
-        
-        // Mouse movement affects rotation
-        document.addEventListener('mousemove', (e) => {
-          const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
-          const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
-          
-          gsap.to('#pyramid', {
-            rotationX: -20 + yPos * 0.5,
-            rotationY: -xPos,
-            duration: 1,
-            overwrite: 'auto'
+
+      document.addEventListener('mousemove', onMouseMove, false);
+
+      // Animation loop for smooth mouse follow
+      function loop() {
+          targetX = (mouseX / windowHalfX) * sensitivity;
+          targetY = (mouseY / windowHalfY) * sensitivity;
+
+          if (cube) {
+              gsap.to(cube, {
+                  rotationY: `+=${targetX * 0.02}`, // Use relative rotation for smoother interaction
+                  rotationX: `+=${targetY * 0.02}`,
+                  duration: 0.5, // Smooth transition
+                  ease: "power1.out",
+                  overwrite: 'auto' // Allow continuous update
+              });
+          }
+          if (pyramid) {
+               gsap.to(pyramid, {
+                  rotationY: `+=${-targetX * 0.02}`, // Rotate opposite direction maybe?
+                  rotationX: `-20deg+=${targetY * 0.02}`, // Keep base tilt
+                  duration: 0.5,
+                  ease: "power1.out",
+                  overwrite: 'auto'
+              });
+          }
+          requestAnimationFrame(loop);
+      }
+      loop(); // Start the mouse follow loop
+
+      // Scroll-based rotation (subtle background rotation)
+      if (cube) {
+          gsap.to(cube, {
+              rotationZ: 360,
+              ease: "none",
+              scrollTrigger: {
+                  trigger: objectsSection,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 2
+              }
           });
-        });
+      }
+       if (pyramid) {
+          gsap.to(pyramid, {
+              rotationY: "+=180", // Rotate pyramid as well
+              ease: "none",
+              scrollTrigger: {
+                  trigger: objectsSection,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 3 // Different scrub speed
+              }
+          });
       }
     }
-    
-    // Initialize canvas section
+
+    // --- Initialize Canvas Section (Particles and Text) ---
     function initCanvas() {
+      const canvasSection = document.querySelector('.canvas-section');
       const canvas = document.getElementById('particleCanvas');
+      if (!canvasSection || !canvas) return;
       const ctx = canvas.getContext('2d');
-      
-      // Set canvas size
+
+      let particles = [];
+      const maxParticles = 150; // Adjust density
+      let animationFrameId;
+
       function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = canvasSection.offsetWidth; // Use section width/height
+        canvas.height = canvasSection.offsetHeight;
+        // Re-initialize particles on resize if needed, or just adjust boundaries
+        // Simple approach: clear and recreate
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        particles = []; // Clear existing particles
+        createCanvasParticles(); // Create new ones for new size
+        animateCanvas(); // Restart animation
       }
-      
-      resizeCanvas();
+
       window.addEventListener('resize', resizeCanvas);
-      
-      // Particle system
-      const particles = [];
-      const maxParticles = 200;
-      
-      function Particle() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = (Math.random() - 0.5) * 2;
-        this.speedY = (Math.random() - 0.5) * 2;
-        this.color = `hsl(${Math.random() * 60 + 200}, 100%, 50%)`;
+
+      // Particle class
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2.5 + 0.5; // Slightly larger max size
+          this.speedX = (Math.random() - 0.5) * 1.5; // Slower speed
+          this.speedY = (Math.random() - 0.5) * 1.5;
+          // Color variation (cool blues/purples)
+          this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          // Boundary check (bounce off edges)
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+           // Optional: reduce size over time or fade out?
+        }
+
+        draw() {
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
-      
-      Particle.prototype.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      };
-      
-      Particle.prototype.draw = function() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      };
-      
-      function createParticles() {
+
+      function createCanvasParticles() {
         for (let i = 0; i < maxParticles; i++) {
           particles.push(new Particle());
         }
       }
-      
+
+      // Connect particles with lines
       function connectParticles() {
+        const maxDistance = 80; // Max distance to draw a line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; // Subtle line color
+        ctx.lineWidth = 0.5;
+
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < 100) {
+
+            if (distance < maxDistance) {
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
-              ctx.lineWidth = 0.5;
+              // Optional: Make line opacity dependent on distance
+              // ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / maxDistance * 0.95 + 0.05})`;
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
               ctx.stroke();
+              ctx.closePath();
             }
           }
         }
       }
-      
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-        }
-        
-        connectParticles();
-        requestAnimationFrame(animate);
+
+      // Animation loop
+      function animateCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas each frame
+
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+
+        connectParticles(); // Draw lines between particles
+
+        animationFrameId = requestAnimationFrame(animateCanvas); // Loop
       }
-      
-      createParticles();
-      animate();
-      
-      // Text animation
-      ScrollTrigger.create({
-        trigger: ".canvas-section",
-        start: "top 70%",
-        onEnter: () => {
-          gsap.to('.canvas-title', {
-            opacity: 1,
-            duration: 1,
-            ease: "power2.out"
-          });
-          
-          gsap.to('.canvas-description', {
-            opacity: 1,
-            duration: 1,
-            delay: 0.3,
-            ease: "power2.out"
-          });
-        },
-        once: true
-      });
+
+      // Initial setup
+      resizeCanvas(); // Set initial size and start animation
+
+      // Text fade-in animation (triggered on scroll)
+       gsap.timeline({
+            scrollTrigger: {
+                trigger: canvasSection,
+                start: "top 50%", // Trigger when section center hits viewport top
+                toggleActions: "play none none reverse"
+            }
+        })
+      .to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" })
+      .to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8"); // Overlap description animation
     }
-    
-    // Navigation dots functionality
+
+    // --- Navigation Dots Functionality ---
     function initNavigation() {
       const sections = document.querySelectorAll('section');
       const navDots = document.querySelectorAll('.nav-dot');
-      
-      // Click on nav dots to scroll to section
-      navDots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          const sectionIndex = dot.getAttribute('data-section');
-          const targetSection = document.getElementById(`section-${sectionIndex}`);
-          
-          gsap.to(window, {
-            duration: 1,
-            scrollTo: targetSection,
-            ease: "power2.inOut"
-          });
-        });
-      });
-      
-      // Update active nav dot on scroll
-      function updateActiveDot() {
-        const scrollPosition = window.scrollY;
-        
-        sections.forEach((section, index) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          
-          if (scrollPosition >= sectionTop - window.innerHeight / 2 && 
-              scrollPosition < sectionTop + sectionHeight - window.innerHeight / 2) {
-            navDots.forEach(dot => dot.classList.remove('active'));
-            navDots[index].classList.add('active');
-          }
-        });
+      if (navDots.length !== sections.length) {
+          console.warn("Mismatch between number of sections and nav dots.");
+          // Optionally hide dots if mismatch
+          // document.querySelector('.nav-dots').style.display = 'none';
+          // return;
       }
-      
-      window.addEventListener('scroll', updateActiveDot);
-    }
-    
-    // Initialize all animations
-    function initAll() {
-      initCanvas(); // Now first
-      initIntro();
-      initProduct();
-      initFeatures();
-      init3DObjects();
-      initNavigation();
-      
-      // Smooth scrolling for internal links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          
-          if (target) {
+
+      // Smooth scroll to section on dot click
+      navDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          // Use index directly if sections and dots match
+          const targetSection = sections[index];
+          // Or use data-attribute if reliable:
+          // const sectionIndex = dot.getAttribute('data-section');
+          // const targetSection = document.getElementById(`section-${sectionIndex}`);
+
+          if (targetSection) {
             gsap.to(window, {
-              duration: 1,
-              scrollTo: target,
+              duration: 1.2, // Slightly longer scroll duration
+              scrollTo: { y: targetSection, offsetY: 0 }, // Scroll to top of section
               ease: "power2.inOut"
             });
           }
         });
       });
+
+      // Update active dot based on scroll position
+      function updateActiveDot() {
+        let currentSectionIndex = 0;
+        const scrollThreshold = window.innerHeight * 0.5; // 50% of viewport height
+
+        sections.forEach((section, index) => {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+
+          // Check if the scroll position is within the bounds of the section,
+          // considering the threshold.
+          if (window.scrollY >= sectionTop - scrollThreshold && window.scrollY < sectionBottom - scrollThreshold) {
+            currentSectionIndex = index;
+          }
+        });
+
+        // Update active class
+        navDots.forEach((dot, index) => {
+          if (index === currentSectionIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      // Throttle scroll updates for performance
+      let isScrolling;
+      window.addEventListener('scroll', () => {
+          window.clearTimeout(isScrolling);
+          isScrolling = setTimeout(updateActiveDot, 100); // Update dot ~100ms after scroll stops
+
+          // Add 'scrolled' class to body after initial scroll to hide indicator
+           if (window.scrollY > 50 && !document.body.classList.contains('scrolled')) {
+               document.body.classList.add('scrolled');
+           } else if (window.scrollY <= 50 && document.body.classList.contains('scrolled')) {
+               // Optional: remove class if scrolled back to top
+               // document.body.classList.remove('scrolled');
+           }
+
+      }, false);
+
+      updateActiveDot(); // Initial check
     }
-    
-    // Start everything when the page loads
+
+    // --- Initialize All Animations & Functionality ---
+    function initAll() {
+      console.log("Initializing animations...");
+      initCanvas();
+      initIntro();
+      initProduct();
+      initFeatures();
+      init3DObjects();
+      initNavigation();
+
+      // Smooth scrolling for any internal links (if you add more)
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          // Ensure it's not just a "#" link
+          if (href.length > 1) {
+              const target = document.querySelector(href);
+              if (target) {
+                  e.preventDefault(); // Prevent default jump
+                  gsap.to(window, {
+                    duration: 1,
+                    scrollTo: { y: target, offsetY: 0 },
+                    ease: "power2.inOut"
+                  });
+              }
+          }
+        });
+      });
+
+      // Refresh ScrollTrigger on load/resize to ensure positions are correct
+       ScrollTrigger.refresh();
+       window.addEventListener('resize', () => ScrollTrigger.refresh());
+
+        console.log("Initialization complete.");
+    }
+
+    // Start everything when the DOM is fully loaded
     window.addEventListener('load', initAll);
+
   </script>
 </body>
 </html>
