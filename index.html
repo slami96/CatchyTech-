@@ -177,10 +177,15 @@
           color: var(--text-dark);
           height: auto;
           min-height: 170vh;
-          padding: 10vh 0 20vh; /* Note padding-bottom */
+          /* Adjust padding-top to account for fixed header */
+          padding-top: calc(var(--header-height) + 10vh);
+          padding-bottom: 20vh; /* Keep original bottom padding */
           display: block;
           overflow: visible;
+          /* Use negative margin to pull the section content area up behind the header */
+          margin-top: calc(-1 * var(--header-height));
       }
+
 
       /* Footer container positioned absolutely within the last section */
       .site-footer {
@@ -233,15 +238,15 @@
         align-items: center;
         position: relative;
         overflow: hidden;
-        /* Add padding top only if content actually goes under the fixed header */
+        /* Add padding top only if content MUST NOT go under the fixed header */
+        /* This is generally handled per-section if needed */
         /* padding-top: var(--header-height); */
       }
 
       /* Canvas Section (First) */
       .canvas-section {
         background-color: var(--bg-dark-1);
-        /* If you want the canvas *content* to start below header, add padding here */
-        /* padding-top: var(--header-height); */
+        /* No padding-top needed here as the content is centered */
       }
 
       #particleCanvas {
@@ -338,6 +343,10 @@
       .product {
         background: linear-gradient(135deg, var(--bg-dark-2), #222);
         color: var(--text-light);
+        /* Add padding-top to ensure content starts below header */
+        padding-top: var(--header-height);
+         /* Pull section up visually */
+        margin-top: calc(-1 * var(--header-height));
       }
 
       .product-container {
@@ -346,7 +355,7 @@
         max-width: 1200px;
         justify-content: space-between;
         align-items: center;
-        padding: 0 40px;
+        padding: 40px 40px 0; /* Adjust top padding if needed */
         gap: 40px;
       }
 
@@ -409,14 +418,15 @@
       .product-image-container {
         width: 45%;
         position: relative;
-        height: 600px;
-        perspective: 1000px;
+        height: 600px; /* Ensure enough height for rotation */
+        perspective: 1000px; /* Essential for 3D rotation visibility */
       }
 
       .product-image {
         position: absolute;
         top: 50%;
         left: 50%;
+        /* Initial state set by GSAP */
         transform: translate(-50%, -50%) rotateY(0deg);
         width: 300px;
         height: 600px;
@@ -424,7 +434,7 @@
         border-radius: 40px;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         overflow: hidden;
-        transform-style: preserve-3d;
+        transform-style: preserve-3d; /* Essential for children in 3D space */
       }
 
       .phone-screen {
@@ -491,7 +501,6 @@
         background-color: var(--bg-light-2);
         color: var(--text-dark);
         padding: 80px 0;
-        /* Ensure enough height for content */
         min-height: 100vh;
         height: auto;
         /* Add padding top if content might go under fixed header */
@@ -568,7 +577,8 @@
           background-color: #0a0a1a;
           color: var(--text-light);
           /* Add padding top if content might go under fixed header */
-          /* padding-top: var(--header-height); */
+          padding-top: var(--header-height);
+          margin-top: calc(-1 * var(--header-height));
       }
 
       #networkCanvas {
@@ -603,19 +613,18 @@
           transform: translateY(30px);
       }
 
-      /* Vertical Timeline Section - STYLES MOVED TO section.timeline ABOVE */
+      /* Vertical Timeline Section Styles */
       section.timeline {
-          position: relative; /* Ensure footer positions relative to this */
+          position: relative;
           background-color: var(--bg-light-1);
           color: var(--text-dark);
           height: auto;
           min-height: 170vh;
-          /* Adjust padding to account for header */
-          padding-top: calc(var(--header-height) + 10vh); /* Header height + original top padding */
-          padding-bottom: 20vh; /* Keep original bottom padding */
+          padding-top: calc(var(--header-height) + 10vh);
+          padding-bottom: 20vh;
           display: block;
           overflow: visible;
-           margin-top: calc(-1 * var(--header-height)); /* Pull section up visually */
+          margin-top: calc(-1 * var(--header-height));
       }
 
       .timeline-wrapper {
@@ -623,7 +632,6 @@
           max-width: 800px;
           margin: 0 auto;
           position: relative;
-          /* No padding-top needed here, handled by section */
       }
 
       .timeline-title-area {
@@ -780,6 +788,9 @@
           .network-title { font-size: 40px; }
           section.timeline { padding-top: calc(var(--header-height) + 8vh); min-height: 150vh; padding-bottom: 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
           .features { padding-top: calc(var(--header-height) + 30px); }
+          .product { padding-top: calc(var(--header-height) + 20px); }
+          .network-graph { padding-top: calc(var(--header-height) + 20px); }
+
       }
        @media (max-width: 768px) {
            /* Header Adjustments */
@@ -796,11 +807,14 @@
           /* Other sections */
           .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
           .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
-          .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
+          .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; } .product-image-container { height: 440px;}
           section.timeline { padding-top: calc(var(--header-height) + 6vh); min-height: 140vh; padding-bottom: 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
           .network-title { font-size: 32px; } .network-description { font-size: 16px; }
           .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
           .features { padding-top: calc(var(--header-height) + 20px); }
+          .product { padding-top: calc(var(--header-height) + 15px); }
+           .network-graph { padding-top: calc(var(--header-height) + 15px); }
+
        }
        @media (max-width: 480px) {
             /* Header Adjustments */
@@ -816,11 +830,13 @@
             .canvas-title { font-size: 32px; }
             .canvas-description { font-size: 16px; }
             .product-title { font-size: 30px; }
-            .product-image { width: 180px; height: 360px; }
+            .product-image { width: 180px; height: 360px; } .product-image-container { height: 380px;} /* Adjust container height too */
             .features-title { font-size: 30px; }
              section.timeline { padding-top: calc(var(--header-height) + 4vh); }
              .timeline-main-title { font-size: 28px;}
              .features { padding-top: calc(var(--header-height) + 15px); }
+             .product { padding-top: calc(var(--header-height) + 10px); }
+             .network-graph { padding-top: calc(var(--header-height) + 10px); }
        }
     </style>
 </head>
@@ -862,12 +878,15 @@
     </section>
 
     <section class="intro" id="section-1" data-theme="dark">
-      <div class="particles-container" id="particlesContainer"></div>
-      <div class="logo-container">
-        <div class="logo-circle" id="logoCircle"></div>
-        <div class="logo-inner">NOVA</div>
-      </div>
+       <div style="padding-top: var(--header-height);">
+           <div class="particles-container" id="particlesContainer"></div>
+           <div class="logo-container">
+               <div class="logo-circle" id="logoCircle"></div>
+               <div class="logo-inner">NOVA</div>
+           </div>
+       </div>
     </section>
+
 
     <section class="product" id="section-2" data-theme="dark">
       <div class="product-container">
@@ -941,7 +960,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <script>
-      // --- JavaScript Code (NO CHANGES NEEDED HERE FOR STICKY HEADER) ---
+      // --- JavaScript Code ---
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
       // --- Particle Creation (Intro Section) ---
@@ -966,15 +985,53 @@
       // --- Initialize Product Section Animations ---
       function initProduct() {
            const productSection = document.querySelector('.product'); if (!productSection) return;
-           gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-           const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
-           const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
+
+           // Text & CTA animations (remain the same)
+           gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } })
+               .to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
+               .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6")
+               .to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5")
+               .to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+
+           // Phone image animation (UPDATED)
+           const phoneImage = document.querySelector('.product-image');
+           if (phoneImage) {
+               gsap.to(phoneImage, {
+                   rotationY: 360, // <<< CHANGED: Rotate full 360 degrees
+                   ease: "none",    // Keep linear easing for smooth scrubbing
+                   scrollTrigger: {
+                       trigger: productSection,
+                       start: "top bottom",
+                       end: "bottom top",
+                       scrub: 1 // Adjust scrub value (e.g., true, 0.5, 1, 2) for different feel
+                   }
+               });
+           }
+
+           // Phone screen background animation (remains the same)
+           const phoneScreen = document.querySelector('.phone-screen');
+           if (phoneScreen) {
+               gsap.to(phoneScreen, {
+                   background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)',
+                   duration: 8,
+                   repeat: -1,
+                   yoyo: true,
+                   ease: "sine.inOut"
+               });
+           }
        }
+
 
       // --- Initialize Features Section Animations ---
       function initFeatures() {
            const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
-           gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
+            // Ensure GSAP targets elements *within* the trigger element if needed
+            const featuresTitle = featuresSection.querySelector('.features-title');
+            const featureBoxes = gsap.utils.toArray('.feature-box', featuresSection); // Scope query to section
+
+           gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } })
+                .to(featuresTitle, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
+                .to(featureBoxes, { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
        }
 
       // --- Initialize Canvas Section (First Section - Particles) ---
@@ -984,52 +1041,41 @@
 
       // --- Initialize Network Graph Section Animations ---
           function initNetworkGraph() {
-              const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+              const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas();
+              // Ensure GSAP targets elements within the trigger section
+               const networkTitle = section.querySelector('.network-title');
+               const networkDescription = section.querySelector('.network-description');
+              gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } })
+                  .to(networkTitle, { y: 0, opacity: 1, duration: 1, ease: "power2.out" })
+                  .to(networkDescription, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
           }
 
       // --- Initialize Vertical Timeline Section Animations ---
       function initTimeline() {
-           const section = document.querySelector('.timeline'); // Target the section itself
+           const section = document.querySelector('.timeline');
+           if (!section) { console.warn("Timeline section not found."); return; }
+
            const titleArea = section.querySelector('.timeline-title-area');
-           const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
+           const timelineItems = gsap.utils.toArray('.timeline-item', section); // Scope query to section
 
-           // Check if the main section exists
-           if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
-
-           // Animate title area if found
            if (titleArea) {
                gsap.to(titleArea, {
-                   opacity: 1,
-                   y: 0,
-                   duration: 1.0,
-                   ease: 'power3.out',
+                   opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
                    scrollTrigger: {
-                       trigger: section, // Trigger based on the section
-                       start: "top 70%", // Adjust trigger point based on padding
-                       toggleActions: "play none none reverse",
-                       id: "timeline-title"
+                       trigger: section, start: "top 70%", toggleActions: "play none none reverse", id: "timeline-title"
                    }
                });
-           } else { console.warn("Timeline title area not found within .timeline section."); }
+           } else { console.warn("Timeline title area not found."); }
 
-           // Animate timeline items if found
            if (timelineItems.length > 0) {
                gsap.to(timelineItems, {
-                   opacity: 1,
-                   y: 0,
-                   scale: 1,
-                   duration: 0.8,
-                   ease: 'power2.out',
-                   stagger: 0.3,
+                   opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out', stagger: 0.3,
                    scrollTrigger: {
-                       trigger: '.timeline-container', // Trigger based on the container holding the items
-                       start: "top 75%", // Adjust trigger point based on padding
-                       end: "bottom 80%", // Optional: Define an end point
-                       toggleActions: "play none none reverse",
-                       id: "timeline-items"
+                       trigger: '.timeline-container', // Trigger based on the container
+                       start: "top 75%", toggleActions: "play none none reverse", id: "timeline-items"
                    }
                });
-           } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
+           } else { console.warn("Timeline items not found."); }
       }
 
 
@@ -1038,7 +1084,6 @@
            const header = document.getElementById('site-header');
            if (!header) { console.warn("Site header not found."); return; }
 
-           // Smooth scroll for header links (NAV ICONS + LOGO)
            const headerLinks = document.querySelectorAll('.site-header a[href^="#"]');
            headerLinks.forEach(anchor => {
                anchor.addEventListener('click', function(e) {
@@ -1050,12 +1095,10 @@
                            const headerHeight = header.offsetHeight;
                            gsap.to(window, {
                                duration: 1.2,
-                               scrollTo: { y: target, offsetY: headerHeight }, // Offset is crucial for fixed header
+                               scrollTo: { y: target, offsetY: headerHeight }, // Offset is crucial
                                ease: "power2.inOut"
                            });
-                       } else {
-                           console.warn(`Scroll target '${href}' not found.`);
-                       }
+                       } else { console.warn(`Scroll target '${href}' not found.`); }
                    }
                });
            });
@@ -1063,33 +1106,16 @@
 
       // --- Initialize Footer Animation ---
       function initFooter() {
-           // Select the footer specifically INSIDE section-5
            const footer = document.querySelector('#section-5 .site-footer');
            const copyrightYearSpan = document.getElementById('copyright-year');
-
-           // Check if the footer element was found correctly
-           if (!footer) {
-               console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
-               return; // Stop if footer isn't where it's expected
-           }
-
-           // Set copyright year if the span exists
-           if(copyrightYearSpan) {
-               copyrightYearSpan.textContent = new Date().getFullYear();
-           } else {
-               console.warn("Copyright year span (#copyright-year) not found in footer.");
-           }
+           if (!footer) { console.warn("Site footer inside #section-5 not found."); return; }
+           if(copyrightYearSpan) { copyrightYearSpan.textContent = new Date().getFullYear(); }
+           else { console.warn("Copyright year span not found."); }
 
            gsap.to(footer, {
-               opacity: 1,
-               y: 0, // Target state
-               duration: 1.0,
-               ease: 'power2.out',
+               opacity: 1, y: 0, duration: 1.0, ease: 'power2.out',
                scrollTrigger: {
-                   trigger: '#section-5', // The element that triggers the animation
-                   start: "center bottom", // Trigger when center of section-5 hits bottom of viewport
-                   toggleActions: "play none none reverse", // Play when entering, reverse when leaving
-                   id: "footer-reveal"
+                   trigger: '#section-5', start: "center bottom", toggleActions: "play none none reverse", id: "footer-reveal"
                }
            });
       }
@@ -1109,7 +1135,6 @@
                console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`);
            }
 
-           // Function to get current header height (accounts for responsive changes)
            const getHeaderHeight = () => header.offsetHeight;
 
            navDots.forEach(dot => {
@@ -1129,93 +1154,72 @@
 
            sections.forEach((section, index) => {
                const theme = section.getAttribute('data-theme') || 'dark';
-
-               // Dynamic calculation of trigger points based on header height
                ScrollTrigger.create({
                    trigger: section,
-                   // Start when the top of the section passes under the bottom of the fixed header
                    start: () => `top top+=${getHeaderHeight()}px`,
-                   // End when the bottom of the section passes under the bottom of the fixed header
-                   end: () => `bottom top+=${getHeaderHeight()}px`,
-                   // For the very last section (timeline), extend the end trigger significantly
-                   // to ensure it remains active until the very bottom
                    end: index === sections.length - 1 ? "bottom bottom" : () => `bottom top+=${getHeaderHeight()}px`,
                    id: `section-nav-${index}`,
-                   // markers: true, // Uncomment to debug navigation triggers
+                   // markers: true,
                    onEnter: () => updateActiveState(index, theme),
                    onEnterBack: () => updateActiveState(index, theme),
-                   invalidateOnRefresh: true // Recalculate triggers on resize/refresh
+                   invalidateOnRefresh: true // Important for responsive header height
                });
            });
 
            function updateActiveState(activeIndex, activeTheme) {
-               // Update Nav Dots
                navDots.forEach((dot) => {
                    const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
                    dot.classList.toggle('active', dotSecIndex === activeIndex);
                });
-
-               // Update Body Class for Header Background & Icon/Logo Colors
                const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
                if (activeTheme !== currentBodyTheme) {
-                  if (activeTheme === 'light') {
-                      body.classList.add('on-light-section');
-                  } else {
-                      body.classList.remove('on-light-section');
-                  }
+                  body.classList.toggle('on-light-section', activeTheme === 'light');
                }
            }
 
-           // --- Scroll Indicator Logic (needs updateActiveState) ---
-           let initialScrollDone = window.scrollY > 50;
-           body.classList.toggle('scrolled', initialScrollDone);
-
+           // --- Scroll Indicator Logic ---
+           let scrollIndicatorState = { scrolled: window.scrollY > 50 };
+           body.classList.toggle('scrolled', scrollIndicatorState.scrolled);
            const scrollListener = () => {
-               const scrolled = window.scrollY > 50;
-               if (scrolled !== initialScrollDone) {
-                   body.classList.toggle('scrolled', scrolled);
-                   initialScrollDone = scrolled;
+               const isScrolled = window.scrollY > 50;
+               if (isScrolled !== scrollIndicatorState.scrolled) {
+                   body.classList.toggle('scrolled', isScrolled);
+                   scrollIndicatorState.scrolled = isScrolled;
                }
            };
            window.addEventListener('scroll', scrollListener, { passive: true });
 
-           // Initial state check on load
+           // --- Initial State Check ---
            setTimeout(() => {
              let initialIndex = 0;
              let initialTheme = 'dark';
-             const scrollY = window.scrollY;
              const headerHeight = getHeaderHeight();
-
              sections.forEach((section, index) => {
                  const rect = section.getBoundingClientRect();
-                  // Check if the section top is at or just below the header's bottom edge
                  if (rect.top <= headerHeight + 10 && rect.bottom >= headerHeight) {
                      initialIndex = index;
                      initialTheme = section.getAttribute('data-theme') || 'dark';
                  }
              });
-             console.log(`Initial check: index ${initialIndex}, theme ${initialTheme}, scrollY ${scrollY}`);
              updateActiveState(initialIndex, initialTheme);
-             body.classList.toggle('scrolled', scrollY > 50); // Ensure scroll indicator is correct on load
+             // Update scroll indicator immediately based on load scroll position
+             scrollIndicatorState.scrolled = window.scrollY > 50;
+             body.classList.toggle('scrolled', scrollIndicatorState.scrolled);
            }, 150);
        }
 
       // --- Initialize All Animations & Functionality ---
       function initAll() {
        console.log("Initializing animations...");
-       // Init header first to ensure height is available for others
        initHeader();
-       // Init navigation relies on header height being calculable
-       initNavigation();
-       // Then init the rest
+       initNavigation(); // Navigation needs header height
        initFooter();
        initCanvasWelcome();
        initIntro();
-       initProduct();
+       initProduct(); // This now contains the updated rotation
        initFeatures();
        initNetworkGraph();
        initTimeline();
-
 
        // General smooth scroll for non-header/non-dot links
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1226,7 +1230,7 @@
               try {
                   const target = document.querySelector(href);
                   const header = document.getElementById('site-header');
-                  const offset = header ? header.offsetHeight : 60; // Get current height
+                  const offset = header ? header.offsetHeight : 60;
                   if (target) {
                       e.preventDefault();
                       gsap.to(window, {
@@ -1241,13 +1245,13 @@
         }
        });
 
-        // Refresh ScrollTrigger after all setup and a short delay
+        // Refresh ScrollTrigger after all setup
         setTimeout(() => {
             ScrollTrigger.refresh();
             console.log("ScrollTrigger refreshed after init.");
         }, 250);
 
-        // Handle resize: Refresh ScrollTrigger to recalculate positions
+        // Handle resize: Refresh ScrollTrigger
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
