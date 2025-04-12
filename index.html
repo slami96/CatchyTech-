@@ -961,26 +961,24 @@
               console.warn("Copyright year span (#copyright-year) not found in footer.");
           }
 
-          // --- MODIFIED CODE STARTS HERE ---
-          // Animate footer in using GSAP with the simpler trigger condition for testing
+          // --- REVERTED CODE STARTS HERE ---
+          // Animate footer in using GSAP (Original Settings)
           gsap.to(footer, {
               opacity: 1,
-              y: 0, // Target state (animate from CSS's translateY(30px) to 0)
+              y: 0, // Animate from CSS's translateY(30px) to 0
               duration: 1.0,
               ease: 'power2.out',
               scrollTrigger: {
-                  trigger: '#section-5', // The element that triggers the animation
-                  // NEW Start Condition: Trigger when the top of section 5 hits the middle of the viewport
-                  start: "top center",
-                  // You might want to define an end too, e.g., end: "bottom center",
-                  toggleActions: "play none none reverse", // Play when entering, reverse when leaving
-                  markers: true, // Keep markers on for this test
-                  id: "footer-reveal-test" // Changed ID for the test
+                  trigger: '#section-5', // Trigger animation based on the last section
+                  start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
+                  toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
+                  // markers: true, // Removed markers for production
+                  id: "footer-reveal" // Reverted to original ID
               }
           });
-          // --- MODIFIED CODE ENDS HERE ---
+          // --- REVERTED CODE ENDS HERE ---
 
-           console.log("Footer animation initialized for element:", footer); // Add confirmation
+           console.log("Footer animation initialized for element:", footer);
       }
 
 
