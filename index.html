@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet"> <style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
       *, *::before, *::after {
         margin: 0;
         padding: 0;
@@ -30,7 +31,8 @@
 
       /* --- BASE STYLES --- */
       :root {
-          --header-height: 60px; /* Keep this as a reference, actual height might vary slightly */
+          /* MODIFIED: Increased header height */
+          --header-height: 70px;
           --accent-color-1: #ff6b6b;
           --accent-color-2: #f35588;
           --accent-color-3: #4158D0;
@@ -56,9 +58,10 @@
           left: 0;
           right: 0;
           width: 100%;
+          /* MODIFIED: Uses the updated height variable */
           height: var(--header-height); /* Fixed height for easier positioning */
           padding: 0 30px; /* Horizontal padding */
-          z-index: 100;     /* Keep it above other content */
+          z-index: 100;    /* Keep it above other content */
           display: flex;
           align-items: center;
           background-color: var(--header-bg-dark); /* Default bg (semi-transparent) */
@@ -142,15 +145,22 @@
           color: var(--header-hover-color);
       }
 
-      /* Label Styles (No change needed here) */
+      /* Label Styles (MODIFIED) */
       .nav-label {
           position: absolute;
           top: 100%;
-          margin-top: 8px;
-          background-color: rgba(0, 0, 0, 0.7);
-          color: white;
-          font-size: 0.75rem;
-          padding: 4px 8px;
+          /* MODIFIED: Reduced margin slightly */
+          margin-top: 5px;
+          /* MODIFIED: Made background transparent */
+          background-color: transparent;
+          /* MODIFIED: Inherit color from parent link (<a>) */
+          color: inherit;
+          /* MODIFIED: Use logo font */
+          font-family: var(--logo-font);
+          font-weight: 500; /* Adjusted weight for Orbitron */
+          /* MODIFIED: Adjusted font size slightly */
+          font-size: 0.8rem;
+          padding: 2px 4px; /* Adjusted padding */
           border-radius: 4px;
           white-space: nowrap;
           opacity: 0;
@@ -158,6 +168,8 @@
           transform: translateY(5px) scale(0.9);
           transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
           pointer-events: none;
+          /* MODIFIED: Added subtle shadow for readability */
+          text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
       }
 
       .header-nav a:hover .nav-label {
@@ -288,10 +300,24 @@
       .intro {
         background-color: var(--bg-dark-1);
         color: var(--text-light);
+        /* Ensure content respects header */
+        padding-top: var(--header-height);
+        margin-top: calc(-1 * var(--header-height));
       }
 
+      /* We need a container inside the section for padding */
+      .intro-content-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%; /* Fill the padded section */
+          position: relative;
+      }
+
+
       .logo-container {
-        position: relative;
+        position: relative; /* Changed from absolute if wrapper handles centering */
         width: 300px;
         height: 300px;
         z-index: 1;
@@ -411,8 +437,8 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .product-cta:hover {
-          transform: translateY(15px) scale(1.05);
-          box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+         transform: translateY(15px) scale(1.05); /* Adjusted y-translate on hover */
+         box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
       }
 
       .product-image-container {
@@ -514,6 +540,7 @@
         align-items: center;
         width: 90%;
         max-width: 1200px;
+        margin: 0 auto; /* Center the container */
       }
 
       .features-title {
@@ -543,8 +570,8 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .feature-box:hover {
-          transform: translateY(40px) scale(1.03);
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+         transform: translateY(45px) scale(1.03); /* Adjusted y-translate */
+         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
       }
 
       .feature-icon {
@@ -596,6 +623,7 @@
           text-align: center;
           padding: 40px;
           max-width: 800px;
+          margin: 0 auto; /* Center the text */
       }
 
       .network-title {
@@ -622,7 +650,7 @@
           min-height: 170vh;
           padding-top: calc(var(--header-height) + 10vh);
           padding-bottom: 20vh;
-          display: block;
+          display: block; /* Needs to be block for children margins/paddings */
           overflow: visible;
           margin-top: calc(-1 * var(--header-height));
       }
@@ -642,27 +670,27 @@
       }
 
        .timeline-main-title {
-         font-size: 48px;
-         font-weight: 800;
-         color: var(--text-dark);
-         margin-bottom: 10px;
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 10px;
        }
        .timeline-subtitle {
-         font-size: 18px;
-         color: #555;
+        font-size: 18px;
+        color: #555;
        }
 
       .timeline-container {
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: center; /* Center items horizontally */
           gap: 60px;
           position: relative;
       }
 
       .timeline-item {
           width: 100%;
-          max-width: 600px;
+          max-width: 600px; /* Max width for readability */
           height: auto;
           background-color: var(--bg-light-2);
           border-radius: 15px;
@@ -676,7 +704,7 @@
       }
       .timeline-item:hover {
            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-           transform: translateY(55px) scale(1.0);
+           transform: translateY(55px) scale(1.0); /* Adjusted y-translate */
       }
 
 
@@ -722,8 +750,8 @@
         border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border for visibility */
       }
       body.on-light-section .nav-dot {
-          background-color: rgba(0, 0, 0, 0.2); /* Dot color for light theme */
-          border: 1px solid rgba(255, 255, 255, 0.1);
+         background-color: rgba(0, 0, 0, 0.2); /* Dot color for light theme */
+         border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .nav-dot.active {
@@ -769,8 +797,8 @@
       }
 
       body.scrolled .scroll-indicator {
-          opacity: 0;
-          pointer-events: none;
+         opacity: 0;
+         pointer-events: none;
       }
 
       /* --- RESPONSIVE STYLES --- */
@@ -783,48 +811,48 @@
 
           /* Other sections */
           .canvas-title { font-size: 50px; } .canvas-description { font-size: 20px; }
-          .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
+          .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; margin: 0 auto; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
           .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
           .network-title { font-size: 40px; }
           section.timeline { padding-top: calc(var(--header-height) + 8vh); min-height: 150vh; padding-bottom: 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
           .features { padding-top: calc(var(--header-height) + 30px); }
           .product { padding-top: calc(var(--header-height) + 20px); }
           .network-graph { padding-top: calc(var(--header-height) + 20px); }
-
+          .intro { padding-top: var(--header-height); } /* Ensure intro padding is updated */
       }
        @media (max-width: 768px) {
            /* Header Adjustments */
-          .site-header { padding: 0 15px; height: 55px;} /* Slightly shorter header */
-          .logo-link { font-size: 1.5rem; }
-          .header-nav ul { gap: 15px; }
-          .header-nav a { font-size: 1rem; }
-          .nav-label { display: none; } /* Keep labels hidden on small screens */
+           .site-header { padding: 0 15px; /* Uses updated height variable below */ }
+           .logo-link { font-size: 1.5rem; }
+           .header-nav ul { gap: 15px; }
+           .header-nav a { font-size: 1rem; }
+           .nav-label { display: none; } /* Keep labels hidden on small screens */
 
-          /* Update header height variable for smaller screens */
-          :root { --header-height: 55px; }
+           /* MODIFIED: Update header height variable for smaller screens */
+           :root { --header-height: 65px; }
 
 
-          /* Other sections */
-          .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
-          .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
-          .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; } .product-image-container { height: 440px;}
-          section.timeline { padding-top: calc(var(--header-height) + 6vh); min-height: 140vh; padding-bottom: 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
-          .network-title { font-size: 32px; } .network-description { font-size: 16px; }
-          .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
-          .features { padding-top: calc(var(--header-height) + 20px); }
-          .product { padding-top: calc(var(--header-height) + 15px); }
+           /* Other sections */
+           .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
+           .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
+           .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; } .product-image-container { height: 440px;}
+           section.timeline { padding-top: calc(var(--header-height) + 6vh); min-height: 140vh; padding-bottom: 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
+           .network-title { font-size: 32px; } .network-description { font-size: 16px; }
+           .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
+           .features { padding-top: calc(var(--header-height) + 20px); }
+           .product { padding-top: calc(var(--header-height) + 15px); }
            .network-graph { padding-top: calc(var(--header-height) + 15px); }
-
+            .intro { padding-top: var(--header-height); } /* Ensure intro padding is updated */
        }
        @media (max-width: 480px) {
             /* Header Adjustments */
-            .site-header { padding: 0 10px; height: 50px; }
+            .site-header { padding: 0 10px; /* Uses updated height variable below */ }
             .logo-link { font-size: 1.3rem; }
             .header-nav ul { gap: 10px; } /* Reduce gap further */
             .header-nav a { font-size: 0.9rem; } /* Smaller icons */
 
-            /* Update header height variable */
-             :root { --header-height: 50px; }
+            /* MODIFIED: Update header height variable */
+            :root { --header-height: 60px; }
 
             /* Other sections */
             .canvas-title { font-size: 32px; }
@@ -832,11 +860,12 @@
             .product-title { font-size: 30px; }
             .product-image { width: 180px; height: 360px; } .product-image-container { height: 380px;} /* Adjust container height too */
             .features-title { font-size: 30px; }
-             section.timeline { padding-top: calc(var(--header-height) + 4vh); }
-             .timeline-main-title { font-size: 28px;}
-             .features { padding-top: calc(var(--header-height) + 15px); }
-             .product { padding-top: calc(var(--header-height) + 10px); }
-             .network-graph { padding-top: calc(var(--header-height) + 10px); }
+            section.timeline { padding-top: calc(var(--header-height) + 4vh); }
+            .timeline-main-title { font-size: 28px;}
+            .features { padding-top: calc(var(--header-height) + 15px); }
+            .product { padding-top: calc(var(--header-height) + 10px); }
+            .network-graph { padding-top: calc(var(--header-height) + 10px); }
+            .intro { padding-top: var(--header-height); } /* Ensure intro padding is updated */
        }
     </style>
 </head>
@@ -856,6 +885,7 @@
             </ul>
         </nav>
     </header>
+
     <div class="nav-dots">
       <div class="nav-dot active" data-section="0"></div>
       <div class="nav-dot" data-section="1"></div>
@@ -878,13 +908,13 @@
     </section>
 
     <section class="intro" id="section-1" data-theme="dark">
-       <div style="padding-top: var(--header-height);">
-           <div class="particles-container" id="particlesContainer"></div>
-           <div class="logo-container">
-               <div class="logo-circle" id="logoCircle"></div>
-               <div class="logo-inner">NOVA</div>
-           </div>
-       </div>
+        <div class="intro-content-wrapper">
+             <div class="particles-container" id="particlesContainer"></div>
+             <div class="logo-container">
+                 <div class="logo-circle" id="logoCircle"></div>
+                 <div class="logo-inner">NOVA</div>
+             </div>
+        </div>
     </section>
 
 
@@ -955,6 +985,7 @@
             <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
         </footer>
         </section>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
@@ -967,9 +998,9 @@
       function createIntroParticles() {
        const container = document.getElementById('particlesContainer'); if (!container) return; const numParticles = 100; container.innerHTML = '';
        for (let i = 0; i < numParticles; i++) {
-         const particle = document.createElement('div'); particle.classList.add('particle');
-         particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
-         gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        const particle = document.createElement('div'); particle.classList.add('particle');
+        particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
+        gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
        }
       }
 
@@ -977,8 +1008,8 @@
       function initIntro() {
        createIntroParticles(); const logoCircle = document.querySelector('.intro .logo-circle'); const logoInner = document.querySelector('.intro .logo-inner');
        if (logoCircle && logoInner) {
-          const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
-          introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
+         const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
+         introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
        }
       }
 
@@ -1025,13 +1056,13 @@
       // --- Initialize Features Section Animations ---
       function initFeatures() {
            const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
-            // Ensure GSAP targets elements *within* the trigger element if needed
-            const featuresTitle = featuresSection.querySelector('.features-title');
-            const featureBoxes = gsap.utils.toArray('.feature-box', featuresSection); // Scope query to section
+           // Ensure GSAP targets elements *within* the trigger element if needed
+           const featuresTitle = featuresSection.querySelector('.features-title');
+           const featureBoxes = gsap.utils.toArray('.feature-box', featuresSection); // Scope query to section
 
            gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } })
-                .to(featuresTitle, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
-                .to(featureBoxes, { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
+               .to(featuresTitle, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
+               .to(featureBoxes, { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
        }
 
       // --- Initialize Canvas Section (First Section - Particles) ---
@@ -1040,15 +1071,15 @@
       }
 
       // --- Initialize Network Graph Section Animations ---
-          function initNetworkGraph() {
-              const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas();
-              // Ensure GSAP targets elements within the trigger section
-               const networkTitle = section.querySelector('.network-title');
-               const networkDescription = section.querySelector('.network-description');
-              gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } })
-                  .to(networkTitle, { y: 0, opacity: 1, duration: 1, ease: "power2.out" })
-                  .to(networkDescription, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
-          }
+           function initNetworkGraph() {
+               const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas();
+               // Ensure GSAP targets elements within the trigger section
+                const networkTitle = section.querySelector('.network-title');
+                const networkDescription = section.querySelector('.network-description');
+               gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } })
+                   .to(networkTitle, { y: 0, opacity: 1, duration: 1, ease: "power2.out" })
+                   .to(networkDescription, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+           }
 
       // --- Initialize Vertical Timeline Section Animations ---
       function initTimeline() {
@@ -1133,8 +1164,11 @@
            }
            if (navDots.length !== sections.length) {
                console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`);
+               // Only proceed if lengths match to avoid errors
+               return;
            }
 
+           // Function to get the CURRENT header height (accounts for responsiveness)
            const getHeaderHeight = () => header.offsetHeight;
 
            navDots.forEach(dot => {
@@ -1156,13 +1190,14 @@
                const theme = section.getAttribute('data-theme') || 'dark';
                ScrollTrigger.create({
                    trigger: section,
+                   // Use functions for start/end that calculate based on CURRENT header height
                    start: () => `top top+=${getHeaderHeight()}px`,
                    end: index === sections.length - 1 ? "bottom bottom" : () => `bottom top+=${getHeaderHeight()}px`,
                    id: `section-nav-${index}`,
-                   // markers: true,
+                  // markers: true, // Uncomment for debugging trigger positions
                    onEnter: () => updateActiveState(index, theme),
                    onEnterBack: () => updateActiveState(index, theme),
-                   invalidateOnRefresh: true // Important for responsive header height
+                   invalidateOnRefresh: true // Recalculate start/end on resize/refresh
                });
            });
 
@@ -1173,7 +1208,7 @@
                });
                const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
                if (activeTheme !== currentBodyTheme) {
-                  body.classList.toggle('on-light-section', activeTheme === 'light');
+                 body.classList.toggle('on-light-section', activeTheme === 'light');
                }
            }
 
@@ -1190,13 +1225,16 @@
            window.addEventListener('scroll', scrollListener, { passive: true });
 
            // --- Initial State Check ---
+           // Use setTimeout to allow layout to settle, especially after font loading
            setTimeout(() => {
              let initialIndex = 0;
              let initialTheme = 'dark';
-             const headerHeight = getHeaderHeight();
+             const currentHeaderHeight = getHeaderHeight(); // Get height *after* layout
              sections.forEach((section, index) => {
                  const rect = section.getBoundingClientRect();
-                 if (rect.top <= headerHeight + 10 && rect.bottom >= headerHeight) {
+                 // Check if the section's top is at or above the bottom of the header
+                 // and the section's bottom is below the header's top
+                 if (rect.top <= currentHeaderHeight && rect.bottom >= currentHeaderHeight) {
                      initialIndex = index;
                      initialTheme = section.getAttribute('data-theme') || 'dark';
                  }
@@ -1205,14 +1243,14 @@
              // Update scroll indicator immediately based on load scroll position
              scrollIndicatorState.scrolled = window.scrollY > 50;
              body.classList.toggle('scrolled', scrollIndicatorState.scrolled);
-           }, 150);
+           }, 150); // Small delay
        }
 
       // --- Initialize All Animations & Functionality ---
       function initAll() {
        console.log("Initializing animations...");
        initHeader();
-       initNavigation(); // Navigation needs header height
+       initNavigation(); // Navigation needs header height calculation
        initFooter();
        initCanvasWelcome();
        initIntro();
@@ -1224,42 +1262,43 @@
        // General smooth scroll for non-header/non-dot links
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (!anchor.closest('.site-header') && !anchor.closest('.nav-dots')) {
-          anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#') && href.length > 1) {
-              try {
-                  const target = document.querySelector(href);
-                  const header = document.getElementById('site-header');
-                  const offset = header ? header.offsetHeight : 60;
-                  if (target) {
-                      e.preventDefault();
-                      gsap.to(window, {
-                          duration: 1,
-                          scrollTo: { y: target, offsetY: offset },
-                          ease: "power2.inOut"
-                        });
-                   }
-              } catch (error) { console.warn("Could not find target for anchor:", href, error); }
-            } else if (href === "#") { e.preventDefault(); }
-          });
+         anchor.addEventListener('click', function(e) {
+           const href = this.getAttribute('href');
+           if (href && href.startsWith('#') && href.length > 1) {
+             try {
+                 const target = document.querySelector(href);
+                 const header = document.getElementById('site-header');
+                 // Use dynamic header height for offset
+                 const offset = header ? header.offsetHeight : 70; // Default to new base height
+                 if (target) {
+                     e.preventDefault();
+                     gsap.to(window, {
+                         duration: 1,
+                         scrollTo: { y: target, offsetY: offset },
+                         ease: "power2.inOut"
+                       });
+                  }
+             } catch (error) { console.warn("Could not find target for anchor:", href, error); }
+           } else if (href === "#") { e.preventDefault(); }
+         });
         }
        });
 
-        // Refresh ScrollTrigger after all setup
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-            console.log("ScrollTrigger refreshed after init.");
-        }, 250);
+       // Refresh ScrollTrigger after all setup and potential layout shifts
+       setTimeout(() => {
+           ScrollTrigger.refresh();
+           console.log("ScrollTrigger refreshed after init.");
+       }, 250);
 
-        // Handle resize: Refresh ScrollTrigger
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                console.log("Resizing - Refreshing ScrollTrigger...");
-                ScrollTrigger.refresh();
-            }, 250);
-        });
+       // Handle resize: Refresh ScrollTrigger
+       let resizeTimer;
+       window.addEventListener('resize', () => {
+           clearTimeout(resizeTimer);
+           resizeTimer = setTimeout(() => {
+               console.log("Resizing - Refreshing ScrollTrigger...");
+               ScrollTrigger.refresh(); // This will recalculate header height dependent triggers
+           }, 250);
+       });
 
        console.log("Initialization sequence complete.");
       }
