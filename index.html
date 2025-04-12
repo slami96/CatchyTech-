@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium GSAP Animation Showcase</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+      overflow-x: hidden;
+      background-color: #000;
+    }
+    
+    section {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    /* Intro Section */
+    .intro {
+      background-color: #000;
+      color: white;
+      overflow: hidden;
+    }
+    
+    .logo-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+    
+    .logo-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+    
+    .logo-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      opacity: 0;
+    }
+    
+    .particles-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    
+    .particle {
+      position: absolute;
+      background-color: white;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+    }
+    
+    /* Product Section */
+    .product {
+      background: linear-gradient(135deg, #111, #222);
+      overflow: hidden;
+    }
+    
+    .product-container {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    
+    .product-text {
+      width: 40%;
+      color: white;
+    }
+    
+    .product-title {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    
+    .product-description {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    
+    .product-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .highlight {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    
+    .product-cta {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff6b6b, #f35588);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .product-image-container {
+      width: 50%;
+      position: relative;
+      height: 600px;
+      perspective: 1000px;
+    }
+    
+    .product-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(0deg);
+      width: 300px;
+      height: 600px;
+      background-color: #222;
+      border-radius: 40px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    
+    .phone-screen {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+    
+    .screen-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    .phone-notch {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 25px;
+      background-color: #000;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    
+    .phone-button {
+      position: absolute;
+      right: -5px;
+      top: 120px;
+      width: 5px;
+      height: 60px;
+      background-color: #111;
+      border-radius: 2px 0 0 2px;
+    }
+    
+    .phone-reflections {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0) 80%,
+        rgba(255, 255, 255, 0.1) 100%
+      );
+      border-radius: 30px;
+    }
+    
+    /* Features Section */
+    .features {
+      background-color: white;
+      overflow: hidden;
+    }
+    
+    .features-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      max-width: 1200px;
+    }
+    
+    .features-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 60px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      width: 100%;
+    }
+    
+    .feature-box {
+      background-color: #f8f8f8;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #4158D0, #C850C0);
+      color: white;
+      font-size: 30px;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .feature-description {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #666;
+    }
+    
+    /* 3D Objects Section */
+    .objects {
+      background-color: #181818;
+      overflow: hidden;
+    }
+    
+    .objects-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .cube-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+      margin: 0 100px;
+    }
+    
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    
+    .cube-face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+    }
+    
+    .front  { transform: rotateY(0deg) translateZ(100px); background: rgba(255, 0, 89, 0.3); }
+    .back   { transform: rotateY(180deg) translateZ(100px); background: rgba(0, 255, 200, 0.3); }
+    .right  { transform: rotateY(90deg) translateZ(100px); background: rgba(255, 196, 0, 0.3); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); background: rgba(0, 123, 255, 0.3); }
+    .top    { transform: rotateX(90deg) translateZ(100px); background: rgba(178, 0, 255, 0.3); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); background: rgba(98, 255, 0, 0.3); }
+    
+    .pyramid-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+      margin: 0 100px;
+    }
+    
+    .pyramid {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(-20deg) rotateY(0deg);
+    }
+    
+    .pyramid-face {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 200px solid rgba(255, 255, 255, 0.3);
+      transform-origin: 50% 100%;
+    }
+    
+    .pyramid-front  { transform: rotateY(0deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(255, 0, 89, 0.3); }
+    .pyramid-right  { transform: rotateY(90deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(255, 196, 0, 0.3); }
+    .pyramid-back   { transform: rotateY(180deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(0, 255, 200, 0.3); }
+    .pyramid-left   { transform: rotateY(-90deg) translateZ(100px) rotateX(30deg); border-bottom-color: rgba(0, 123, 255, 0.3); }
+    .pyramid-bottom {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(178, 0, 255, 0.3);
+      transform: rotateX(90deg) translateZ(100px);
+    }
+    
+    /* SVG Section */
+    .svg-animation {
+      background-color: #001220;
+      overflow: hidden;
+    }
+    
+    .svg-container {
+      width: 100%;
+      max-width: 800px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .svg-circle {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+      stroke-dasharray: 0;
+      stroke-dashoffset: 0;
+    }
+    
+    .svg-path {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+    
+    .svg-text {
+      fill: white;
+      font-size: 24px;
+      opacity: 0;
+    }
+    
+    /* Canvas Section */
+    .canvas-section {
+      background-color: #000;
+      overflow: hidden;
+    }
+    
+    #particleCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .canvas-text {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+    }
+    
+    .canvas-title {
+      font-size: 60px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ff6b6b, #f35588, #4158D0, #C850C0, #FFCC70);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0;
+    }
+    
+    .canvas-description {
+      font-size: 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0;
+    }
+    
+    /* Navigation dots */
+    .nav-dots {
+      position: fixed;
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+    }
+    
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin: 10px 0;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .nav-dot.active {
+      background-color: white;
+      transform: scale(1.3);
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .scroll-arrow {
+      margin-top: 10px;
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid rgba(255, 255, 255, 0.7);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+      transform: rotate(45deg);
+      animation: scrollArrow 2s infinite;
+    }
+    
+    @keyframes scrollArrow {
+      0% {
+        transform: rotate(45deg) translate(0, 0);
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: rotate(45deg) translate(10px, 10px);
+        opacity: 0.4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Dots -->
+  <div class="nav-dots">
+    <div class="nav-dot active" data-section="0"></div>
+    <div class="nav-dot" data-section="1"></div>
+    <div class="nav-dot" data-section="2"></div>
+    <div class="nav-dot" data-section="3"></div>
+    <div class="nav-dot" data-section="4"></div>
+  </div>
+  
+  <!-- Canvas Section (now first) -->
+  <section class="canvas-section" id="section-0">
+    <canvas id="particleCanvas"></canvas>
+    <div class="canvas-text">
+      <h2 class="canvas-title">Experience The Future</h2>
+      <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+  
+  <!-- Intro Section (now second) -->
+  <section class="intro" id="section-1">
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="logo-container">
+      <div class="logo-circle" id="logoCircle"></div>
+      <div class="logo-inner">NOVA</div>
+    </div>
+  </section>
+  
+  <!-- Product Section -->
+  <section class="product" id="section-2">
+    <div class="product-container">
+      <div class="product-text">
+        <h2 class="product-title">Introducing Nova X1</h2>
+        <p class="product-description">Experience the future of technology with our revolutionary device. Designed for those who want to push boundaries and explore new possibilities.</p>
+        <div class="product-highlights">
+          <div class="highlight">Cutting-edge design</div>
+          <div class="highlight">Revolutionary display</div>
+          <div class="highlight">Unmatched performance</div>
+          <div class="highlight">Next-gen battery</div>
+        </div>
+        <a href="#" class="product-cta">Learn More</a>
+      </div>
+      <div class="product-image-container">
+        <div class="product-image">
+          <div class="phone-notch"></div>
+          <div class="phone-button"></div>
+          <div class="phone-screen">
+            <div class="screen-content"></div>
+          </div>
+          <div class="phone-reflections"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features" id="section-3">
+    <div class="features-container">
+      <h2 class="features-title">Exceptional Features</h2>
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon">✨</div>
+          <h3 class="feature-title">Premium Design</h3>
+          <p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Lightning Fast</h3>
+          <p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🔋</div>
+          <h3 class="feature-title">All-Day Battery</h3>
+          <p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">📸</div>
+          <h3 class="feature-title">Pro Camera</h3>
+          <p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Enhanced Security</h3>
+          <p class="feature-description">Advanced security features to keep your data safe and protected.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🌐</div>
+          <h3 class="feature-title">Global Connectivity</h3>
+          <p class="feature-description">Stay connected anywhere with advanced network capabilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 3D Objects Section -->
+  <section class="objects" id="section-4">
+    <div class="objects-container">
+      <div class="cube-container">
+        <div class="cube" id="cube">
+          <div class="cube-face front">FRONT</div>
+          <div class="cube-face back">BACK</div>
+          <div class="cube-face right">RIGHT</div>
+          <div class="cube-face left">LEFT</div>
+          <div class="cube-face top">TOP</div>
+          <div class="cube-face bottom">BOTTOM</div>
+        </div>
+      </div>
+      <div class="pyramid-container">
+        <div class="pyramid" id="pyramid">
+          <div class="pyramid-face pyramid-front"></div>
+          <div class="pyramid-face pyramid-right"></div>
+          <div class="pyramid-face pyramid-back"></div>
+          <div class="pyramid-face pyramid-left"></div>
+          <div class="pyramid-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </section>>
+    <canvas id="particleCanvas"></canvas>
+    <div class="canvas-text">
+      <h2 class="canvas-title">Experience The Future</h2>
+      <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
+    </div>
+  </section>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollToPlugin.min.js"></script>
+  
+  <script>
+    // Register plugins
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    
+    // Create particles for intro section
+    function createParticles() {
+      const container = document.getElementById('particlesContainer');
+      const numParticles = 100;
+      
+      for (let i = 0; i < numParticles; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Random size
+        const size = Math.random() * 4 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        container.appendChild(particle);
+        
+        // Animate each particle
+        gsap.to(particle, {
+          x: Math.random() * 200 - 100,
+          y: Math.random() * 200 - 100,
+          duration: Math.random() * 10 + 10,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+      }
+    }
+    
+    // Initialize intro animations
+    function initIntro() {
+      createParticles();
+      
+      // Logo animation
+      const introTl = gsap.timeline();
+      
+      introTl.to('.logo-circle', {
+        rotation: 360,
+        duration: 20,
+        repeat: -1,
+        ease: "none"
+      })
+      .to('.logo-inner', {
+        opacity: 1,
+        duration: 2,
+        ease: "power2.out"
+      }, 0);
+      
+      // Create a pulsing effect
+      gsap.to('.logo-circle', {
+        scale: 1.1,
+        opacity: 0.8,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }
+    
+    // Initialize product section animations
+    function initProduct() {
+      ScrollTrigger.create({
+        trigger: ".product",
+        start: "top center",
+        onEnter: () => {
+          gsap.to('.product-title', {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out"
+          });
+          
+          gsap.to('.product-description', {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: 0.2,
+            ease: "power2.out"
+          });
+          
+          gsap.to('.highlight', {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.1,
+            duration: 0.5,
+            delay: 0.4,
+            ease: "back.out(1.7)"
+          });
+          
+          gsap.to('.product-cta', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.8,
+            ease: "power2.out"
+          });
+        },
+        once: true
+      });
+      
+      // Phone 3D rotation
+      const phoneTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".product",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+      
+      phoneTl.to('.product-image', {
+        rotationY: 360,
+        duration: 5,
+        ease: "none"
+      });
+      
+      // Screen gradient animation
+      gsap.to('.phone-screen', {
+        background: 'linear-gradient(135deg, #FFCC70, #C850C0, #4158D0)',
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }
+    
+    // Initialize features section animations
+    function initFeatures() {
+      ScrollTrigger.create({
+        trigger: ".features",
+        start: "top 70%",
+        onEnter: () => {
+          gsap.to('.features-title', {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out"
+          });
+          
+          gsap.to('.feature-box', {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.8,
+            delay: 0.3,
+            ease: "power3.out"
+          });
+        },
+        once: true
+      });
+    }
+    
+    // Initialize 3D objects animations
+    function init3DObjects() {
+      // Check if elements exist before animating
+      const cube = document.getElementById('cube');
+      const pyramid = document.getElementById('pyramid');
+      
+      if (cube) {
+        // Continuous rotation
+        gsap.to('#cube', {
+          rotationX: 360,
+          rotationY: 360,
+          duration: 20,
+          repeat: -1,
+          ease: "none"
+        });
+        
+        // Mouse movement affects rotation
+        document.addEventListener('mousemove', (e) => {
+          const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
+          const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
+          
+          gsap.to('#cube', {
+            rotationX: yPos,
+            rotationY: -xPos,
+            duration: 1,
+            overwrite: 'auto'
+          });
+        });
+      }
+      
+      if (pyramid) {
+        gsap.to('#pyramid', {
+          rotationY: 360,
+          duration: 15,
+          repeat: -1,
+          ease: "none"
+        });
+        
+        // Mouse movement affects rotation
+        document.addEventListener('mousemove', (e) => {
+          const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
+          const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
+          
+          gsap.to('#pyramid', {
+            rotationX: -20 + yPos * 0.5,
+            rotationY: -xPos,
+            duration: 1,
+            overwrite: 'auto'
+          });
+        });
+      }
+    }
+    
+    // Initialize canvas section
+    function initCanvas() {
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Particle system
+      const particles = [];
+      const maxParticles = 200;
+      
+      function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 2;
+        this.speedY = (Math.random() - 0.5) * 2;
+        this.color = `hsl(${Math.random() * 60 + 200}, 100%, 50%)`;
+      }
+      
+      Particle.prototype.update = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      };
+      
+      Particle.prototype.draw = function() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      };
+      
+      function createParticles() {
+        for (let i = 0; i < maxParticles; i++) {
+          particles.push(new Particle());
+        }
+      }
+      
+      function connectParticles() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+        }
+        
+        connectParticles();
+        requestAnimationFrame(animate);
+      }
+      
+      createParticles();
+      animate();
+      
+      // Text animation
+      ScrollTrigger.create({
+        trigger: ".canvas-section",
+        start: "top 70%",
+        onEnter: () => {
+          gsap.to('.canvas-title', {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out"
+          });
+          
+          gsap.to('.canvas-description', {
+            opacity: 1,
+            duration: 1,
+            delay: 0.3,
+            ease: "power2.out"
+          });
+        },
+        once: true
+      });
+    }
+    
+    // Navigation dots functionality
+    function initNavigation() {
+      const sections = document.querySelectorAll('section');
+      const navDots = document.querySelectorAll('.nav-dot');
+      
+      // Click on nav dots to scroll to section
+      navDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const sectionIndex = dot.getAttribute('data-section');
+          const targetSection = document.getElementById(`section-${sectionIndex}`);
+          
+          gsap.to(window, {
+            duration: 1,
+            scrollTo: targetSection,
+            ease: "power2.inOut"
+          });
+        });
+      });
+      
+      // Update active nav dot on scroll
+      function updateActiveDot() {
+        const scrollPosition = window.scrollY;
+        
+        sections.forEach((section, index) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop - window.innerHeight / 2 && 
+              scrollPosition < sectionTop + sectionHeight - window.innerHeight / 2) {
+            navDots.forEach(dot => dot.classList.remove('active'));
+            navDots[index].classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', updateActiveDot);
+    }
+    
+    // Initialize all animations
+    function initAll() {
+      initCanvas(); // Now first
+      initIntro();
+      initProduct();
+      initFeatures();
+      init3DObjects();
+      initNavigation();
+      
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          
+          if (target) {
+            gsap.to(window, {
+              duration: 1,
+              scrollTo: target,
+              ease: "power2.inOut"
+            });
+          }
+        });
+      });
+    }
+    
+    // Start everything when the page loads
+    window.addEventListener('load', initAll);
+  </script>
+</body>
+</html>
