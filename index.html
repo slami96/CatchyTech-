@@ -51,32 +51,31 @@
 
       /* --- HEADER STYLES (MODIFIED) --- */
       .site-header {
-          position: fixed;
-          top: 0;
+          position: fixed; /* This makes it sticky */
+          top: 0;          /* Stick to the top */
           left: 0;
           right: 0;
           width: 100%;
           height: var(--header-height); /* Fixed height for easier positioning */
           padding: 0 30px; /* Horizontal padding */
-          z-index: 100;
+          z-index: 100;     /* Keep it above other content */
           display: flex;
-          /* Removed justify-content: center; */
           align-items: center;
-          background-color: var(--header-bg-dark); /* Default bg */
-          backdrop-filter: blur(10px);
+          background-color: var(--header-bg-dark); /* Default bg (semi-transparent) */
+          backdrop-filter: blur(10px);           /* Blur content behind */
           -webkit-backdrop-filter: blur(10px);
           transition: background-color 0.4s ease-out, backdrop-filter 0.4s ease-out;
-          position: relative; /* Needed for absolute positioning of the logo */
+          /* 'position: fixed' already creates a positioning context for the logo. */
       }
 
       /* Style for header when over light sections */
       body.on-light-section .site-header {
-          background-color: var(--header-bg-light);
+          background-color: var(--header-bg-light); /* Light bg (semi-transparent) */
       }
 
       /* Logo Styles */
       .header-logo {
-          position: absolute; /* Center absolutely */
+          position: absolute; /* Center absolutely relative to fixed header */
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
@@ -234,13 +233,15 @@
         align-items: center;
         position: relative;
         overflow: hidden;
-        /* Add padding top to account for fixed header height */
-        /* padding-top: var(--header-height); */ /* Add if content overlaps */
+        /* Add padding top only if content actually goes under the fixed header */
+        /* padding-top: var(--header-height); */
       }
 
       /* Canvas Section (First) */
       .canvas-section {
         background-color: var(--bg-dark-1);
+        /* If you want the canvas *content* to start below header, add padding here */
+        /* padding-top: var(--header-height); */
       }
 
       #particleCanvas {
@@ -493,6 +494,9 @@
         /* Ensure enough height for content */
         min-height: 100vh;
         height: auto;
+        /* Add padding top if content might go under fixed header */
+        padding-top: calc(var(--header-height) + 40px); /* Header height + extra space */
+        margin-top: calc(-1 * var(--header-height)); /* Pull section up visually */
       }
 
       .features-container {
@@ -563,6 +567,8 @@
       .network-graph {
           background-color: #0a0a1a;
           color: var(--text-light);
+          /* Add padding top if content might go under fixed header */
+          /* padding-top: var(--header-height); */
       }
 
       #networkCanvas {
@@ -598,11 +604,26 @@
       }
 
       /* Vertical Timeline Section - STYLES MOVED TO section.timeline ABOVE */
+      section.timeline {
+          position: relative; /* Ensure footer positions relative to this */
+          background-color: var(--bg-light-1);
+          color: var(--text-dark);
+          height: auto;
+          min-height: 170vh;
+          /* Adjust padding to account for header */
+          padding-top: calc(var(--header-height) + 10vh); /* Header height + original top padding */
+          padding-bottom: 20vh; /* Keep original bottom padding */
+          display: block;
+          overflow: visible;
+           margin-top: calc(-1 * var(--header-height)); /* Pull section up visually */
+      }
+
       .timeline-wrapper {
           width: 90%;
           max-width: 800px;
           margin: 0 auto;
           position: relative;
+          /* No padding-top needed here, handled by section */
       }
 
       .timeline-title-area {
@@ -757,7 +778,8 @@
           .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
           .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
           .network-title { font-size: 40px; }
-          .timeline { min-height: 150vh; padding: 8vh 0 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
+          section.timeline { padding-top: calc(var(--header-height) + 8vh); min-height: 150vh; padding-bottom: 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
+          .features { padding-top: calc(var(--header-height) + 30px); }
       }
        @media (max-width: 768px) {
            /* Header Adjustments */
@@ -767,27 +789,38 @@
           .header-nav a { font-size: 1rem; }
           .nav-label { display: none; } /* Keep labels hidden on small screens */
 
+          /* Update header height variable for smaller screens */
+          :root { --header-height: 55px; }
+
+
           /* Other sections */
           .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
           .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
           .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
-          .timeline { min-height: 140vh; padding: 6vh 0 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
+          section.timeline { padding-top: calc(var(--header-height) + 6vh); min-height: 140vh; padding-bottom: 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
           .network-title { font-size: 32px; } .network-description { font-size: 16px; }
           .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
+          .features { padding-top: calc(var(--header-height) + 20px); }
        }
        @media (max-width: 480px) {
-            /* Further adjustments for very small screens */
+            /* Header Adjustments */
             .site-header { padding: 0 10px; height: 50px; }
             .logo-link { font-size: 1.3rem; }
             .header-nav ul { gap: 10px; } /* Reduce gap further */
             .header-nav a { font-size: 0.9rem; } /* Smaller icons */
 
+            /* Update header height variable */
+             :root { --header-height: 50px; }
+
+            /* Other sections */
             .canvas-title { font-size: 32px; }
             .canvas-description { font-size: 16px; }
             .product-title { font-size: 30px; }
             .product-image { width: 180px; height: 360px; }
             .features-title { font-size: 30px; }
-            .timeline-main-title { font-size: 28px;}
+             section.timeline { padding-top: calc(var(--header-height) + 4vh); }
+             .timeline-main-title { font-size: 28px;}
+             .features { padding-top: calc(var(--header-height) + 15px); }
        }
     </style>
 </head>
@@ -908,7 +941,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <script>
-      // --- JavaScript Code (NO CHANGES NEEDED HERE FOR HEADER LAYOUT) ---
+      // --- JavaScript Code (NO CHANGES NEEDED HERE FOR STICKY HEADER) ---
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
       // --- Particle Creation (Intro Section) ---
@@ -972,7 +1005,7 @@
                    ease: 'power3.out',
                    scrollTrigger: {
                        trigger: section, // Trigger based on the section
-                       start: "top 70%",
+                       start: "top 70%", // Adjust trigger point based on padding
                        toggleActions: "play none none reverse",
                        id: "timeline-title"
                    }
@@ -990,7 +1023,7 @@
                    stagger: 0.3,
                    scrollTrigger: {
                        trigger: '.timeline-container', // Trigger based on the container holding the items
-                       start: "top 65%",
+                       start: "top 75%", // Adjust trigger point based on padding
                        end: "bottom 80%", // Optional: Define an end point
                        toggleActions: "play none none reverse",
                        id: "timeline-items"
@@ -1000,13 +1033,12 @@
       }
 
 
-      // --- Initialize Header Logic (MODIFIED - but only anchor links) ---
+      // --- Initialize Header Logic (for scroll links) ---
       function initHeader() {
            const header = document.getElementById('site-header');
            if (!header) { console.warn("Site header not found."); return; }
 
            // Smooth scroll for header links (NAV ICONS + LOGO)
-           // Select all links within the header, including the logo
            const headerLinks = document.querySelectorAll('.site-header a[href^="#"]');
            headerLinks.forEach(anchor => {
                anchor.addEventListener('click', function(e) {
@@ -1015,12 +1047,10 @@
                        const target = document.querySelector(href);
                        if (target) {
                            e.preventDefault();
-                           // Calculate offset dynamically based on header's *actual current* height
-                           // This ensures it works even if height changes slightly on resize
                            const headerHeight = header.offsetHeight;
                            gsap.to(window, {
                                duration: 1.2,
-                               scrollTo: { y: target, offsetY: headerHeight },
+                               scrollTo: { y: target, offsetY: headerHeight }, // Offset is crucial for fixed header
                                ease: "power2.inOut"
                            });
                        } else {
@@ -1057,26 +1087,30 @@
                ease: 'power2.out',
                scrollTrigger: {
                    trigger: '#section-5', // The element that triggers the animation
-                   start: "top center", // Trigger when the top of section 5 hits the middle of the viewport
+                   start: "center bottom", // Trigger when center of section-5 hits bottom of viewport
                    toggleActions: "play none none reverse", // Play when entering, reverse when leaving
                    id: "footer-reveal"
                }
            });
-
-           // console.log("Footer animation initialized for element:", footer); // Keep for debugging if needed
       }
 
 
-      // --- Navigation Dots & Theme Switching (MODIFIED ICON LOGIC) ---
+      // --- Navigation Dots & Theme Switching ---
       function initNavigation() {
-           const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
+           const sections = document.querySelectorAll('section[id^="section-"]');
            const navDots = document.querySelectorAll('.nav-dot');
-           // No need to select header links here anymore for active state
            const body = document.body;
-           const header = document.getElementById('site-header'); // Get header for offset
+           const header = document.getElementById('site-header');
 
-           if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
-           if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
+           if (navDots.length === 0 || sections.length === 0 || !header) {
+               console.warn("Nav dots, sections, or header not found."); return;
+           }
+           if (navDots.length !== sections.length) {
+               console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`);
+           }
+
+           // Function to get current header height (accounts for responsive changes)
+           const getHeaderHeight = () => header.offsetHeight;
 
            navDots.forEach(dot => {
                dot.addEventListener('click', (e) => {
@@ -1086,8 +1120,7 @@
                     if (targetSection) {
                        gsap.to(window, {
                            duration: 1.2,
-                            // Use header's current height for offset
-                           scrollTo: { y: targetSection, offsetY: header.offsetHeight },
+                           scrollTo: { y: targetSection, offsetY: getHeaderHeight() }, // Use dynamic height
                            ease: "power2.inOut"
                         });
                     } else { console.error(`Target section #section-${sectionIndex} not found.`); }
@@ -1095,43 +1128,23 @@
            });
 
            sections.forEach((section, index) => {
-               let startPoint = "top center";
-               let endPoint = "bottom center";
                const theme = section.getAttribute('data-theme') || 'dark';
 
-               // Adjust trigger points slightly to account for header height for more accurate theme switching
-               const headerHeightOffset = header ? header.offsetHeight : 60;
-               startPoint = `top top+=${headerHeightOffset}px`; // When section top passes under header
-               endPoint = `bottom top+=${headerHeightOffset}px`; // When section bottom passes under header
-
-
-               // Special handling for the timeline section if needed (keep original logic for now)
-               if (section.classList.contains('timeline')) {
-                   startPoint = `top top+=${headerHeightOffset}px`;
-                   endPoint = "bottom bottom-=100px"; // Keep end trigger relative to bottom for long section
-                   // Adjust if timeline section itself is very short (unlikely but safe)
-                   if (section.offsetHeight < window.innerHeight * 0.8) {
-                        endPoint = `bottom top+=${headerHeightOffset + 100}px`; // Ensure it triggers off
-                   }
-               } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                   // Adjust for very short sections
-                   startPoint = `top center-=${headerHeightOffset}px`;
-                   endPoint = `bottom center+=${headerHeightOffset}px`;
-               }
-
-
+               // Dynamic calculation of trigger points based on header height
                ScrollTrigger.create({
                    trigger: section,
-                   start: startPoint,
-                   end: endPoint,
+                   // Start when the top of the section passes under the bottom of the fixed header
+                   start: () => `top top+=${getHeaderHeight()}px`,
+                   // End when the bottom of the section passes under the bottom of the fixed header
+                   end: () => `bottom top+=${getHeaderHeight()}px`,
+                   // For the very last section (timeline), extend the end trigger significantly
+                   // to ensure it remains active until the very bottom
+                   end: index === sections.length - 1 ? "bottom bottom" : () => `bottom top+=${getHeaderHeight()}px`,
                    id: `section-nav-${index}`,
-                    // markers: true, // Uncomment to debug navigation triggers
+                   // markers: true, // Uncomment to debug navigation triggers
                    onEnter: () => updateActiveState(index, theme),
                    onEnterBack: () => updateActiveState(index, theme),
-                   // onLeave/onLeaveBack might cause issues if triggers overlap slightly,
-                   // relying on onEnter/onEnterBack is usually safer for this use case.
-                   // onLeave: () => { /* Optional: logic when leaving a section */ },
-                   // onLeaveBack: () => { /* Optional: logic when leaving back up */ }
+                   invalidateOnRefresh: true // Recalculate triggers on resize/refresh
                });
            });
 
@@ -1147,83 +1160,73 @@
                if (activeTheme !== currentBodyTheme) {
                   if (activeTheme === 'light') {
                       body.classList.add('on-light-section');
-                       // CSS handles the color change via: body.on-light-section selectors
                   } else {
                       body.classList.remove('on-light-section');
-                       // CSS handles the color change via default selectors
                   }
                }
-
-               // Update scroll indicator visibility
-                body.classList.toggle('scrolled', activeIndex > 0 || window.scrollY > 50);
            }
 
-           // Initial state check on load (improved)
+           // --- Scroll Indicator Logic (needs updateActiveState) ---
+           let initialScrollDone = window.scrollY > 50;
+           body.classList.toggle('scrolled', initialScrollDone);
+
+           const scrollListener = () => {
+               const scrolled = window.scrollY > 50;
+               if (scrolled !== initialScrollDone) {
+                   body.classList.toggle('scrolled', scrolled);
+                   initialScrollDone = scrolled;
+               }
+           };
+           window.addEventListener('scroll', scrollListener, { passive: true });
+
+           // Initial state check on load
            setTimeout(() => {
              let initialIndex = 0;
              let initialTheme = 'dark';
              const scrollY = window.scrollY;
-             const headerHeight = header ? header.offsetHeight : 60;
+             const headerHeight = getHeaderHeight();
 
              sections.forEach((section, index) => {
                  const rect = section.getBoundingClientRect();
-                 // Consider a section active if its top is within a threshold below the header
-                 // Or if it's the first section and we are scrolled near the top
-                 const activationThreshold = headerHeight + window.innerHeight * 0.3; // Activate when section top is 30% down the viewport below header
-                 if (rect.top <= activationThreshold && rect.bottom >= headerHeight + 50) { // Check bottom edge too
+                  // Check if the section top is at or just below the header's bottom edge
+                 if (rect.top <= headerHeight + 10 && rect.bottom >= headerHeight) {
                      initialIndex = index;
                      initialTheme = section.getAttribute('data-theme') || 'dark';
                  }
              });
              console.log(`Initial check: index ${initialIndex}, theme ${initialTheme}, scrollY ${scrollY}`);
              updateActiveState(initialIndex, initialTheme);
-             // Ensure scroll indicator is hidden if not at very top
-             body.classList.toggle('scrolled', scrollY > 50);
-           }, 150); // Slightly longer delay for potentially complex layouts
-
-
-           // Add simple scroll listener for scroll indicator hiding after initial scroll
-           let initialScrollDone = window.scrollY > 50; // Check initial state
-           body.classList.toggle('scrolled', initialScrollDone); // Set initial class based on load scroll position
-
-           const scrollListener = () => {
-               if (window.scrollY > 50 && !initialScrollDone) {
-                   body.classList.add('scrolled');
-                   initialScrollDone = true;
-               } else if (window.scrollY <= 50 && initialScrollDone) {
-                   // Decide if you want the scroll indicator to reappear when scrolled back to top
-                   body.classList.remove('scrolled');
-                   initialScrollDone = false; // Allow it to hide again on next scroll down
-               }
-           };
-           window.addEventListener('scroll', scrollListener, { passive: true });
-
+             body.classList.toggle('scrolled', scrollY > 50); // Ensure scroll indicator is correct on load
+           }, 150);
        }
 
       // --- Initialize All Animations & Functionality ---
       function initAll() {
        console.log("Initializing animations...");
-       initHeader(); // Init header logic first (gets height for offsets)
-       initFooter(); // Make sure this is called
+       // Init header first to ensure height is available for others
+       initHeader();
+       // Init navigation relies on header height being calculable
+       initNavigation();
+       // Then init the rest
+       initFooter();
        initCanvasWelcome();
        initIntro();
        initProduct();
        initFeatures();
        initNetworkGraph();
        initTimeline();
-       initNavigation(); // Call navigation after header for height reference
 
-       // General smooth scroll for non-header links (if any)
+
+       // General smooth scroll for non-header/non-dot links
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        if (!anchor.closest('.site-header') && !anchor.closest('.nav-dots')) { // Exclude header/dot links
+        if (!anchor.closest('.site-header') && !anchor.closest('.nav-dots')) {
           anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             if (href && href.startsWith('#') && href.length > 1) {
               try {
                   const target = document.querySelector(href);
                   const header = document.getElementById('site-header');
-                  // Use current header height for offset
-                  const offset = header ? header.offsetHeight : 60;
+                  const offset = header ? header.offsetHeight : 60; // Get current height
                   if (target) {
                       e.preventDefault();
                       gsap.to(window, {
@@ -1238,29 +1241,26 @@
         }
        });
 
-        // Refresh ScrollTrigger after a short delay to ensure layout is stable
+        // Refresh ScrollTrigger after all setup and a short delay
         setTimeout(() => {
             ScrollTrigger.refresh();
             console.log("ScrollTrigger refreshed after init.");
         }, 250);
 
-
+        // Handle resize: Refresh ScrollTrigger to recalculate positions
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 console.log("Resizing - Refreshing ScrollTrigger...");
-                // Refresh ScrollTrigger FIRST
                 ScrollTrigger.refresh();
-                // Re-calculate header height for scroll offset if needed (though GSAP's function offset should handle it)
-                // console.log("Header height on resize:", document.getElementById('site-header')?.offsetHeight);
             }, 250);
         });
 
        console.log("Initialization sequence complete.");
       }
 
-      // Start everything when the DOM is fully loaded
+      // Start everything on window load
        window.addEventListener('load', initAll);
 
     </script>
