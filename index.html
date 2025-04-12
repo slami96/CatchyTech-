@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium GSAP Animation Showcase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet"> <style>
       *, *::before, *::after {
         margin: 0;
         padding: 0;
@@ -16,7 +17,8 @@
       body, html {
         margin: 0;
         padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        /* Changed default font slightly */
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         color: #333;
         overflow-x: hidden; /* Prevent horizontal scroll */
         background-color: #000; /* Default background */
@@ -28,7 +30,7 @@
 
       /* --- BASE STYLES --- */
       :root {
-          --header-height: 60px; /* Adjusted for padding */
+          --header-height: 60px; /* Keep this as a reference, actual height might vary slightly */
           --accent-color-1: #ff6b6b;
           --accent-color-2: #f35588;
           --accent-color-3: #4158D0;
@@ -44,6 +46,7 @@
           --header-hover-color: var(--accent-color-2);
           --header-bg-dark: rgba(20, 20, 20, 0.7); /* Dark semi-transparent bg */
           --header-bg-light: rgba(245, 245, 247, 0.7); /* Light semi-transparent bg */
+          --logo-font: 'Orbitron', sans-serif; /* Use the imported techy font */
       }
 
       /* --- HEADER STYLES (MODIFIED) --- */
@@ -53,61 +56,94 @@
           left: 0;
           right: 0;
           width: 100%;
-          padding: 15px 0; /* Added padding for better spacing */
+          height: var(--header-height); /* Fixed height for easier positioning */
+          padding: 0 30px; /* Horizontal padding */
           z-index: 100;
           display: flex;
-          justify-content: center;
+          /* Removed justify-content: center; */
           align-items: center;
-          /* Default background for dark sections */
-          background-color: var(--header-bg-dark);
+          background-color: var(--header-bg-dark); /* Default bg */
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          /* Transition for background and blur */
           transition: background-color 0.4s ease-out, backdrop-filter 0.4s ease-out;
+          position: relative; /* Needed for absolute positioning of the logo */
       }
 
       /* Style for header when over light sections */
       body.on-light-section .site-header {
           background-color: var(--header-bg-light);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
       }
 
-      .site-header nav ul {
+      /* Logo Styles */
+      .header-logo {
+          position: absolute; /* Center absolutely */
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      .logo-link {
+          text-decoration: none;
+          font-family: var(--logo-font);
+          font-size: 1.8rem; /* Adjust size as needed */
+          font-weight: 700;
+          letter-spacing: 1px;
+          /* Color transition based on body class */
+          color: var(--header-icon-color-dark);
+          transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .logo-link:hover {
+          color: var(--header-hover-color);
+          transform: scale(1.05); /* Slight zoom on hover */
+      }
+
+      /* Logo color on light sections */
+      body.on-light-section .logo-link {
+          color: var(--header-icon-color-light);
+      }
+
+      /* Navigation Styles (Moved to Right) */
+      .header-nav {
+          margin-left: auto; /* Pushes the nav to the right */
+      }
+
+      .header-nav ul {
           list-style: none;
           display: flex;
-          gap: 35px;
+          gap: 30px; /* Spacing between icons */
           padding: 0;
           margin: 0;
+          align-items: center; /* Vertically align icons */
       }
 
-      .site-header nav li {
-          position: relative;
+      .header-nav li {
+          position: relative; /* For the label positioning */
       }
 
-      .site-header nav a {
+      .header-nav a {
           text-decoration: none;
           color: var(--header-icon-color-dark); /* Default icon color */
-          font-size: 1.3rem;
-          /* Keep icon color transition */
+          font-size: 1.2rem; /* Slightly smaller icons */
           transition: transform 0.3s ease, color 0.3s ease;
-          display: flex;
+          display: flex; /* Needed for label positioning */
           flex-direction: column;
           align-items: center;
-          position: relative;
+          position: relative; /* For the label */
       }
 
-      /* Keep icon color change logic based on body class */
-      body.on-light-section .site-header nav a {
+      /* Icon color on light sections */
+      body.on-light-section .header-nav a {
          color: var(--header-icon-color-light);
       }
 
-
-      .site-header nav a:hover {
-          transform: scale(1.1);
-          color: var(--header-hover-color); /* Keep hover color */
+      /* Icon hover effect */
+      .header-nav a:hover {
+          transform: scale(1.15); /* Slightly larger hover effect */
+          color: var(--header-hover-color);
       }
 
+      /* Label Styles (No change needed here) */
       .nav-label {
           position: absolute;
           top: 100%;
@@ -125,7 +161,7 @@
           pointer-events: none;
       }
 
-      .site-header nav a:hover .nav-label {
+      .header-nav a:hover .nav-label {
           opacity: 1;
           visibility: visible;
           transform: translateY(0) scale(1);
@@ -199,7 +235,7 @@
         position: relative;
         overflow: hidden;
         /* Add padding top to account for fixed header height */
-        /* padding-top: var(--header-height); */ /* Optional: Might not be needed depending on content layout */
+        /* padding-top: var(--header-height); */ /* Add if content overlaps */
       }
 
       /* Canvas Section (First) */
@@ -270,11 +306,15 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 36px;
+        font-family: var(--logo-font); /* Use tech font here too */
+        font-size: 48px; /* Larger size */
         font-weight: 900;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         opacity: 0;
+        /* Add a subtle text shadow */
+        text-shadow: 0 0 10px rgba(255, 107, 107, 0.3), 0 0 20px rgba(65, 88, 208, 0.3);
       }
+
 
       .particles-container {
         position: absolute;
@@ -450,6 +490,9 @@
         background-color: var(--bg-light-2);
         color: var(--text-dark);
         padding: 80px 0;
+        /* Ensure enough height for content */
+        min-height: 100vh;
+        height: auto;
       }
 
       .features-container {
@@ -703,39 +746,67 @@
 
       /* --- RESPONSIVE STYLES --- */
       @media (max-width: 992px) {
+          /* Header Adjustments */
+          .site-header { padding: 0 20px; }
+          .logo-link { font-size: 1.6rem; }
+          .header-nav ul { gap: 20px; }
+          .header-nav a { font-size: 1.1rem; }
+
+          /* Other sections */
           .canvas-title { font-size: 50px; } .canvas-description { font-size: 20px; }
           .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
           .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
           .network-title { font-size: 40px; }
           .timeline { min-height: 150vh; padding: 8vh 0 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
-          .site-header nav ul { gap: 25px; }
       }
        @media (max-width: 768px) {
+           /* Header Adjustments */
+          .site-header { padding: 0 15px; height: 55px;} /* Slightly shorter header */
+          .logo-link { font-size: 1.5rem; }
+          .header-nav ul { gap: 15px; }
+          .header-nav a { font-size: 1rem; }
+          .nav-label { display: none; } /* Keep labels hidden on small screens */
+
+          /* Other sections */
           .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
           .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
           .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
           .timeline { min-height: 140vh; padding: 6vh 0 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
           .network-title { font-size: 32px; } .network-description { font-size: 16px; }
-          /* Remove forced background on mobile, let theme control it */
-          /* .site-header { background: rgba(0, 0, 0, 0.2); } */
-          .site-header { padding: 10px 0; }
-          .site-header nav ul { gap: 20px; } .site-header nav a { font-size: 1.1rem; }
-          .nav-label { display: none; } /* Keep labels hidden on small screens */
           .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
-      }
+       }
+       @media (max-width: 480px) {
+            /* Further adjustments for very small screens */
+            .site-header { padding: 0 10px; height: 50px; }
+            .logo-link { font-size: 1.3rem; }
+            .header-nav ul { gap: 10px; } /* Reduce gap further */
+            .header-nav a { font-size: 0.9rem; } /* Smaller icons */
+
+            .canvas-title { font-size: 32px; }
+            .canvas-description { font-size: 16px; }
+            .product-title { font-size: 30px; }
+            .product-image { width: 180px; height: 360px; }
+            .features-title { font-size: 30px; }
+            .timeline-main-title { font-size: 28px;}
+       }
     </style>
 </head>
-<body data-current-theme="dark"> <header class="site-header" id="site-header">
-       <nav>
-           <ul>
-               <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
-               <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
-               <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
-               <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
-               </ul>
-       </nav>
-    </header>
+<body data-current-theme="dark">
 
+    <header class="site-header" id="site-header">
+        <div class="header-logo">
+            <a href="#section-0" class="logo-link" aria-label="NOVA Home">NOVA</a>
+        </div>
+
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
+                <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
+                <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
+                <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="nav-dots">
       <div class="nav-dot active" data-section="0"></div>
       <div class="nav-dot" data-section="1"></div>
@@ -818,7 +889,7 @@
                <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
                <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
                <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
-                <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
+                 <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
            </div>
         </div>
 
@@ -837,7 +908,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <script>
-      // --- JavaScript Code ---
+      // --- JavaScript Code (NO CHANGES NEEDED HERE FOR HEADER LAYOUT) ---
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
       // --- Particle Creation (Intro Section) ---
@@ -861,17 +932,17 @@
 
       // --- Initialize Product Section Animations ---
       function initProduct() {
-          const productSection = document.querySelector('.product'); if (!productSection) return;
-          gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-          const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
-          const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
-      }
+           const productSection = document.querySelector('.product'); if (!productSection) return;
+           gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+           const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
+           const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
+       }
 
       // --- Initialize Features Section Animations ---
       function initFeatures() {
-          const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
-          gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
-      }
+           const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
+           gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
+       }
 
       // --- Initialize Canvas Section (First Section - Particles) ---
       function initCanvasWelcome() {
@@ -879,243 +950,255 @@
       }
 
       // --- Initialize Network Graph Section Animations ---
-        function initNetworkGraph() {
-            const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
-        }
+          function initNetworkGraph() {
+              const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+          }
 
       // --- Initialize Vertical Timeline Section Animations ---
       function initTimeline() {
-          const section = document.querySelector('.timeline'); // Target the section itself
-          const titleArea = section.querySelector('.timeline-title-area');
-          const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
+           const section = document.querySelector('.timeline'); // Target the section itself
+           const titleArea = section.querySelector('.timeline-title-area');
+           const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
 
-          // Check if the main section exists
-          if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
+           // Check if the main section exists
+           if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
 
-          // Animate title area if found
-          if (titleArea) {
-              gsap.to(titleArea, {
-                  opacity: 1,
-                  y: 0,
-                  duration: 1.0,
-                  ease: 'power3.out',
-                  scrollTrigger: {
-                      trigger: section, // Trigger based on the section
-                      start: "top 70%",
-                      toggleActions: "play none none reverse",
-                      id: "timeline-title"
-                  }
-              });
-          } else { console.warn("Timeline title area not found within .timeline section."); }
+           // Animate title area if found
+           if (titleArea) {
+               gsap.to(titleArea, {
+                   opacity: 1,
+                   y: 0,
+                   duration: 1.0,
+                   ease: 'power3.out',
+                   scrollTrigger: {
+                       trigger: section, // Trigger based on the section
+                       start: "top 70%",
+                       toggleActions: "play none none reverse",
+                       id: "timeline-title"
+                   }
+               });
+           } else { console.warn("Timeline title area not found within .timeline section."); }
 
-          // Animate timeline items if found
-          if (timelineItems.length > 0) {
-              gsap.to(timelineItems, {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  duration: 0.8,
-                  ease: 'power2.out',
-                  stagger: 0.3,
-                  scrollTrigger: {
-                      trigger: '.timeline-container', // Trigger based on the container holding the items
-                      start: "top 65%",
-                      end: "bottom 80%", // Optional: Define an end point
-                      toggleActions: "play none none reverse",
-                      id: "timeline-items"
-                  }
-              });
-          } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
+           // Animate timeline items if found
+           if (timelineItems.length > 0) {
+               gsap.to(timelineItems, {
+                   opacity: 1,
+                   y: 0,
+                   scale: 1,
+                   duration: 0.8,
+                   ease: 'power2.out',
+                   stagger: 0.3,
+                   scrollTrigger: {
+                       trigger: '.timeline-container', // Trigger based on the container holding the items
+                       start: "top 65%",
+                       end: "bottom 80%", // Optional: Define an end point
+                       toggleActions: "play none none reverse",
+                       id: "timeline-items"
+                   }
+               });
+           } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
       }
 
 
-      // --- Initialize Header Logic (MODIFIED) ---
+      // --- Initialize Header Logic (MODIFIED - but only anchor links) ---
       function initHeader() {
-          const header = document.getElementById('site-header');
-          if (!header) { console.warn("Site header not found."); return; }
+           const header = document.getElementById('site-header');
+           if (!header) { console.warn("Site header not found."); return; }
 
-          // REMOVED: ScrollTrigger for adding 'header-scrolled' class.
-          // The header is now always visible and styled via CSS.
-
-          // Keep smooth scroll for header links
-          const headerLinks = document.querySelectorAll('.site-header nav a');
-          headerLinks.forEach(anchor => {
-              anchor.addEventListener('click', function(e) {
-                  const href = this.getAttribute('href');
-                  if (href && href.startsWith('#') && href.length > 1) {
-                      const target = document.querySelector(href);
-                      if (target) {
-                          e.preventDefault();
-                          gsap.to(window, {
-                              duration: 1.2,
-                              // Calculate offset dynamically based on header height
-                              scrollTo: { y: target, offsetY: header.offsetHeight },
-                              ease: "power2.inOut"
-                          });
-                      }
-                  }
-              });
-          });
-      }
+           // Smooth scroll for header links (NAV ICONS + LOGO)
+           // Select all links within the header, including the logo
+           const headerLinks = document.querySelectorAll('.site-header a[href^="#"]');
+           headerLinks.forEach(anchor => {
+               anchor.addEventListener('click', function(e) {
+                   const href = this.getAttribute('href');
+                   if (href && href.startsWith('#') && href.length > 1) {
+                       const target = document.querySelector(href);
+                       if (target) {
+                           e.preventDefault();
+                           // Calculate offset dynamically based on header's *actual current* height
+                           // This ensures it works even if height changes slightly on resize
+                           const headerHeight = header.offsetHeight;
+                           gsap.to(window, {
+                               duration: 1.2,
+                               scrollTo: { y: target, offsetY: headerHeight },
+                               ease: "power2.inOut"
+                           });
+                       } else {
+                           console.warn(`Scroll target '${href}' not found.`);
+                       }
+                   }
+               });
+           });
+       }
 
       // --- Initialize Footer Animation ---
       function initFooter() {
-          // Select the footer specifically INSIDE section-5
-          const footer = document.querySelector('#section-5 .site-footer');
-          const copyrightYearSpan = document.getElementById('copyright-year');
+           // Select the footer specifically INSIDE section-5
+           const footer = document.querySelector('#section-5 .site-footer');
+           const copyrightYearSpan = document.getElementById('copyright-year');
 
-          // Check if the footer element was found correctly
-          if (!footer) {
-              console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
-              return; // Stop if footer isn't where it's expected
-          }
+           // Check if the footer element was found correctly
+           if (!footer) {
+               console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
+               return; // Stop if footer isn't where it's expected
+           }
 
-          // Set copyright year if the span exists
-          if(copyrightYearSpan) {
-              copyrightYearSpan.textContent = new Date().getFullYear();
-          } else {
-              console.warn("Copyright year span (#copyright-year) not found in footer.");
-          }
+           // Set copyright year if the span exists
+           if(copyrightYearSpan) {
+               copyrightYearSpan.textContent = new Date().getFullYear();
+           } else {
+               console.warn("Copyright year span (#copyright-year) not found in footer.");
+           }
 
-          gsap.to(footer, {
-              opacity: 1,
-              y: 0, // Target state
-              duration: 1.0,
-              ease: 'power2.out',
-              scrollTrigger: {
-                  trigger: '#section-5', // The element that triggers the animation
-                  start: "top center", // Trigger when the top of section 5 hits the middle of the viewport
-                  toggleActions: "play none none reverse", // Play when entering, reverse when leaving
-                  id: "footer-reveal"
-              }
-          });
+           gsap.to(footer, {
+               opacity: 1,
+               y: 0, // Target state
+               duration: 1.0,
+               ease: 'power2.out',
+               scrollTrigger: {
+                   trigger: '#section-5', // The element that triggers the animation
+                   start: "top center", // Trigger when the top of section 5 hits the middle of the viewport
+                   toggleActions: "play none none reverse", // Play when entering, reverse when leaving
+                   id: "footer-reveal"
+               }
+           });
 
-           console.log("Footer animation initialized for element:", footer);
+           // console.log("Footer animation initialized for element:", footer); // Keep for debugging if needed
       }
 
 
       // --- Navigation Dots & Theme Switching (MODIFIED ICON LOGIC) ---
       function initNavigation() {
-          const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
-          const navDots = document.querySelectorAll('.nav-dot');
-          const headerLinks = document.querySelectorAll('.site-header nav a'); // Keep this selector
-          const body = document.body;
-          const header = document.getElementById('site-header'); // Get header for offset
+           const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
+           const navDots = document.querySelectorAll('.nav-dot');
+           // No need to select header links here anymore for active state
+           const body = document.body;
+           const header = document.getElementById('site-header'); // Get header for offset
 
-          if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
-          if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
+           if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
+           if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
 
-          navDots.forEach(dot => {
-              dot.addEventListener('click', (e) => {
-                  e.preventDefault();
-                  const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
-                   const targetSection = document.getElementById(`section-${sectionIndex}`);
-                   if (targetSection) {
-                      gsap.to(window, {
-                          duration: 1.2,
-                           // Use header's current height for offset
-                          scrollTo: { y: targetSection, offsetY: header.offsetHeight },
-                          ease: "power2.inOut"
+           navDots.forEach(dot => {
+               dot.addEventListener('click', (e) => {
+                   e.preventDefault();
+                   const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
+                    const targetSection = document.getElementById(`section-${sectionIndex}`);
+                    if (targetSection) {
+                       gsap.to(window, {
+                           duration: 1.2,
+                            // Use header's current height for offset
+                           scrollTo: { y: targetSection, offsetY: header.offsetHeight },
+                           ease: "power2.inOut"
                         });
-                   } else { console.error(`Target section #section-${sectionIndex} not found.`); }
-              });
-          });
+                    } else { console.error(`Target section #section-${sectionIndex} not found.`); }
+               });
+           });
 
-          sections.forEach((section, index) => {
-              let startPoint = "top center";
-              let endPoint = "bottom center";
-              const theme = section.getAttribute('data-theme') || 'dark';
+           sections.forEach((section, index) => {
+               let startPoint = "top center";
+               let endPoint = "bottom center";
+               const theme = section.getAttribute('data-theme') || 'dark';
 
-              // Adjust trigger points slightly to account for header height for more accurate theme switching
-              const headerHeightOffset = header ? header.offsetHeight : 60;
-              startPoint = `top top+=${headerHeightOffset}px`; // When section top passes under header
-              endPoint = `bottom top+=${headerHeightOffset}px`; // When section bottom passes under header
+               // Adjust trigger points slightly to account for header height for more accurate theme switching
+               const headerHeightOffset = header ? header.offsetHeight : 60;
+               startPoint = `top top+=${headerHeightOffset}px`; // When section top passes under header
+               endPoint = `bottom top+=${headerHeightOffset}px`; // When section bottom passes under header
 
 
-              // Special handling for the timeline section if needed (keep original logic for now)
-              if (section.classList.contains('timeline')) {
+               // Special handling for the timeline section if needed (keep original logic for now)
+               if (section.classList.contains('timeline')) {
                    startPoint = `top top+=${headerHeightOffset}px`;
                    endPoint = "bottom bottom-=100px"; // Keep end trigger relative to bottom for long section
-                   if (section.offsetHeight < 200) { startPoint = `top top+=${headerHeightOffset}px`; endPoint = `bottom top+=${headerHeightOffset}px`; }
-              } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                   startPoint = `top bottom-=${headerHeightOffset}px`; // Adjust for short sections too
-                   endPoint = `bottom top+=${headerHeightOffset}px`;
-              }
+                   // Adjust if timeline section itself is very short (unlikely but safe)
+                   if (section.offsetHeight < window.innerHeight * 0.8) {
+                        endPoint = `bottom top+=${headerHeightOffset + 100}px`; // Ensure it triggers off
+                   }
+               } else if (section.offsetHeight < window.innerHeight * 0.5) {
+                   // Adjust for very short sections
+                   startPoint = `top center-=${headerHeightOffset}px`;
+                   endPoint = `bottom center+=${headerHeightOffset}px`;
+               }
 
 
-              ScrollTrigger.create({
-                  trigger: section,
-                  start: startPoint,
-                  end: endPoint,
-                  id: `section-nav-${index}`,
-                  // markers: true, // Uncomment to debug navigation triggers
-                  onEnter: () => updateActiveState(index, theme),
-                  onEnterBack: () => updateActiveState(index, theme),
-                  onLeave: () => { /* Optional: logic when leaving a section */ },
-                  onLeaveBack: () => { /* Optional: logic when leaving back up */ }
-              });
-          });
+               ScrollTrigger.create({
+                   trigger: section,
+                   start: startPoint,
+                   end: endPoint,
+                   id: `section-nav-${index}`,
+                    // markers: true, // Uncomment to debug navigation triggers
+                   onEnter: () => updateActiveState(index, theme),
+                   onEnterBack: () => updateActiveState(index, theme),
+                   // onLeave/onLeaveBack might cause issues if triggers overlap slightly,
+                   // relying on onEnter/onEnterBack is usually safer for this use case.
+                   // onLeave: () => { /* Optional: logic when leaving a section */ },
+                   // onLeaveBack: () => { /* Optional: logic when leaving back up */ }
+               });
+           });
 
-          function updateActiveState(activeIndex, activeTheme) {
-              // Update Nav Dots
-              navDots.forEach((dot) => {
-                  const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                  dot.classList.toggle('active', dotSecIndex === activeIndex);
-              });
+           function updateActiveState(activeIndex, activeTheme) {
+               // Update Nav Dots
+               navDots.forEach((dot) => {
+                   const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                   dot.classList.toggle('active', dotSecIndex === activeIndex);
+               });
 
-              // Update Body Class for Header Background & Icon Colors
-              const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
-              if (activeTheme !== currentBodyTheme) {
-                 if (activeTheme === 'light') {
-                     body.classList.add('on-light-section');
-                     // CSS handles the icon color change via: body.on-light-section .site-header nav a
-                 } else {
-                     body.classList.remove('on-light-section');
-                      // CSS handles the icon color change via: .site-header nav a (default)
+               // Update Body Class for Header Background & Icon/Logo Colors
+               const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
+               if (activeTheme !== currentBodyTheme) {
+                  if (activeTheme === 'light') {
+                      body.classList.add('on-light-section');
+                       // CSS handles the color change via: body.on-light-section selectors
+                  } else {
+                      body.classList.remove('on-light-section');
+                       // CSS handles the color change via default selectors
+                  }
+               }
+
+               // Update scroll indicator visibility
+                body.classList.toggle('scrolled', activeIndex > 0 || window.scrollY > 50);
+           }
+
+           // Initial state check on load (improved)
+           setTimeout(() => {
+             let initialIndex = 0;
+             let initialTheme = 'dark';
+             const scrollY = window.scrollY;
+             const headerHeight = header ? header.offsetHeight : 60;
+
+             sections.forEach((section, index) => {
+                 const rect = section.getBoundingClientRect();
+                 // Consider a section active if its top is within a threshold below the header
+                 // Or if it's the first section and we are scrolled near the top
+                 const activationThreshold = headerHeight + window.innerHeight * 0.3; // Activate when section top is 30% down the viewport below header
+                 if (rect.top <= activationThreshold && rect.bottom >= headerHeight + 50) { // Check bottom edge too
+                     initialIndex = index;
+                     initialTheme = section.getAttribute('data-theme') || 'dark';
                  }
-              }
-
-              // Update scroll indicator visibility
-               body.classList.toggle('scrolled', activeIndex > 0 || window.scrollY > 50);
-          }
-
-          // Initial state check on load (improved)
-          setTimeout(() => {
-            let initialIndex = 0;
-            let initialTheme = 'dark';
-            const scrollY = window.scrollY;
-            const headerHeight = header ? header.offsetHeight : 60;
-
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                // Consider a section active if its top is near the header's bottom edge
-                if (rect.top <= headerHeight + 50 && rect.bottom >= headerHeight + 50) {
-                    initialIndex = index;
-                    initialTheme = section.getAttribute('data-theme') || 'dark';
-                }
-            });
-            console.log(`Initial check: index ${initialIndex}, theme ${initialTheme}`);
-            updateActiveState(initialIndex, initialTheme);
-          }, 100); // Short delay for layout calculation
+             });
+             console.log(`Initial check: index ${initialIndex}, theme ${initialTheme}, scrollY ${scrollY}`);
+             updateActiveState(initialIndex, initialTheme);
+             // Ensure scroll indicator is hidden if not at very top
+             body.classList.toggle('scrolled', scrollY > 50);
+           }, 150); // Slightly longer delay for potentially complex layouts
 
 
-         // Add simple scroll listener for scroll indicator hiding after initial scroll
-         let initialScrollDone = false;
-         const scrollListener = () => {
-             if (window.scrollY > 50 && !initialScrollDone) {
-                 body.classList.add('scrolled');
-                 initialScrollDone = true;
-                 // Optionally remove listener if only needed once
-                 // window.removeEventListener('scroll', scrollListener);
-             } else if (window.scrollY <= 50 && initialScrollDone) {
-                // Decide if you want the scroll indicator to reappear
-                // body.classList.remove('scrolled');
-                // initialScrollDone = false; // if it should reappear
-             }
-         };
-         window.addEventListener('scroll', scrollListener, { passive: true });
+           // Add simple scroll listener for scroll indicator hiding after initial scroll
+           let initialScrollDone = window.scrollY > 50; // Check initial state
+           body.classList.toggle('scrolled', initialScrollDone); // Set initial class based on load scroll position
 
-      }
+           const scrollListener = () => {
+               if (window.scrollY > 50 && !initialScrollDone) {
+                   body.classList.add('scrolled');
+                   initialScrollDone = true;
+               } else if (window.scrollY <= 50 && initialScrollDone) {
+                   // Decide if you want the scroll indicator to reappear when scrolled back to top
+                   body.classList.remove('scrolled');
+                   initialScrollDone = false; // Allow it to hide again on next scroll down
+               }
+           };
+           window.addEventListener('scroll', scrollListener, { passive: true });
+
+       }
 
       // --- Initialize All Animations & Functionality ---
       function initAll() {
@@ -1132,13 +1215,14 @@
 
        // General smooth scroll for non-header links (if any)
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        if (!anchor.closest('.site-header nav') && !anchor.closest('.nav-dots')) { // Exclude header/dot links
+        if (!anchor.closest('.site-header') && !anchor.closest('.nav-dots')) { // Exclude header/dot links
           anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             if (href && href.startsWith('#') && href.length > 1) {
               try {
                   const target = document.querySelector(href);
                   const header = document.getElementById('site-header');
+                  // Use current header height for offset
                   const offset = header ? header.offsetHeight : 60;
                   if (target) {
                       e.preventDefault();
@@ -1147,7 +1231,7 @@
                           scrollTo: { y: target, offsetY: offset },
                           ease: "power2.inOut"
                         });
-                    }
+                   }
               } catch (error) { console.warn("Could not find target for anchor:", href, error); }
             } else if (href === "#") { e.preventDefault(); }
           });
@@ -1166,7 +1250,10 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 console.log("Resizing - Refreshing ScrollTrigger...");
+                // Refresh ScrollTrigger FIRST
                 ScrollTrigger.refresh();
+                // Re-calculate header height for scroll offset if needed (though GSAP's function offset should handle it)
+                // console.log("Header height on resize:", document.getElementById('site-header')?.offsetHeight);
             }, 250);
         });
 
