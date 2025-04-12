@@ -1,1139 +1,1146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium GSAP Animation Showcase</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium GSAP Animation Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #333;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        background-color: #000; /* Default background */
+      }
+
+      body {
+          overflow-y: auto;
+          /* Smooth scroll behavior (optional, GSAP handles scroll typically) */
+          /* scroll-behavior: smooth; */
+      }
+
+      /* --- BASE STYLES --- */
+      :root {
+          --header-height: 60px; /* Example variable */
+          --accent-color-1: #ff6b6b;
+          --accent-color-2: #f35588;
+          --accent-color-3: #4158D0;
+          --accent-color-4: #C850C0;
+          --text-light: #f1f1f1;
+          --text-dark: #333;
+          --bg-dark-1: #000;
+          --bg-dark-2: #111;
+          --bg-light-1: #f4f7f6;
+          --bg-light-2: #ffffff;
+          --header-icon-color-dark: var(--text-light);
+          --header-icon-color-light: var(--text-dark);
+          --header-hover-color: var(--accent-color-2);
+      }
+
+      /* --- HEADER STYLES --- */
+      .site-header {
+          position: fixed;
+          top: 0;
+          left: 0; /* Stretch across */
+          right: 0;
+          width: 100%;
+          padding: 10px 0; /* Vertical padding, horizontal handled by centering */
+          z-index: 100; /* High z-index */
+          display: flex; /* Use flex to center nav */
+          justify-content: center; /* Center nav horizontally */
+          align-items: center;
+          opacity: 0; /* Start hidden */
+          transform: translateY(-100%); /* Start off-screen */
+          transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+          /* Optional subtle bg/blur that appears on scroll */
+          /* background: transparent; */
+          /* backdrop-filter: blur(0px); */
+          /* transition: opacity 0.5s ease-out, transform 0.5s ease-out, background 0.3s ease, backdrop-filter 0.3s ease; */
+      }
+
+      .site-header.header-scrolled {
+          opacity: 1;
+          transform: translateY(0);
+          /* background: rgba(0, 0, 0, 0.1); */ /* Example: Add bg on scroll */
+          /* backdrop-filter: blur(5px); */ /* Example: Add blur on scroll */
+      }
+
+      .site-header nav ul {
+          list-style: none;
+          display: flex;
+          gap: 35px; /* Increased space for labels */
+          padding: 0; /* Reset padding */
+          margin: 0; /* Reset margin */
+      }
+
+      .site-header nav li {
+          position: relative; /* Needed for absolute positioning of the label */
+      }
+
+      .site-header nav a {
+          text-decoration: none;
+          color: var(--header-icon-color-dark); /* Default icon color */
+          font-size: 1.3rem; /* Slightly larger icons */
+          transition: transform 0.3s ease, color 0.3s ease;
+          display: flex; /* Use flex for icon+label alignment */
+          flex-direction: column;
+          align-items: center;
+          position: relative; /* Context for label */
+      }
+
+       /* Adjust color for light sections using body class */
+      body.on-light-section .site-header nav a {
+         color: var(--header-icon-color-light);
+      }
 
 
-  </style>
-</head>
-<body data-current-theme="dark"> <header class="site-header" id="site-header">
-      <nav>
-          <ul>
-              <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
-              <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
-              <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
-              <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
-              </ul>
-      </nav>
-  </header>
+      .site-header nav a:hover {
+          transform: scale(1.1); /* Icon hover effect */
+          color: var(--header-hover-color);
+      }
 
-  <div class="nav-dots">
-    <div class="nav-dot active" data-section="0"></div>
-    <div class="nav-dot" data-section="1"></div>
-    <div class="nav-dot" data-section="2"></div>
-    <div class="nav-dot" data-section="3"></div>
-    <div class="nav-dot" data-section="4"></div>
-    <div class="nav-dot" data-section="5"></div>
-  </div>
+      /* Style for the hidden text label */
+      .nav-label {
+          position: absolute;
+          top: 100%; /* Position below the icon */
+          margin-top: 8px; /* Space between icon and label */
+          background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+          color: white;
+          font-size: 0.75rem;
+          padding: 4px 8px;
+          border-radius: 4px;
+          white-space: nowrap; /* Prevent wrapping */
+          opacity: 0; /* Start hidden */
+          visibility: hidden; /* Start hidden */
+          transform: translateY(5px) scale(0.9); /* Start slightly down and smaller */
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; /* Delay visibility change */
+          pointer-events: none; /* Don't block hover on icon */
+      }
 
-  <section class="canvas-section" id="section-0" data-theme="dark">
-    <canvas id="particleCanvas"></canvas>
-    <div class="canvas-text">
-      <h2 class="canvas-title">Experience The Future</h2>
-      <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
-    </div>
-    <div class="scroll-indicator">
-      <span>Scroll to explore</span>
-      <div class="scroll-arrow"></div>
-    </div>
-  </section>
+      /* Reveal label on link hover */
+      .site-header nav a:hover .nav-label {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0) scale(1);
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s; /* Remove delay */
+      }
 
-  <section class="intro" id="section-1" data-theme="dark">
-    <div class="particles-container" id="particlesContainer"></div>
-    <div class="logo-container">
-      <div class="logo-circle" id="logoCircle"></div>
-      <div class="logo-inner">NOVA</div>
-    </div>
-  </section>
 
-  <section class="product" id="section-2" data-theme="dark">
-    <div class="product-container">
-      <div class="product-text">
-        <h2 class="product-title">Introducing Nova X1</h2>
-        <p class="product-description">Experience the future of technology with our revolutionary device. Designed for those who want to push boundaries and explore new possibilities.</p>
-        <div class="product-highlights">
-          <div class="highlight">Cutting-edge design</div><div class="highlight">Revolutionary display</div><div class="highlight">Unmatched performance</div><div class="highlight">Next-gen battery</div>
-        </div>
-        <a href="#" class="product-cta">Learn More</a>
-      </div>
-      <div class="product-image-container">
-        <div class="product-image">
-          <div class="phone-notch"></div><div class="phone-button"></div>
-          <div class="phone-screen"><div class="screen-content"></div></div>
-          <div class="phone-reflections"></div>
-        </div>
-      </div>
-    </div>
-  </section>
+      /* --- FOOTER STYLES --- */
+      /* Parent section needs position relative */
+      section.timeline {
+          position: relative; /* Ensure footer positions relative to this */
+      }
 
-  <section class="features" id="section-3" data-theme="light">
-    <div class="features-container">
-      <h2 class="features-title">Exceptional Features</h2>
-      <div class="features-grid">
-        <div class="feature-box"><div class="feature-icon">✨</div><h3 class="feature-title">Premium Design</h3><p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p></div>
-        <div class="feature-box"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p></div>
-        <div class="feature-box"><div class="feature-icon">🔋</div><h3 class="feature-title">All-Day Battery</h3><p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p></div>
-        <div class="feature-box"><div class="feature-icon">📸</div><h3 class="feature-title">Pro Camera</h3><p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p></div>
-        <div class="feature-box"><div class="feature-icon">🔒</div><h3 class="feature-title">Enhanced Security</h3><p class="feature-description">Advanced security features to keep your data safe and protected.</p></div>
-        <div class="feature-box"><div class="feature-icon">🌐</div><h3 class="feature-title">Global Connectivity</h3><p class="feature-description">Stay connected anywhere with advanced network capabilities.</p></div>
-      </div>
-    </div>
-  </section>
+      /* Footer container positioned absolutely within the last section */
+      .site-footer {
+          position: absolute;
+          bottom: 30px; /* Position near bottom of parent section */
+          left: 0;
+          width: 100%;
+          padding: 0 30px; /* Side padding */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          z-index: 5; /* Above section content but below nav dots */
+          opacity: 0; /* Start hidden */
+          transform: translateY(30px); /* Start slightly down */
+          /* GSAP will handle animation, transition is a fallback */
+          /* transition: opacity 0.6s ease, transform 0.6s ease; */
+      }
 
-  <section class="network-graph" id="section-4" data-theme="dark">
-     <canvas id="networkCanvas"></canvas>
-     <div class="network-text-overlay">
-         <h2 class="network-title">Connecting Ideas</h2>
-         <p class="network-description">Visualizing the complex web of innovation and technology that drives progress. Interact and explore the connections.</p>
-     </div>
-  </section>
+      .site-footer .copyright {
+          font-size: 0.85rem;
+          color: #888; /* Muted color */
+          text-align: center;
+      }
 
-  <section class="timeline" id="section-5" data-theme="light">
-     <div class="timeline-wrapper">
-        <div class="timeline-title-area">
-             <h2 class="timeline-main-title">Our Journey</h2>
-             <p class="timeline-subtitle">Milestones that shaped our path.</p>
-         </div>
-         <div class="timeline-container">
-             <div class="timeline-item"><div class="timeline-item-year">2018</div><h3 class="timeline-item-title">The Spark</h3><p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p></div>
-             <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
-             <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
-             <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
-              <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
-         </div>
-     </div>
-     <footer class="site-footer">
-         <div class="social-icons">
-             <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
-             <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-             <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
-             <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-         </div>
-         <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
-     </footer>
-     </section>
+      .site-footer .social-icons {
+          display: flex;
+          justify-content: center; /* Center icons horizontally */
+          gap: 20px;
+      }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+      .site-footer .social-icons a {
+          text-decoration: none;
+          color: #aaa; /* Muted icon color */
+          font-size: 1.2rem;
+          transition: transform 0.3s ease, color 0.3s ease;
+          display: inline-block;
+      }
 
-  <script>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      .site-footer .social-icons a:hover {
+          transform: scale(1.15); /* Slightly larger hover effect */
+          color: var(--accent-color-4); /* Example hover color */
+      }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #333;
-      overflow-x: hidden; /* Prevent horizontal scroll */
-      background-color: #000; /* Default background */
-    }
 
-    body {
-        overflow-y: auto;
-        /* Smooth scroll behavior (optional, GSAP handles scroll typically) */
-        /* scroll-behavior: smooth; */
-    }
-
-    /* --- BASE STYLES --- */
-    :root {
-        --header-height: 60px; /* Example variable */
-        --accent-color-1: #ff6b6b;
-        --accent-color-2: #f35588;
-        --accent-color-3: #4158D0;
-        --accent-color-4: #C850C0;
-        --text-light: #f1f1f1;
-        --text-dark: #333;
-        --bg-dark-1: #000;
-        --bg-dark-2: #111;
-        --bg-light-1: #f4f7f6;
-        --bg-light-2: #ffffff;
-        --header-icon-color-dark: var(--text-light);
-        --header-icon-color-light: var(--text-dark);
-        --header-hover-color: var(--accent-color-2);
-    }
-
-    /* --- HEADER STYLES --- */
-    .site-header {
-        position: fixed;
-        top: 0;
-        left: 0; /* Stretch across */
-        right: 0;
+      /* --- SECTION STYLES (Remain largely the same) --- */
+      section {
+        /* Default height, can be overridden */
+        height: 100vh;
         width: 100%;
-        padding: 10px 0; /* Vertical padding, horizontal handled by centering */
-        z-index: 100; /* High z-index */
-        display: flex; /* Use flex to center nav */
-        justify-content: center; /* Center nav horizontally */
-        align-items: center;
-        opacity: 0; /* Start hidden */
-        transform: translateY(-100%); /* Start off-screen */
-        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        /* Optional subtle bg/blur that appears on scroll */
-        /* background: transparent; */
-        /* backdrop-filter: blur(0px); */
-        /* transition: opacity 0.5s ease-out, transform 0.5s ease-out, background 0.3s ease, backdrop-filter 0.3s ease; */
-    }
-
-    .site-header.header-scrolled {
-        opacity: 1;
-        transform: translateY(0);
-        /* background: rgba(0, 0, 0, 0.1); */ /* Example: Add bg on scroll */
-        /* backdrop-filter: blur(5px); */ /* Example: Add blur on scroll */
-    }
-
-    .site-header nav ul {
-        list-style: none;
         display: flex;
-        gap: 35px; /* Increased space for labels */
-        padding: 0; /* Reset padding */
-        margin: 0; /* Reset margin */
-    }
-
-    .site-header nav li {
-        position: relative; /* Needed for absolute positioning of the label */
-    }
-
-    .site-header nav a {
-        text-decoration: none;
-        color: var(--header-icon-color-dark); /* Default icon color */
-        font-size: 1.3rem; /* Slightly larger icons */
-        transition: transform 0.3s ease, color 0.3s ease;
-        display: flex; /* Use flex for icon+label alignment */
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        position: relative; /* Context for label */
-    }
+        position: relative; /* Important for positioning child elements and for ScrollTrigger */
+        overflow: hidden; /* Prevent content spill unless specifically overridden */
+      }
 
-     /* Adjust color for light sections using body class */
-    body.on-light-section .site-header nav a {
-       color: var(--header-icon-color-light);
-    }
+      /* Canvas Section (First) */
+      .canvas-section {
+        background-color: var(--bg-dark-1);
+      }
 
-
-    .site-header nav a:hover {
-        transform: scale(1.1); /* Icon hover effect */
-        color: var(--header-hover-color);
-    }
-
-    /* Style for the hidden text label */
-    .nav-label {
-        position: absolute;
-        top: 100%; /* Position below the icon */
-        margin-top: 8px; /* Space between icon and label */
-        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
-        color: white;
-        font-size: 0.75rem;
-        padding: 4px 8px;
-        border-radius: 4px;
-        white-space: nowrap; /* Prevent wrapping */
-        opacity: 0; /* Start hidden */
-        visibility: hidden; /* Start hidden */
-        transform: translateY(5px) scale(0.9); /* Start slightly down and smaller */
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; /* Delay visibility change */
-        pointer-events: none; /* Don't block hover on icon */
-    }
-
-    /* Reveal label on link hover */
-    .site-header nav a:hover .nav-label {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s; /* Remove delay */
-    }
-
-
-    /* --- FOOTER STYLES --- */
-    /* Parent section needs position relative */
-    section.timeline {
-        position: relative; /* Ensure footer positions relative to this */
-    }
-
-    /* Footer container positioned absolutely within the last section */
-    .site-footer {
-        position: absolute;
-        bottom: 30px; /* Position near bottom of parent section */
-        left: 0;
-        width: 100%;
-        padding: 0 30px; /* Side padding */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        z-index: 5; /* Above section content but below nav dots */
-        opacity: 0; /* Start hidden */
-        transform: translateY(30px); /* Start slightly down */
-        /* GSAP will handle animation, transition is a fallback */
-        /* transition: opacity 0.6s ease, transform 0.6s ease; */
-    }
-
-    .site-footer .copyright {
-        font-size: 0.85rem;
-        color: #888; /* Muted color */
-        text-align: center;
-    }
-
-    .site-footer .social-icons {
-        display: flex;
-        justify-content: center; /* Center icons horizontally */
-        gap: 20px;
-    }
-
-    .site-footer .social-icons a {
-        text-decoration: none;
-        color: #aaa; /* Muted icon color */
-        font-size: 1.2rem;
-        transition: transform 0.3s ease, color 0.3s ease;
-        display: inline-block;
-    }
-
-    .site-footer .social-icons a:hover {
-        transform: scale(1.15); /* Slightly larger hover effect */
-        color: var(--accent-color-4); /* Example hover color */
-    }
-
-
-    /* --- SECTION STYLES (Remain largely the same) --- */
-    section {
-      /* Default height, can be overridden */
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative; /* Important for positioning child elements and for ScrollTrigger */
-      overflow: hidden; /* Prevent content spill unless specifically overridden */
-    }
-
-    /* Canvas Section (First) */
-    .canvas-section {
-      background-color: var(--bg-dark-1);
-    }
-
-    #particleCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0; /* Behind text */
-    }
-
-    .canvas-text {
-      position: relative;
-      z-index: 1; /* Above canvas */
-      color: var(--text-light);
-      text-align: center;
-      padding: 20px; /* Add padding */
-    }
-
-    .canvas-title {
-      font-size: 60px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      /* Gradient text effect */
-      background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-4), #FFCC70);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      opacity: 0; /* Start hidden */
-    }
-
-    .canvas-description {
-      font-size: 24px;
-      max-width: 600px;
-      margin: 0 auto;
-      opacity: 0; /* Start hidden */
-    }
-
-    /* Intro Section */
-    .intro {
-      background-color: var(--bg-dark-1);
-      color: var(--text-light);
-    }
-
-    .logo-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      z-index: 1; /* Ensure logo is above particles */
-    }
-
-    .logo-circle {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      top: 0;
-      left: 0;
-    }
-
-    .logo-inner {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 36px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      opacity: 0; /* Start hidden for animation */
-    }
-
-    .particles-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 0; /* Behind logo */
-    }
-
-    .particle {
-      position: absolute;
-      background-color: white;
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-    }
-
-    /* Product Section */
-    .product {
-      background: linear-gradient(135deg, var(--bg-dark-2), #222);
-      color: var(--text-light);
-    }
-
-    .product-container {
-      display: flex;
-      width: 100%;
-      max-width: 1200px;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 40px;
-      gap: 40px;
-    }
-
-    .product-text {
-      width: 45%;
-    }
-
-    .product-title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      line-height: 1.2;
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-
-    .product-description {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-
-    .product-highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .highlight {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: 500;
-      opacity: 0;
-      transform: scale(0.8);
-    }
-
-    .product-cta {
-      display: inline-block;
-      background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2));
-      color: white;
-      padding: 12px 30px;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 16px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .product-cta:hover {
-        transform: translateY(15px) scale(1.05);
-        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-    }
-
-    .product-image-container {
-      width: 45%;
-      position: relative;
-      height: 600px;
-      perspective: 1000px;
-    }
-
-    .product-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotateY(0deg);
-      width: 300px;
-      height: 600px;
-      background-color: #222;
-      border-radius: 40px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      transform-style: preserve-3d;
-    }
-
-    .phone-screen {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4), #FFCC70);
-      border-radius: 30px;
-      overflow: hidden;
-    }
-
-    .screen-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.2); /* Slight overlay */
-    }
-
-    .phone-notch {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 25px;
-      background-color: #000;
-      border-radius: 0 0 20px 20px;
-      z-index: 2;
-    }
-
-    .phone-button {
-      position: absolute;
-      right: -5px; /* Slightly outside */
-      top: 120px;
-      width: 5px;
-      height: 60px;
-      background-color: #111;
-      border-radius: 2px 0 0 2px;
-    }
-
-    .phone-reflections {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0) 20%,
-        rgba(255, 255, 255, 0) 80%,
-        rgba(255, 255, 255, 0.1) 100%
-      );
-      border-radius: 30px; /* Match screen radius */
-      pointer-events: none; /* Don't interfere with mouse events */
-    }
-
-    /* Features Section */
-    .features {
-      background-color: var(--bg-light-2);
-      color: var(--text-dark);
-      padding: 80px 0;
-    }
-
-    .features-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 90%;
-      max-width: 1200px;
-    }
-
-    .features-title {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 60px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      width: 100%;
-    }
-
-    .feature-box {
-      background-color: #f8f8f8;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .feature-box:hover {
-        transform: translateY(40px) scale(1.03);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature-icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4));
-      color: white;
-      font-size: 30px;
-    }
-
-    .feature-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .feature-description {
-      font-size: 16px;
-      line-height: 1.5;
-      color: #666;
-    }
-
-    /* Network Graph Section */
-    .network-graph {
-        background-color: #0a0a1a;
-        color: var(--text-light);
-    }
-
-    #networkCanvas {
+      #particleCanvas {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 0;
-    }
+        z-index: 0; /* Behind text */
+      }
 
-    .network-text-overlay {
+      .canvas-text {
         position: relative;
-        z-index: 1;
+        z-index: 1; /* Above canvas */
+        color: var(--text-light);
         text-align: center;
-        padding: 40px;
-        max-width: 800px;
-    }
+        padding: 20px; /* Add padding */
+      }
 
-    .network-title {
-        font-size: 48px;
+      .canvas-title {
+        font-size: 60px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        /* Gradient text effect */
+        background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-4), #FFCC70);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        opacity: 0; /* Start hidden */
+      }
+
+      .canvas-description {
+        font-size: 24px;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0; /* Start hidden */
+      }
+
+      /* Intro Section */
+      .intro {
+        background-color: var(--bg-dark-1);
+        color: var(--text-light);
+      }
+
+      .logo-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        z-index: 1; /* Ensure logo is above particles */
+      }
+
+      .logo-circle {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+      }
+
+      .logo-inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        opacity: 0; /* Start hidden for animation */
+      }
+
+      .particles-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0; /* Behind logo */
+      }
+
+      .particle {
+        position: absolute;
+        background-color: white;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+      }
+
+      /* Product Section */
+      .product {
+        background: linear-gradient(135deg, var(--bg-dark-2), #222);
+        color: var(--text-light);
+      }
+
+      .product-container {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        gap: 40px;
+      }
+
+      .product-text {
+        width: 45%;
+      }
+
+      .product-title {
+        font-size: 42px;
         font-weight: 700;
         margin-bottom: 20px;
+        line-height: 1.2;
         opacity: 0;
-        transform: translateY(30px);
-    }
+        transform: translateX(-50px);
+      }
 
-    .network-description {
+      .product-description {
         font-size: 18px;
         line-height: 1.6;
+        margin-bottom: 30px;
         opacity: 0;
-        transform: translateY(30px);
-    }
+        transform: translateX(-50px);
+      }
 
-    /* Vertical Timeline Section */
-    .timeline {
-        background-color: var(--bg-light-1);
-        color: var(--text-dark);
-        height: auto; /* Let content determine height */
-        min-height: 170vh; /* Increase min-height for scroll room */
-        padding: 10vh 0 20vh; /* Add padding top and significant padding bottom */
-        display: block; /* Override section default flex */
-        position: relative; /* Needed for absolute footer positioning */
-        overflow: visible; /* Allow content overflow if needed */
-    }
+      .product-highlights {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
 
-    .timeline-wrapper {
-        width: 90%;
-        max-width: 800px; /* Constrain width for readability */
-        margin: 0 auto; /* Center the content */
-        position: relative; /* Context for absolute children if any */
-    }
+      .highlight {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: 500;
+        opacity: 0;
+        transform: scale(0.8);
+      }
 
-    .timeline-title-area {
-        text-align: center;
-        margin-bottom: 80px; /* Space below title */
-        opacity: 0; /* Start hidden */
-        transform: translateY(-30px); /* Start slightly up */
-    }
+      .product-cta {
+        display: inline-block;
+        background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2));
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 16px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .product-cta:hover {
+          transform: translateY(15px) scale(1.05);
+          box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+      }
 
-     .timeline-main-title {
-        font-size: 48px;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 10px;
-     }
-      .timeline-subtitle {
-        font-size: 18px;
-        color: #555;
-     }
+      .product-image-container {
+        width: 45%;
+        position: relative;
+        height: 600px;
+        perspective: 1000px;
+      }
 
-    .timeline-container {
-        display: flex; /* Use flex for vertical stacking */
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items horizontally */
-        gap: 60px; /* Space between timeline items */
-        position: relative; /* For potential line drawing later */
-    }
+      .product-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateY(0deg);
+        width: 300px;
+        height: 600px;
+        background-color: #222;
+        border-radius: 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        transform-style: preserve-3d;
+      }
 
-    .timeline-item {
-        width: 100%; /* Take full width of the container */
-        max-width: 600px; /* Limit item width */
-        height: auto;
+      .phone-screen {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4), #FFCC70);
+        border-radius: 30px;
+        overflow: hidden;
+      }
+
+      .screen-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Slight overlay */
+      }
+
+      .phone-notch {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 25px;
+        background-color: #000;
+        border-radius: 0 0 20px 20px;
+        z-index: 2;
+      }
+
+      .phone-button {
+        position: absolute;
+        right: -5px; /* Slightly outside */
+        top: 120px;
+        width: 5px;
+        height: 60px;
+        background-color: #111;
+        border-radius: 2px 0 0 2px;
+      }
+
+      .phone-reflections {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 20%,
+          rgba(255, 255, 255, 0) 80%,
+          rgba(255, 255, 255, 0.1) 100%
+        );
+        border-radius: 30px; /* Match screen radius */
+        pointer-events: none; /* Don't interfere with mouse events */
+      }
+
+      /* Features Section */
+      .features {
         background-color: var(--bg-light-2);
-        border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        padding: 30px;
+        color: var(--text-dark);
+        padding: 80px 0;
+      }
+
+      .features-container {
         display: flex;
         flex-direction: column;
-        opacity: 0; /* Start hidden for animation */
-        transform: translateY(60px) scale(0.98); /* Start further down and slightly smaller */
-        transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add hover effect */
-    }
-    .timeline-item:hover {
-         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-         transform: translateY(55px) scale(1.0); /* Slight lift on hover */
-    }
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+      }
 
+      .features-title {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 60px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+      }
 
-    .timeline-item-year {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--accent-color-4); /* Accent color */
-        margin-bottom: 10px;
-    }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        width: 100%;
+      }
 
-    .timeline-item-title {
-        font-size: 22px;
+      .feature-box {
+        background-color: #f8f8f8;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .feature-box:hover {
+          transform: translateY(40px) scale(1.03);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4));
+        color: white;
+        font-size: 30px;
+      }
+
+      .feature-title {
+        font-size: 20px;
         font-weight: 700;
-        color: var(--text-dark);
         margin-bottom: 15px;
-    }
+      }
 
-    .timeline-item-description {
+      .feature-description {
         font-size: 16px;
         line-height: 1.5;
         color: #666;
-    }
-
-    /* --- Navigation Dots --- */
-    .nav-dots {
-      position: fixed;
-      top: 50%;
-      right: 30px;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      z-index: 101; /* Above header */
-    }
-
-    .nav-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3); /* Default light for dark bg */
-      margin: 10px 0;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-     /* Adjust dot color based on section background */
-    body.on-light-section .nav-dot {
-        background-color: rgba(0, 0, 0, 0.2); /* Dark dots for light sections */
-    }
-
-    .nav-dot.active {
-      background-color: white; /* Default active */
-      transform: scale(1.3);
-    }
-    body.on-light-section .nav-dot.active {
-         background-color: #333; /* Active dark */
-    }
-
-    /* --- Scroll Indicator (First Section) --- */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 5; /* Above canvas but below nav dots */
-      opacity: 0.8; /* Start visible */
-      transition: opacity 0.5s ease;
-    }
-
-    .scroll-arrow {
-      margin-top: 10px;
-      width: 20px;
-      height: 20px;
-      border-right: 2px solid rgba(255, 255, 255, 0.7);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-      transform: rotate(45deg);
-      animation: scrollArrow 2s infinite;
-    }
-
-    @keyframes scrollArrow {
-      0% { transform: rotate(45deg) translate(0, 0); opacity: 0.4; }
-      50% { opacity: 1; }
-      100% { transform: rotate(45deg) translate(10px, 10px); opacity: 0.4; }
-    }
-
-    /* Hide scroll indicator after first scroll */
-    body.scrolled .scroll-indicator {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    /* --- RESPONSIVE STYLES --- */
-    @media (max-width: 992px) {
-        .canvas-title { font-size: 50px; } .canvas-description { font-size: 20px; }
-        .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
-        .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-        .network-title { font-size: 40px; }
-        .timeline { min-height: 150vh; padding: 8vh 0 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
-        .site-header { padding: 10px 0; } .site-header nav ul { gap: 25px; } /* Adjust gap if needed */
-    }
-     @media (max-width: 768px) {
-        .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
-        .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
-        .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
-        .timeline { min-height: 140vh; padding: 6vh 0 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
-        .network-title { font-size: 32px; } .network-description { font-size: 16px; }
-        .site-header { padding: 8px 0; background: rgba(0, 0, 0, 0.2); /* Add slight background for mobile contrast */ }
-        .site-header nav ul { gap: 20px; } .site-header nav a { font-size: 1.1rem; }
-        .nav-label { display: none; /* Hide labels on mobile for less clutter */ }
-        .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
-    }
-    // --- Part 3: JavaScript Code Go Here ---
-// Register plugins
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-    // --- Particle Creation (Intro Section) ---
-    function createIntroParticles() {
-      const container = document.getElementById('particlesContainer'); if (!container) return; const numParticles = 100; container.innerHTML = '';
-      for (let i = 0; i < numParticles; i++) {
-        const particle = document.createElement('div'); particle.classList.add('particle');
-        particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
-        gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
       }
-    }
 
-    // --- Initialize Intro Animations ---
-    function initIntro() {
-      createIntroParticles(); const logoCircle = document.querySelector('.intro .logo-circle'); const logoInner = document.querySelector('.intro .logo-inner');
-      if (logoCircle && logoInner) {
-          const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
-          introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
+      /* Network Graph Section */
+      .network-graph {
+          background-color: #0a0a1a;
+          color: var(--text-light);
       }
-    }
 
-    // --- Initialize Product Section Animations ---
-    function initProduct() {
-        const productSection = document.querySelector('.product'); if (!productSection) return;
-        gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-        const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
-        const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
-    }
+      #networkCanvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+      }
 
-    // --- Initialize Features Section Animations ---
-    function initFeatures() {
-        const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
-        gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
-    }
+      .network-text-overlay {
+          position: relative;
+          z-index: 1;
+          text-align: center;
+          padding: 40px;
+          max-width: 800px;
+      }
 
-    // --- Initialize Canvas Section (First Section - Particles) ---
-    function initCanvasWelcome() {
-      const canvasSection = document.querySelector('.canvas-section'); const canvas = document.getElementById('particleCanvas'); if (!canvasSection || !canvas) return; const ctx = canvas.getContext('2d'); let particles = []; const maxParticles = 150; let animationFrameId; let mouse = { x: null, y: null, radius: 100 }; window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse.x = event.clientX - rect.left; mouse.y = event.clientY - rect.top; }); window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; }); function resizeCanvas() { canvas.width = canvasSection.offsetWidth; canvas.height = canvasSection.offsetHeight; if (animationFrameId) cancelAnimationFrame(animationFrameId); particles = []; createCanvasWelcomeParticles(); animateCanvasWelcome(); } window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 2.5 + 0.5; this.speedX = (Math.random() - 0.5) * 1.0; this.speedY = (Math.random() - 0.5) * 1.0; this.density = (Math.random() * 30) + 1; this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`; } update() { let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = mouse.x == null ? Infinity : Math.sqrt(dx*dx + dy*dy); let forceDirectionX = dx / distance; let forceDirectionY = dy / distance; let maxDistance = mouse.radius; let force = (maxDistance - distance) / maxDistance; let directionX = forceDirectionX * force * this.density; let directionY = forceDirectionY * force * this.density; if (distance < mouse.radius) { this.x -= directionX; this.y -= directionY; } else { if (this.x !== this.baseX) { let dxToBase = this.x - this.baseX; this.x -= dxToBase / 20; } if (this.y !== this.baseY) { let dyToBase = this.y - this.baseY; this.y -= dyToBase / 20; } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); } if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createCanvasWelcomeParticles() { for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); } } function connectWelcomeParticles() { const maxDistance = 80; ctx.lineWidth = 0.3; for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateCanvasWelcome() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(particle => { particle.update(); particle.draw(); }); connectWelcomeParticles(); animationFrameId = requestAnimationFrame(animateCanvasWelcome); } resizeCanvas(); gsap.timeline({ scrollTrigger: { trigger: canvasSection, start: "top 50%", toggleActions: "play none none reverse" } }).to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" }).to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
-    }
+      .network-title {
+          font-size: 48px;
+          font-weight: 700;
+          margin-bottom: 20px;
+          opacity: 0;
+          transform: translateY(30px);
+      }
 
-    // --- Initialize Network Graph Section Animations ---
-     function initNetworkGraph() {
-        const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
-    }
+      .network-description {
+          font-size: 18px;
+          line-height: 1.6;
+          opacity: 0;
+          transform: translateY(30px);
+      }
 
-    // --- Initialize Vertical Timeline Section Animations ---
-    function initTimeline() {
-        const section = document.querySelector('.timeline'); const titleArea = section.querySelector('.timeline-title-area'); const timelineItems = gsap.utils.toArray('.timeline-item');
-        if (!section || !titleArea || timelineItems.length === 0) { console.warn("Timeline section or elements missing."); return; }
-        gsap.to(titleArea, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse", id: "timeline-title" } });
-        gsap.to(timelineItems, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out', stagger: 0.3, scrollTrigger: { trigger: '.timeline-container', start: "top 65%", end: "bottom 80%", toggleActions: "play none none reverse", id: "timeline-items" } });
-    }
+      /* Vertical Timeline Section */
+      .timeline {
+          background-color: var(--bg-light-1);
+          color: var(--text-dark);
+          height: auto; /* Let content determine height */
+          min-height: 170vh; /* Increase min-height for scroll room */
+          padding: 10vh 0 20vh; /* Add padding top and significant padding bottom */
+          display: block; /* Override section default flex */
+          position: relative; /* Needed for absolute footer positioning */
+          overflow: visible; /* Allow content overflow if needed */
+      }
 
-    // --- Initialize Header Animation ---
-    function initHeader() {
-        const header = document.getElementById('site-header'); if (!header) { console.warn("Site header not found."); return; }
-        ScrollTrigger.create({
-            start: 50, // Pixels scrolled down
-            end: 99999, // Effectively always active after start
-            toggleClass: { className: "header-scrolled", targets: header },
-            id: "header-scroll-toggle"
-        });
+      .timeline-wrapper {
+          width: 90%;
+          max-width: 800px; /* Constrain width for readability */
+          margin: 0 auto; /* Center the content */
+          position: relative; /* Context for absolute children if any */
+      }
 
-        // Add smooth scroll to section for header links
-        const headerLinks = document.querySelectorAll('.site-header nav a');
-        headerLinks.forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href.startsWith('#') && href.length > 1) {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        gsap.to(window, {
-                            duration: 1.2, // Match nav dot duration
-                            scrollTo: { y: target, offsetY: 0 }, // Adjust offsetY if header overlaps
-                            ease: "power2.inOut"
-                        });
-                    }
-                }
-            });
-        });
-    }
+      .timeline-title-area {
+          text-align: center;
+          margin-bottom: 80px; /* Space below title */
+          opacity: 0; /* Start hidden */
+          transform: translateY(-30px); /* Start slightly up */
+      }
 
-    // --- Initialize Footer Animation ---
-    function initFooter() {
-        const footer = document.querySelector('#section-5 .site-footer'); // Target footer inside last section
-        const copyrightYearSpan = document.getElementById('copyright-year');
+       .timeline-main-title {
+         font-size: 48px;
+         font-weight: 800;
+         color: var(--text-dark);
+         margin-bottom: 10px;
+       }
+       .timeline-subtitle {
+         font-size: 18px;
+         color: #555;
+       }
 
-        if (!footer) { console.warn("Site footer element not found in section 5."); return; }
+      .timeline-container {
+          display: flex; /* Use flex for vertical stacking */
+          flex-direction: column; /* Stack items vertically */
+          align-items: center; /* Center items horizontally */
+          gap: 60px; /* Space between timeline items */
+          position: relative; /* For potential line drawing later */
+      }
 
-        // Set copyright year
-        if(copyrightYearSpan) {
-            copyrightYearSpan.textContent = new Date().getFullYear();
+      .timeline-item {
+          width: 100%; /* Take full width of the container */
+          max-width: 600px; /* Limit item width */
+          height: auto;
+          background-color: var(--bg-light-2);
+          border-radius: 15px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+          padding: 30px;
+          display: flex;
+          flex-direction: column;
+          opacity: 0; /* Start hidden for animation */
+          transform: translateY(60px) scale(0.98); /* Start further down and slightly smaller */
+          transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add hover effect */
+      }
+      .timeline-item:hover {
+           box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+           transform: translateY(55px) scale(1.0); /* Slight lift on hover */
+      }
+
+
+      .timeline-item-year {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--accent-color-4); /* Accent color */
+          margin-bottom: 10px;
+      }
+
+      .timeline-item-title {
+          font-size: 22px;
+          font-weight: 700;
+          color: var(--text-dark);
+          margin-bottom: 15px;
+      }
+
+      .timeline-item-description {
+          font-size: 16px;
+          line-height: 1.5;
+          color: #666;
+      }
+
+      /* --- Navigation Dots --- */
+      .nav-dots {
+        position: fixed;
+        top: 50%;
+        right: 30px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        z-index: 101; /* Above header */
+      }
+
+      .nav-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3); /* Default light for dark bg */
+        margin: 10px 0;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+       /* Adjust dot color based on section background */
+      body.on-light-section .nav-dot {
+          background-color: rgba(0, 0, 0, 0.2); /* Dark dots for light sections */
+      }
+
+      .nav-dot.active {
+        background-color: white; /* Default active */
+        transform: scale(1.3);
+      }
+      body.on-light-section .nav-dot.active {
+           background-color: #333; /* Active dark */
+      }
+
+      /* --- Scroll Indicator (First Section) --- */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 5; /* Above canvas but below nav dots */
+        opacity: 0.8; /* Start visible */
+        transition: opacity 0.5s ease;
+      }
+
+      .scroll-arrow {
+        margin-top: 10px;
+        width: 20px;
+        height: 20px;
+        border-right: 2px solid rgba(255, 255, 255, 0.7);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+        transform: rotate(45deg);
+        animation: scrollArrow 2s infinite;
+      }
+
+      @keyframes scrollArrow {
+        0% { transform: rotate(45deg) translate(0, 0); opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { transform: rotate(45deg) translate(10px, 10px); opacity: 0.4; }
+      }
+
+      /* Hide scroll indicator after first scroll */
+      body.scrolled .scroll-indicator {
+          opacity: 0;
+          pointer-events: none;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (max-width: 992px) {
+          .canvas-title { font-size: 50px; } .canvas-description { font-size: 20px; }
+          .product-container { flex-direction: column; text-align: center; } .product-text, .product-image-container { width: 80%; } .product-image-container { height: 500px; margin-top: 40px; } .product-image { width: 250px; height: 500px; }
+          .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+          .network-title { font-size: 40px; }
+          .timeline { min-height: 150vh; padding: 8vh 0 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
+          .site-header { padding: 10px 0; } .site-header nav ul { gap: 25px; } /* Adjust gap if needed */
+      }
+       @media (max-width: 768px) {
+          .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
+          .nav-dots { right: 15px; } .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
+          .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
+          .timeline { min-height: 140vh; padding: 6vh 0 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
+          .network-title { font-size: 32px; } .network-description { font-size: 16px; }
+          .site-header { padding: 8px 0; background: rgba(0, 0, 0, 0.2); /* Add slight background for mobile contrast */ }
+          .site-header nav ul { gap: 20px; } .site-header nav a { font-size: 1.1rem; }
+          .nav-label { display: none; /* Hide labels on mobile for less clutter */ }
+          .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
+      }
+    </style>
+</head>
+<body data-current-theme="dark">
+    <header class="site-header" id="site-header">
+         <nav>
+             <ul>
+                 <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
+                 <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
+                 <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
+                 <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
+                 </ul>
+         </nav>
+     </header>
+
+     <div class="nav-dots">
+       <div class="nav-dot active" data-section="0"></div>
+       <div class="nav-dot" data-section="1"></div>
+       <div class="nav-dot" data-section="2"></div>
+       <div class="nav-dot" data-section="3"></div>
+       <div class="nav-dot" data-section="4"></div>
+       <div class="nav-dot" data-section="5"></div>
+     </div>
+
+     <section class="canvas-section" id="section-0" data-theme="dark">
+       <canvas id="particleCanvas"></canvas>
+       <div class="canvas-text">
+         <h2 class="canvas-title">Experience The Future</h2>
+         <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
+       </div>
+       <div class="scroll-indicator">
+         <span>Scroll to explore</span>
+         <div class="scroll-arrow"></div>
+       </div>
+     </section>
+
+     <section class="intro" id="section-1" data-theme="dark">
+       <div class="particles-container" id="particlesContainer"></div>
+       <div class="logo-container">
+         <div class="logo-circle" id="logoCircle"></div>
+         <div class="logo-inner">NOVA</div>
+       </div>
+     </section>
+
+     <section class="product" id="section-2" data-theme="dark">
+       <div class="product-container">
+         <div class="product-text">
+           <h2 class="product-title">Introducing Nova X1</h2>
+           <p class="product-description">Experience the future of technology with our revolutionary device. Designed for those who want to push boundaries and explore new possibilities.</p>
+           <div class="product-highlights">
+             <div class="highlight">Cutting-edge design</div><div class="highlight">Revolutionary display</div><div class="highlight">Unmatched performance</div><div class="highlight">Next-gen battery</div>
+           </div>
+           <a href="#" class="product-cta">Learn More</a>
+         </div>
+         <div class="product-image-container">
+           <div class="product-image">
+             <div class="phone-notch"></div><div class="phone-button"></div>
+             <div class="phone-screen"><div class="screen-content"></div></div>
+             <div class="phone-reflections"></div>
+           </div>
+         </div>
+       </div>
+     </section>
+
+     <section class="features" id="section-3" data-theme="light">
+       <div class="features-container">
+         <h2 class="features-title">Exceptional Features</h2>
+         <div class="features-grid">
+           <div class="feature-box"><div class="feature-icon">✨</div><h3 class="feature-title">Premium Design</h3><p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p></div>
+           <div class="feature-box"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p></div>
+           <div class="feature-box"><div class="feature-icon">🔋</div><h3 class="feature-title">All-Day Battery</h3><p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p></div>
+           <div class="feature-box"><div class="feature-icon">📸</div><h3 class="feature-title">Pro Camera</h3><p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p></div>
+           <div class="feature-box"><div class="feature-icon">🔒</div><h3 class="feature-title">Enhanced Security</h3><p class="feature-description">Advanced security features to keep your data safe and protected.</p></div>
+           <div class="feature-box"><div class="feature-icon">🌐</div><h3 class="feature-title">Global Connectivity</h3><p class="feature-description">Stay connected anywhere with advanced network capabilities.</p></div>
+         </div>
+       </div>
+     </section>
+
+     <section class="network-graph" id="section-4" data-theme="dark">
+        <canvas id="networkCanvas"></canvas>
+        <div class="network-text-overlay">
+            <h2 class="network-title">Connecting Ideas</h2>
+            <p class="network-description">Visualizing the complex web of innovation and technology that drives progress. Interact and explore the connections.</p>
+        </div>
+     </section>
+
+     <section class="timeline" id="section-5" data-theme="light">
+        <div class="timeline-wrapper">
+           <div class="timeline-title-area">
+                <h2 class="timeline-main-title">Our Journey</h2>
+                <p class="timeline-subtitle">Milestones that shaped our path.</p>
+             </div>
+            <div class="timeline-container">
+                <div class="timeline-item"><div class="timeline-item-year">2018</div><h3 class="timeline-item-title">The Spark</h3><p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p></div>
+                <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
+                <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
+                <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
+                 <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
+            </div>
+        </div>
+        <footer class="site-footer">
+            <div class="social-icons">
+                <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
+        </footer>
+        </section>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+     <script>
+        // --- JavaScript Code ---
+        // Register plugins
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // --- Particle Creation (Intro Section) ---
+        function createIntroParticles() {
+         const container = document.getElementById('particlesContainer'); if (!container) return; const numParticles = 100; container.innerHTML = '';
+         for (let i = 0; i < numParticles; i++) {
+           const particle = document.createElement('div'); particle.classList.add('particle');
+           particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
+           gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+         }
         }
 
-        // Animate footer in using GSAP
-        gsap.to(footer, {
-            opacity: 1,
-            y: 0, // Animate from translateY(30px) to 0
-            duration: 1.0,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '#section-5', // Trigger based on the last section
-                start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
-                toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
-                // markers: true, // Uncomment for debugging
-                id: "footer-reveal"
-            }
-        });
-    }
+        // --- Initialize Intro Animations ---
+        function initIntro() {
+         createIntroParticles(); const logoCircle = document.querySelector('.intro .logo-circle'); const logoInner = document.querySelector('.intro .logo-inner');
+         if (logoCircle && logoInner) {
+            const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
+            introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
+         }
+        }
 
+        // --- Initialize Product Section Animations ---
+        function initProduct() {
+            const productSection = document.querySelector('.product'); if (!productSection) return;
+            gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+            const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
+            const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
+        }
 
-    // --- Navigation Dots & Theme Switching ---
-    function initNavigation() {
-        const sections = document.querySelectorAll('section[data-theme]');
-        const navDots = document.querySelectorAll('.nav-dot');
-        const headerLinks = document.querySelectorAll('.site-header nav a'); // Select the <a> tag
-        const body = document.body;
+        // --- Initialize Features Section Animations ---
+        function initFeatures() {
+            const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
+            gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
+        }
 
-        if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or themed sections not found."); return;}
-        // Only warn if counts don't match, but proceed anyway
-        if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} themed sections.`); }
+        // --- Initialize Canvas Section (First Section - Particles) ---
+        function initCanvasWelcome() {
+         const canvasSection = document.querySelector('.canvas-section'); const canvas = document.getElementById('particleCanvas'); if (!canvasSection || !canvas) return; const ctx = canvas.getContext('2d'); let particles = []; const maxParticles = 150; let animationFrameId; let mouse = { x: null, y: null, radius: 100 }; window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse.x = event.clientX - rect.left; mouse.y = event.clientY - rect.top; }); window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; }); function resizeCanvas() { canvas.width = canvasSection.offsetWidth; canvas.height = canvasSection.offsetHeight; if (animationFrameId) cancelAnimationFrame(animationFrameId); particles = []; createCanvasWelcomeParticles(); animateCanvasWelcome(); } window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 2.5 + 0.5; this.speedX = (Math.random() - 0.5) * 1.0; this.speedY = (Math.random() - 0.5) * 1.0; this.density = (Math.random() * 30) + 1; this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`; } update() { let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = mouse.x == null ? Infinity : Math.sqrt(dx*dx + dy*dy); let forceDirectionX = dx / distance; let forceDirectionY = dy / distance; let maxDistance = mouse.radius; let force = (maxDistance - distance) / maxDistance; let directionX = forceDirectionX * force * this.density; let directionY = forceDirectionY * force * this.density; if (distance < mouse.radius) { this.x -= directionX; this.y -= directionY; } else { if (this.x !== this.baseX) { let dxToBase = this.x - this.baseX; this.x -= dxToBase / 20; } if (this.y !== this.baseY) { let dyToBase = this.y - this.baseY; this.y -= dyToBase / 20; } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); } if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createCanvasWelcomeParticles() { for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); } } function connectWelcomeParticles() { const maxDistance = 80; ctx.lineWidth = 0.3; for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateCanvasWelcome() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(particle => { particle.update(); particle.draw(); }); connectWelcomeParticles(); animationFrameId = requestAnimationFrame(animateCanvasWelcome); } resizeCanvas(); gsap.timeline({ scrollTrigger: { trigger: canvasSection, start: "top 50%", toggleActions: "play none none reverse" } }).to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" }).to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
+        }
 
-        navDots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
-                 if (sectionIndex >= 0 && sectionIndex < sections.length) {
-                     // Use the actual sections array to find the target
-                     const targetSection = document.getElementById(`section-${sectionIndex}`); // Assuming sections have IDs like section-0, section-1 etc.
-                     if (targetSection) {
-                        gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
-                    } else {
-                         console.error(`Target section #section-${sectionIndex} not found.`);
-                     }
-                 } else { console.error("Invalid section index on dot:", sectionIndex); }
-            });
-        });
+        // --- Initialize Network Graph Section Animations ---
+         function initNetworkGraph() {
+            const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+         }
 
-        // Update active dot AND body theme class based on scroll position
-        sections.forEach((section, index) => {
-            let startPoint = "top center";
-            let endPoint = "bottom center";
-            const theme = section.getAttribute('data-theme') || 'dark'; // Default to dark
+        // --- Initialize Vertical Timeline Section Animations ---
+        function initTimeline() {
+            const section = document.querySelector('.timeline'); const titleArea = section.querySelector('.timeline-title-area'); const timelineItems = gsap.utils.toArray('.timeline-item');
+            if (!section || !titleArea || timelineItems.length === 0) { console.warn("Timeline section or elements missing."); return; }
+            gsap.to(titleArea, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse", id: "timeline-title" } });
+            gsap.to(timelineItems, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out', stagger: 0.3, scrollTrigger: { trigger: '.timeline-container', start: "top 65%", end: "bottom 80%", toggleActions: "play none none reverse", id: "timeline-items" } });
+        }
 
-            if (section.classList.contains('timeline')) {
-                 startPoint = "top top+=100px";
-                 endPoint = "bottom bottom-=100px";
-                 if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
-            } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                 startPoint = "top bottom-=100px";
-                 endPoint = "bottom top+=100px";
-            }
-
+        // --- Initialize Header Animation ---
+        function initHeader() {
+            const header = document.getElementById('site-header'); if (!header) { console.warn("Site header not found."); return; }
             ScrollTrigger.create({
-                trigger: section,
-                start: startPoint,
-                end: endPoint,
-                id: `section-nav-${index}`,
-                onEnter: () => updateActiveState(index, theme),
-                onEnterBack: () => updateActiveState(index, theme),
-                // markers: true, // uncomment for debugging nav triggers
+                start: 50, // Pixels scrolled down
+                end: 99999, // Effectively always active after start
+                toggleClass: { className: "header-scrolled", targets: header },
+                id: "header-scroll-toggle"
             });
-        });
 
-        function updateActiveState(activeIndex, activeTheme) {
-             // Update Nav Dots Activation
-             navDots.forEach((dot) => {
-                 const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                 dot.classList.toggle('active', dotSecIndex === activeIndex);
-             });
-
-             // Update Body Class for Theme Styling & Header Link Color
-             const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
-             if (activeTheme !== currentBodyTheme) {
-                if (activeTheme === 'light') {
-                    body.classList.add('on-light-section');
-                    if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
-                } else {
-                    body.classList.remove('on-light-section');
-                    if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                }
-                // console.log(`Theme changed to: ${activeTheme}`);
-             }
-             // console.log(`Entered Section ${activeIndex}, Theme: ${activeTheme}`);
-        }
-
-        // Hide scroll indicator after first scroll
-        ScrollTrigger.create({ start: 50, onEnter: () => body.classList.add('scrolled'), onLeaveBack: () => body.classList.remove('scrolled') });
-    }
-
-    // --- Initialize All Animations & Functionality ---
-    function initAll() {
-      console.log("Initializing animations...");
-      // Init structural elements first
-      initHeader();
-      initFooter();
-      // Init sections
-      initCanvasWelcome();
-      initIntro();
-      initProduct();
-      initFeatures();
-      initNetworkGraph();
-      initTimeline();
-      // Init navigation last, as it might depend on section dimensions/themes
-      initNavigation();
-
-      // Add smooth scroll for non-header anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        // Check if the link is NOT inside the header nav
-        if (!anchor.closest('.site-header nav')) {
-            anchor.addEventListener('click', function(e) {
-              const href = this.getAttribute('href');
-              if (href && href.startsWith('#') && href.length > 1) {
-                try {
-                     const target = document.querySelector(href);
-                     if (target) { e.preventDefault(); gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" }); }
-                } catch (error) { console.warn("Could not find target for anchor:", href, error); }
-              } else if (href === "#") { e.preventDefault(); }
+            // Add smooth scroll to section for header links
+            const headerLinks = document.querySelectorAll('.site-header nav a');
+            headerLinks.forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#') && href.length > 1) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            gsap.to(window, {
+                                duration: 1.2, // Match nav dot duration
+                                scrollTo: { y: target, offsetY: 0 }, // Adjust offsetY if header overlaps
+                                ease: "power2.inOut"
+                            });
+                        }
+                    }
+                });
             });
         }
-      });
 
-        // Initial Refresh + Debounced Resize Refresh + Initial State Check
-         setTimeout(() => {
-             ScrollTrigger.refresh();
-             console.log("ScrollTrigger refreshed initially.");
+        // --- Initialize Footer Animation ---
+        function initFooter() {
+            const footer = document.querySelector('#section-5 .site-footer'); // Target footer inside last section
+            const copyrightYearSpan = document.getElementById('copyright-year');
 
-             // Force update nav dots and theme after refresh
-             let mostCenteredIndex = -1;
-             let minCenterDist = window.innerHeight;
-             const viewportCenter = window.innerHeight / 2;
-             let activeTheme = 'dark'; // default
-             const body = document.body;
-             const headerLinks = document.querySelectorAll('.site-header nav a');
-             const navDots = document.querySelectorAll('.nav-dot');
-             const sections = document.querySelectorAll('section'); // Use all sections for positioning check
+            if (!footer) { console.warn("Site footer element not found in section 5."); return; }
 
-             sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                const sectionCenter = rect.top + rect.height / 2;
-                const dist = Math.abs(viewportCenter - sectionCenter);
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            // Set copyright year
+            if(copyrightYearSpan) {
+                copyrightYearSpan.textContent = new Date().getFullYear();
+            }
 
-                if (isVisible && dist < minCenterDist) {
-                    minCenterDist = dist;
-                    mostCenteredIndex = index; // Index based on all sections
-                    // Get theme from the section if it exists, otherwise keep default
-                    activeTheme = section.getAttribute('data-theme') || activeTheme;
+            // Animate footer in using GSAP
+            gsap.to(footer, {
+                opacity: 1,
+                y: 0, // Animate from translateY(30px) to 0
+                duration: 1.0,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '#section-5', // Trigger based on the last section
+                    start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
+                    toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
+                    // markers: true, // Uncomment for debugging
+                    id: "footer-reveal"
                 }
+            });
+        }
+
+
+        // --- Navigation Dots & Theme Switching ---
+        function initNavigation() {
+            const sections = document.querySelectorAll('section[data-theme]');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const headerLinks = document.querySelectorAll('.site-header nav a'); // Select the <a> tag
+            const body = document.body;
+
+            if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or themed sections not found."); return;}
+            // Only warn if counts don't match, but proceed anyway
+            if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} themed sections.`); }
+
+            navDots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
+                     if (sectionIndex >= 0 && sectionIndex < sections.length) {
+                         // Use the actual sections array to find the target
+                         const targetSection = document.getElementById(`section-${sectionIndex}`); // Assuming sections have IDs like section-0, section-1 etc.
+                         if (targetSection) {
+                             gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
+                         } else {
+                              console.error(`Target section #section-${sectionIndex} not found.`);
+                         }
+                     } else { console.error("Invalid section index on dot:", sectionIndex); }
+                });
+            });
+
+            // Update active dot AND body theme class based on scroll position
+            sections.forEach((section, index) => {
+                let startPoint = "top center";
+                let endPoint = "bottom center";
+                const theme = section.getAttribute('data-theme') || 'dark'; // Default to dark
+
+                if (section.classList.contains('timeline')) {
+                    // Use different trigger points for very tall sections like the timeline
+                     startPoint = "top top+=100px"; // Trigger sooner when entering from top
+                     endPoint = "bottom bottom-=100px"; // Trigger later when exiting towards bottom
+                     // Basic sanity check if timeline somehow becomes very short
+                     if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
+                } else if (section.offsetHeight < window.innerHeight * 0.5) {
+                     // For very short sections, adjust triggers to avoid immediate exit
+                     startPoint = "top bottom-=100px";
+                     endPoint = "bottom top+=100px";
+                }
+
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: startPoint,
+                    end: endPoint,
+                    id: `section-nav-${index}`,
+                    onEnter: () => updateActiveState(index, theme),
+                    onEnterBack: () => updateActiveState(index, theme),
+                    // markers: true, // uncomment for debugging nav triggers
+                });
+            });
+
+            function updateActiveState(activeIndex, activeTheme) {
+                 // Update Nav Dots Activation
+                 navDots.forEach((dot) => {
+                     const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                     dot.classList.toggle('active', dotSecIndex === activeIndex);
+                 });
+
+                 // Update Body Class for Theme Styling & Header Link Color
+                 const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
+                 if (activeTheme !== currentBodyTheme) {
+                    if (activeTheme === 'light') {
+                        body.classList.add('on-light-section');
+                        // Directly set style for header links if they exist
+                        if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
+                    } else {
+                        body.classList.remove('on-light-section');
+                        if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
+                    }
+                    // console.log(`Theme changed to: ${activeTheme}`);
+                 }
+                 // console.log(`Entered Section ${activeIndex}, Theme: ${activeTheme}`);
+            }
+
+            // Hide scroll indicator after first scroll
+            ScrollTrigger.create({ start: 50, onEnter: () => body.classList.add('scrolled'), onLeaveBack: () => body.classList.remove('scrolled') });
+        }
+
+        // --- Initialize All Animations & Functionality ---
+        function initAll() {
+         console.log("Initializing animations...");
+         // Init structural elements first
+         initHeader();
+         initFooter();
+         // Init sections
+         initCanvasWelcome();
+         initIntro();
+         initProduct();
+         initFeatures();
+         initNetworkGraph();
+         initTimeline();
+         // Init navigation last, as it might depend on section dimensions/themes
+         initNavigation();
+
+         // Add smooth scroll for non-header anchor links
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+           // Check if the link is NOT inside the header nav
+           if (!anchor.closest('.site-header nav')) {
+             anchor.addEventListener('click', function(e) {
+               const href = this.getAttribute('href');
+               if (href && href.startsWith('#') && href.length > 1) {
+                 try {
+                      const target = document.querySelector(href);
+                      if (target) { e.preventDefault(); gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" }); }
+                 } catch (error) { console.warn("Could not find target for anchor:", href, error); }
+               } else if (href === "#") { e.preventDefault(); } // Prevent jump for href="#"
              });
-
-              if(mostCenteredIndex !== -1) {
-                 // Update dots based on index
-                  navDots.forEach((dot) => {
-                      const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                      dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
-                  });
-                  // Update theme based on the identified section's theme
-                  if (activeTheme === 'light') {
-                      body.classList.add('on-light-section');
-                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
-                  } else {
-                      body.classList.remove('on-light-section');
-                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                  }
-                  console.log(`Initial active section ${mostCenteredIndex}, theme ${activeTheme}`);
-              } else {
-                 // Fallback if no section is centered (e.g., page loaded weirdly)
-                 body.classList.remove('on-light-section');
-                 if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                 if(navDots.length > 0) navDots[0].classList.add('active'); // Activate first dot
-                 console.log("Initial active section not clearly determined, defaulting to dark theme / first dot.");
-              }
-
-         }, 200); // Slightly increased delay for safety
-
-         let resizeTimer;
-         window.addEventListener('resize', () => {
-             clearTimeout(resizeTimer);
-             resizeTimer = setTimeout(() => {
-                 console.log("Resizing - Refreshing ScrollTrigger...");
-                 ScrollTrigger.refresh();
-             }, 250);
+           }
          });
 
-      console.log("Initialization sequence complete.");
-    }
+          // Initial Refresh + Debounced Resize Refresh + Initial State Check
+           setTimeout(() => {
+               ScrollTrigger.refresh();
+               console.log("ScrollTrigger refreshed initially.");
 
-    // Start everything when the DOM is fully loaded
-     window.addEventListener('load', initAll);
+               // Force update nav dots and theme after refresh based on what's currently most centered
+               let mostCenteredIndex = -1;
+               let minCenterDist = window.innerHeight;
+               const viewportCenter = window.innerHeight / 2;
+               let activeTheme = 'dark'; // default theme
+               const body = document.body;
+               const headerLinks = document.querySelectorAll('.site-header nav a');
+               const navDots = document.querySelectorAll('.nav-dot');
+               const sections = document.querySelectorAll('section'); // Use all sections for positioning check
 
-  </script>
+               sections.forEach((section, index) => {
+                   const rect = section.getBoundingClientRect();
+                   const sectionCenter = rect.top + rect.height / 2;
+                   const dist = Math.abs(viewportCenter - sectionCenter);
+                   // Check if section is at least partially visible and closer to center than previous
+                   const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                   if (isVisible && dist < minCenterDist) {
+                       minCenterDist = dist;
+                       mostCenteredIndex = index; // Index based on all sections
+                       // Get theme from the section if it has one, otherwise keep current activeTheme
+                       activeTheme = section.getAttribute('data-theme') || activeTheme;
+                   }
+               });
+
+                if(mostCenteredIndex !== -1) {
+                    // Update dots based on the found index
+                     navDots.forEach((dot) => {
+                         const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                         dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
+                     });
+                     // Update theme based on the identified section's theme
+                     if (activeTheme === 'light') {
+                         body.classList.add('on-light-section');
+                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
+                     } else {
+                         body.classList.remove('on-light-section');
+                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
+                     }
+                     console.log(`Initial active section determined as ${mostCenteredIndex}, theme ${activeTheme}`);
+                } else {
+                     // Fallback if no section is clearly centered (e.g., page loaded scrolled weirdly)
+                     body.classList.remove('on-light-section'); // Default to dark
+                     if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
+                     if(navDots.length > 0) navDots[0].classList.add('active'); // Activate first dot
+                     console.log("Initial active section not clearly determined, defaulting to dark theme / first dot.");
+                }
+
+           }, 200); // Delay allows layout shifts to settle before refreshing/checking
+
+           let resizeTimer;
+           window.addEventListener('resize', () => {
+               clearTimeout(resizeTimer);
+               resizeTimer = setTimeout(() => {
+                   console.log("Resizing - Refreshing ScrollTrigger...");
+                   ScrollTrigger.refresh();
+                   // Potentially re-run the initial state check here too if needed after resize/refresh
+               }, 250); // Debounce resize events
+           });
+
+         console.log("Initialization sequence complete.");
+        }
+
+        // Start everything when the DOM is fully loaded
+         window.addEventListener('load', initAll);
+
+     </script>
 </body>
 </html>
