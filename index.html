@@ -14,33 +14,74 @@
     body, html {
       margin: 0;
       padding: 0;
-      /* height: 100%;  Let body height be determined by content */
+      height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #333;
       overflow-x: hidden; /* Prevent horizontal scroll */
       background-color: #000; /* Default background */
     }
 
-    /* Ensure vertical scrolling is possible if content overflows viewport */
     body {
-       overflow-y: auto; /* Or scroll, auto is usually sufficient */
+        overflow-y: auto;
     }
 
     section {
-      min-height: 100vh; /* Use min-height to allow sections to grow if needed */
+      height: 100vh; /* Each section takes full viewport height */
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative; /* Important for positioning child elements and for ScrollTrigger */
-      padding: 60px 20px; /* Add some padding to sections */
+      overflow: hidden; /* Prevent content spill unless specifically overridden */
+    }
+
+    /* Canvas Section (First) */
+    .canvas-section {
+      background-color: #000;
+      /* overflow: hidden; */ /* Already set in section */
+    }
+
+    #particleCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; /* Behind text */
+    }
+
+    .canvas-text {
+      position: relative;
+      z-index: 1; /* Above canvas */
+      color: white;
+      text-align: center;
+      padding: 20px; /* Add padding */
+    }
+
+    .canvas-title {
+      font-size: 60px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      /* Gradient text effect */
+      background: linear-gradient(90deg, #ff6b6b, #f35588, #4158D0, #C850C0, #FFCC70);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0; /* Start hidden */
+    }
+
+    .canvas-description {
+      font-size: 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0; /* Start hidden */
     }
 
     /* Intro Section */
     .intro {
       background-color: #000;
       color: white;
-      overflow: hidden; /* Hide overflowing particles */
+      /* overflow: hidden; */ /* Already set in section */
     }
 
     .logo-container {
@@ -91,7 +132,7 @@
     /* Product Section */
     .product {
       background: linear-gradient(135deg, #111, #222);
-      overflow: hidden; /* Prevent content spill */
+      /* overflow: hidden; */ /* Already set in section */
     }
 
     .product-container {
@@ -100,12 +141,12 @@
       max-width: 1200px;
       justify-content: space-between;
       align-items: center;
-      padding: 0 40px; /* Added more padding */
-      gap: 40px; /* Add gap between text and image */
+      padding: 0 40px;
+      gap: 40px;
     }
 
     .product-text {
-      width: 45%; /* Adjusted width */
+      width: 45%;
       color: white;
     }
 
@@ -114,8 +155,8 @@
       font-weight: 700;
       margin-bottom: 20px;
       line-height: 1.2;
-      opacity: 0; /* Start hidden */
-      transform: translateX(-50px); /* Start off-screen */
+      opacity: 0;
+      transform: translateX(-50px);
     }
 
     .product-description {
@@ -140,7 +181,7 @@
       font-size: 16px;
       font-weight: 500;
       opacity: 0;
-      transform: scale(0.8); /* Start smaller */
+      transform: scale(0.8);
     }
 
     .product-cta {
@@ -153,26 +194,25 @@
       text-decoration: none;
       font-size: 16px;
       opacity: 0;
-      transform: translateY(20px); /* Start lower */
-      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effect */
+      transform: translateY(20px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .product-cta:hover {
-        transform: translateY(15px) scale(1.05); /* Slight lift and scale on hover */
+        transform: translateY(15px) scale(1.05); /* Added scale on hover */
         box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
     }
 
     .product-image-container {
-      width: 45%; /* Adjusted width */
+      width: 45%;
       position: relative;
-      height: 600px; /* Fixed height for perspective */
-      perspective: 1000px; /* Enable 3D perspective */
+      height: 600px;
+      perspective: 1000px;
     }
 
     .product-image {
       position: absolute;
       top: 50%;
       left: 50%;
-      /* Center and prepare for rotation */
       transform: translate(-50%, -50%) rotateY(0deg);
       width: 300px;
       height: 600px;
@@ -180,7 +220,7 @@
       border-radius: 40px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       overflow: hidden;
-      transform-style: preserve-3d; /* Needed for 3D children */
+      transform-style: preserve-3d;
     }
 
     .phone-screen {
@@ -211,13 +251,13 @@
       width: 120px;
       height: 25px;
       background-color: #000;
-      border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+      border-radius: 0 0 20px 20px;
       z-index: 2;
     }
 
     .phone-button {
       position: absolute;
-      right: -5px; /* Slightly outside */
+      right: -5px;
       top: 120px;
       width: 5px;
       height: 60px;
@@ -238,15 +278,15 @@
         rgba(255, 255, 255, 0) 80%,
         rgba(255, 255, 255, 0.1) 100%
       );
-      border-radius: 30px; /* Match screen radius */
-      pointer-events: none; /* Don't interfere with mouse events */
+      border-radius: 30px;
+      pointer-events: none;
     }
 
     /* Features Section */
     .features {
       background-color: white;
-      overflow: hidden; /* Contain animations */
-      /* padding: 80px 0; Removed padding from section, added to container */
+      padding: 80px 0;
+      /* overflow: hidden; */ /* Already set in section */
     }
 
     .features-container {
@@ -255,7 +295,6 @@
       align-items: center;
       width: 90%;
       max-width: 1200px;
-      padding: 80px 0; /* Add padding here */
     }
 
     .features-title {
@@ -269,7 +308,6 @@
 
     .features-grid {
       display: grid;
-      /* Responsive grid */
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
       width: 100%;
@@ -286,7 +324,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .feature-box:hover {
-        transform: translateY(40px) scale(1.03); /* Lift and slight scale */
+        transform: translateY(40px) scale(1.03); /* Added scale on hover */
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     }
 
@@ -315,159 +353,128 @@
       color: #666;
     }
 
-    /* 3D Objects Section */
-    .objects {
-      background-color: #181818;
-      overflow: hidden;
+    /* --- NEW SECTION 1: Network Graph --- */
+    .network-graph {
+        background-color: #0a0a1a; /* Dark blue/purple background */
+        color: white;
     }
 
-    .objects-container {
-      display: flex;
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      /* height: 100%; No fixed height needed */
-      gap: 100px; /* Space between objects */
-      padding: 50px; /* Padding around container */
-    }
-
-    .cube-container, .pyramid-container {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      perspective: 1000px;
-      /* Removed margin to use gap instead */
-    }
-
-    .cube {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transform: rotateX(0deg) rotateY(0deg); /* Initial state - JS controls this */
-    }
-
-    /* --- START: Updated 3D Object CSS --- */
-    .cube-face {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.5); /* Slightly stronger border */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      backface-visibility: hidden; /* !Important: Hide back */
-    }
-
-    /* Position cube faces (translateZ should be half the width/height) */
-    .front  { transform: rotateY(0deg) translateZ(100px); background: rgba(255, 0, 89, 0.6); }
-    .back   { transform: rotateY(180deg) translateZ(100px); background: rgba(0, 255, 200, 0.6); }
-    .right  { transform: rotateY(90deg) translateZ(100px); background: rgba(255, 196, 0, 0.6); }
-    .left   { transform: rotateY(-90deg) translateZ(100px); background: rgba(0, 123, 255, 0.6); }
-    .top    { transform: rotateX(90deg) translateZ(100px); background: rgba(178, 0, 255, 0.6); }
-    .bottom { transform: rotateX(-90deg) translateZ(100px); background: rgba(98, 255, 0, 0.6); }
-
-
-    .pyramid {
-      width: 100%; /* Base width */
-      height: 100%; /* Base depth */
-      position: relative;
-      transform-style: preserve-3d;
-      /* Keep initial tilt, but JS will control rotation more */
-      transform: rotateX(-15deg) rotateY(20deg);
-    }
-
-    .pyramid-face {
-      position: absolute;
-      /* Triangle using borders */
-      width: 0;
-      height: 0;
-      /* Base of triangle = 200px */
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      /* Height of triangle = 200px */
-      border-bottom-width: 200px;
-      border-bottom-style: solid;
-      /* Position triangles absolutely at the center */
-      left: 0px;
-      top: 0px; /* Align top points */
-      /* Rotate faces around the BOTTOM center edge */
-      transform-origin: 50% 100%;
-      backface-visibility: hidden; /* !Important: Hide back */
-    }
-
-    /* Approximate angle for a pyramid with base 200x200 and height 200 */
-    /* Use atan(height / (base/2)) = atan(200/100) = ~63.4 degrees */
-    .pyramid-front  { transform: translateY(-100px) rotateX(-63.4deg) translateZ(100px); border-bottom-color: rgba(255, 0, 89, 0.6); }
-    .pyramid-right  { transform: translateY(-100px) rotateY(90deg) rotateX(-63.4deg) translateZ(100px); border-bottom-color: rgba(255, 196, 0, 0.6); }
-    .pyramid-back   { transform: translateY(-100px) rotateY(180deg) rotateX(-63.4deg) translateZ(100px); border-bottom-color: rgba(0, 255, 200, 0.6); }
-    .pyramid-left   { transform: translateY(-100px) rotateY(-90deg) rotateX(-63.4deg) translateZ(100px); border-bottom-color: rgba(0, 123, 255, 0.6); }
-
-    .pyramid-bottom {
-        /* Override triangle styles for square base */
-        border: none;
-        border-left: none; /* Ensure no border styles bleed */
-        border-right: none;
-        border-bottom: none;
-        width: 200px;
-        height: 200px;
+    #networkCanvas {
         position: absolute;
-        left: 0px;
-        top: 0px; /* Align with other faces initially */
-        background-color: rgba(178, 0, 255, 0.6);
-        /* Rotate flat and move down to form the base */
-        /* Origin is center of pyramid base, so rotate flat */
-        transform: rotateX(90deg) translateZ(100px); /* Rotate down, move down along original Z (now Y) */
-        transform-origin: 50% 50%; /* Rotate around its own center */
-         backface-visibility: hidden; /* Hide back */
-    }
-    /* --- END: Updated 3D Object CSS --- */
-
-    /* Canvas Section */
-    .canvas-section {
-      background-color: #000;
-      overflow: hidden; /* Contain canvas */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
     }
 
-    #particleCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0; /* Behind text */
+    .network-text-overlay {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 40px;
+        max-width: 800px;
     }
 
-    .canvas-text {
-      position: relative;
-      z-index: 1; /* Above canvas */
-      color: white;
-      text-align: center;
-      padding: 20px; /* Add padding */
+    .network-title {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
     }
 
-    .canvas-title {
-      font-size: 60px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      /* Gradient text effect */
-      background: linear-gradient(90deg, #ff6b6b, #f35588, #4158D0, #C850C0, #FFCC70);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      opacity: 0; /* Start hidden */
+    .network-description {
+        font-size: 18px;
+        line-height: 1.6;
+        opacity: 0;
+        transform: translateY(30px);
     }
 
-    .canvas-description {
-      font-size: 24px;
-      max-width: 600px;
-      margin: 0 auto;
-      opacity: 0; /* Start hidden */
+    /* --- NEW SECTION 2: Interactive Timeline --- */
+    .timeline {
+        background-color: #f4f7f6; /* Light neutral background */
+        /* overflow: hidden; */ /* Set on section already, critical for pinning */
+    }
+
+    .timeline-wrapper { /* Needed for pinning content */
+        width: 100%;
+        height: 100%;
+        position: relative; /* Child positioning context */
+    }
+
+    .timeline-title-area { /* Area for title above scrolling container */
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        z-index: 2; /* Above scrolling items */
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+     .timeline-main-title {
+        font-size: 48px;
+        font-weight: 800;
+        color: #222;
+        margin-bottom: 10px;
+     }
+      .timeline-subtitle {
+        font-size: 18px;
+        color: #555;
+     }
+
+
+    .timeline-container {
+        display: flex;
+        /* Make width significantly larger than viewport */
+        /* Calculate dynamically or set a large fixed width */
+        width: 300%; /* Example: Adjust based on number of items */
+        height: 100%;
+        position: relative; /* Needed for GSAP x positioning */
+        align-items: center; /* Vertically center items */
+        padding: 0 5%; /* Padding on the sides */
+        will-change: transform; /* Performance hint for GSAP */
+    }
+
+    .timeline-item {
+        flex: 0 0 auto; /* Prevent shrinking/growing */
+        width: 400px; /* Fixed width for each item */
+        height: auto;
+        max-height: 60%; /* Limit height */
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        margin-right: 60px; /* Space between items */
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        opacity: 0; /* Start hidden for animation */
+        transform: translateY(50px) scale(0.95); /* Start below and slightly smaller */
+        transition: box-shadow 0.3s ease; /* Add hover effect */
+    }
+    .timeline-item:hover {
+         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+
+    .timeline-item-year {
+        font-size: 14px;
+        font-weight: 600;
+        color: #C850C0; /* Accent color */
+        margin-bottom: 10px;
+    }
+
+    .timeline-item-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .timeline-item-description {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666;
     }
 
     /* Navigation dots */
@@ -485,15 +492,27 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.3); /* Default light for dark bg */
       margin: 10px 0;
       cursor: pointer;
       transition: background-color 0.3s, transform 0.3s;
     }
+     /* Adjust dot color based on section background (can be done with JS or more CSS) */
+     /* Example: Dark dots for light sections */
+    .timeline .nav-dot {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    .features .nav-dot {
+         background-color: rgba(0, 0, 0, 0.2);
+    }
 
     .nav-dot.active {
-      background-color: white;
-      transform: scale(1.3); /* Make active dot larger */
+      background-color: white; /* Default active */
+      transform: scale(1.3);
+    }
+    .timeline .nav-dot.active,
+    .features .nav-dot.active {
+         background-color: #333; /* Active dark */
     }
 
     /* Scroll indicator */
@@ -507,8 +526,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 5; /* Above canvas but below nav dots */
-      opacity: 0.8; /* Start visible */
+      z-index: 5;
+      opacity: 0.8;
       transition: opacity 0.5s ease;
     }
 
@@ -536,7 +555,6 @@
       }
     }
 
-    /* Hide scroll indicator after first scroll */
     body.scrolled .scroll-indicator {
         opacity: 0;
         pointer-events: none;
@@ -549,85 +567,69 @@
             text-align: center;
         }
         .product-text, .product-image-container {
-            width: 80%; /* Take more width when stacked */
+            width: 80%;
         }
         .product-image-container {
-            height: 500px; /* Adjust height */
+            height: 500px;
             margin-top: 40px;
         }
         .product-image {
-             width: 250px; /* Smaller phone */
+             width: 250px;
              height: 500px;
         }
         .features-grid {
              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
-        .objects-container {
-            gap: 50px;
+        .timeline-container {
+             width: 450%; /* Adjust for fewer visible items */
+             padding: 0 10%;
         }
+         .timeline-item {
+             width: 350px;
+             margin-right: 40px;
+         }
+          .network-title { font-size: 40px; }
+          .timeline-main-title { font-size: 40px; }
     }
 
      @media (max-width: 768px) {
         section {
-            padding: 40px 15px; /* Reduce padding on small screens */
+            /* Allow slightly less height on mobile if needed */
+            /* min-height: 80vh; height: auto; padding: 60px 0; */
         }
-        .features-title {
-            font-size: 36px;
-        }
-        .canvas-title {
-            font-size: 40px;
-        }
-        .canvas-description {
-            font-size: 18px;
-        }
-        .nav-dots {
-            right: 15px; /* Move dots closer */
-        }
-        .nav-dot {
-            width: 10px;
-            height: 10px;
-            margin: 8px 0;
-        }
-        .objects-container {
-             flex-direction: column; /* Stack 3D objects */
-             padding: 30px;
-             gap: 60px; /* Increase gap when stacked */
-        }
-         .cube-container, .pyramid-container {
-            width: 150px;
-            height: 150px;
-        }
-        /* Updated 3D Object Responsive CSS */
-        .cube-face {
-             width: 150px; height: 150px; font-size: 18px;
-        }
-        /* Adjust cube face transforms for 150px size (translateZ = 75px) */
-        .front  { transform: rotateY(0deg) translateZ(75px); }
-        .back   { transform: rotateY(180deg) translateZ(75px); }
-        .right  { transform: rotateY(90deg) translateZ(75px); }
-        .left   { transform: rotateY(-90deg) translateZ(75px); }
-        .top    { transform: rotateX(90deg) translateZ(75px); }
-        .bottom { transform: rotateX(-90deg) translateZ(75px); }
+        .features-title { font-size: 36px; }
+        .canvas-title { font-size: 40px; }
+        .canvas-description { font-size: 18px; }
+        .nav-dots { right: 15px; }
+        .nav-dot { width: 10px; height: 10px; margin: 8px 0; }
 
-        /* Adjust pyramid faces for 150px size */
-        .pyramid-face {
-            border-left-width: 75px;
-            border-right-width: 75px;
-            border-bottom-width: 150px; /* Height of triangle */
-        }
-         /* Adjust pyramid face transforms (translateZ = 75px, adjust angles if height changes) */
-         /* Assuming height also scales to 150: angle=atan(150/75)=~63.4deg (stays same!) */
-        .pyramid-front  { transform: translateY(-75px) rotateX(-63.4deg) translateZ(75px); }
-        .pyramid-right  { transform: translateY(-75px) rotateY(90deg) rotateX(-63.4deg) translateZ(75px); }
-        .pyramid-back   { transform: translateY(-75px) rotateY(180deg) rotateX(-63.4deg) translateZ(75px); }
-        .pyramid-left   { transform: translateY(-75px) rotateY(-90deg) rotateX(-63.4deg) translateZ(75px); }
+         .product-text, .product-image-container { width: 90%; }
+         .product-image { width: 220px; height: 440px; }
 
-        .pyramid-bottom {
-            width: 150px;
-            height: 150px;
-            transform: rotateX(90deg) translateZ(75px); /* Adjust Z translation */
+         /* Adjust timeline for mobile */
+        .timeline-container {
+            width: 600%; /* Further increase effective width */
+            align-items: flex-start; /* Align top */
+            padding-top: 25%; /* Push items down below title */
+            padding-left: 5%;
+            padding-right: 5%;
         }
-         /* End Updated 3D Object Responsive CSS */
+        .timeline-item {
+            width: 80vw; /* Use viewport width */
+            max-width: 300px; /* Max item width */
+            margin-right: 30px;
+            max-height: 70%;
+        }
+         .timeline-title-area {
+            top: 8%;
+            left: 5%;
+            right: 5%; /* Allow text wrapping */
+         }
+         .timeline-main-title { font-size: 32px; }
+         .timeline-subtitle { font-size: 16px; }
+
+         .network-title { font-size: 32px; }
+         .network-description { font-size: 16px; }
     }
 
   </style>
@@ -638,8 +640,7 @@
     <div class="nav-dot" data-section="1"></div>
     <div class="nav-dot" data-section="2"></div>
     <div class="nav-dot" data-section="3"></div>
-    <div class="nav-dot" data-section="4"></div>
-  </div>
+    <div class="nav-dot" data-section="4"></div> <div class="nav-dot" data-section="5"></div> </div>
 
   <section class="canvas-section" id="section-0">
     <canvas id="particleCanvas"></canvas>
@@ -725,33 +726,52 @@
     </div>
   </section>
 
-  <section class="objects" id="section-4">
-    <div class="objects-container">
-      <div class="cube-container">
-        <div class="cube" id="cube">
-          <div class="cube-face front">FRONT</div>
-          <div class="cube-face back">BACK</div>
-          <div class="cube-face right">RIGHT</div>
-          <div class="cube-face left">LEFT</div>
-          <div class="cube-face top">TOP</div>
-          <div class="cube-face bottom">BOTTOM</div>
-        </div>
-      </div>
-      <div class="pyramid-container">
-        <div class="pyramid" id="pyramid">
-          <div class="pyramid-face pyramid-front"></div>
-          <div class="pyramid-face pyramid-right"></div>
-          <div class="pyramid-face pyramid-back"></div>
-          <div class="pyramid-face pyramid-left"></div>
-          <div class="pyramid-face pyramid-bottom"></div> </div>
-      </div>
-    </div>
+  <section class="network-graph" id="section-4">
+     <canvas id="networkCanvas"></canvas>
+     <div class="network-text-overlay">
+         <h2 class="network-title">Connecting Ideas</h2>
+         <p class="network-description">Visualizing the complex web of innovation and technology that drives progress. Interact and explore the connections.</p>
+     </div>
   </section>
 
+  <section class="timeline" id="section-5">
+     <div class="timeline-wrapper"> <div class="timeline-title-area">
+             <h2 class="timeline-main-title">Our Journey</h2>
+             <p class="timeline-subtitle">Milestones that shaped our path.</p>
+         </div>
+         <div class="timeline-container">
+             <div class="timeline-item">
+                 <div class="timeline-item-year">2018</div>
+                 <h3 class="timeline-item-title">The Spark</h3>
+                 <p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p>
+             </div>
+             <div class="timeline-item">
+                 <div class="timeline-item-year">2020</div>
+                 <h3 class="timeline-item-title">First Breakthrough</h3>
+                 <p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p>
+             </div>
+             <div class="timeline-item">
+                 <div class="timeline-item-year">2022</div>
+                 <h3 class="timeline-item-title">Nova X1 Launch</h3>
+                 <p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p>
+             </div>
+             <div class="timeline-item">
+                 <div class="timeline-item-year">2024</div>
+                 <h3 class="timeline-item-title">Global Expansion</h3>
+                 <p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p>
+             </div>
+              <div class="timeline-item">
+                 <div class="timeline-item-year">Future</div>
+                 <h3 class="timeline-item-title">Next Horizons</h3>
+                 <p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p>
+             </div>
+         </div>
+     </div>
+  </section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
   <script>
     // Register plugins
@@ -760,27 +780,26 @@
     // --- Particle Creation (Intro Section) ---
     function createIntroParticles() {
       const container = document.getElementById('particlesContainer');
-      if (!container) return; // Exit if container not found
+      if (!container) return;
       const numParticles = 100;
+      // Clear existing particles if function is called again
+      container.innerHTML = '';
 
       for (let i = 0; i < numParticles; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
         particle.style.opacity = Math.random() * 0.5 + 0.1;
-        const size = Math.random() * 3 + 1; // Smaller size range
+        const size = Math.random() * 3 + 1;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-
         container.appendChild(particle);
 
-        // Animate each particle gently
         gsap.to(particle, {
-          x: (Math.random() - 0.5) * 100, // Reduced movement range
+          x: (Math.random() - 0.5) * 100,
           y: (Math.random() - 0.5) * 100,
-          duration: Math.random() * 15 + 10, // Slower duration
+          duration: Math.random() * 15 + 10,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut"
@@ -790,72 +809,72 @@
 
     // --- Initialize Intro Animations ---
     function initIntro() {
-      createIntroParticles(); // Create particles for the intro section
+      createIntroParticles();
 
       const logoCircle = document.querySelector('.intro .logo-circle');
       const logoInner = document.querySelector('.intro .logo-inner');
 
       if (logoCircle && logoInner) {
-          // Logo animation timeline - No ScrollTrigger needed if it should always animate
-          const introTl = gsap.timeline({ repeat: -1 }); // Loop basic animations
+          const introTl = gsap.timeline({
+              scrollTrigger: {
+                  trigger: ".intro",
+                  start: "top 80%", // Start animation when 80% of section is visible
+                  toggleActions: "play none none reverse" // Play on enter, reverse on leave up
+              }
+          });
 
           introTl.to(logoCircle, {
               rotation: 360,
-              duration: 30, // Slower rotation
+              duration: 30,
+              repeat: -1,
               ease: "none"
             }, 0)
-            .fromTo(logoCircle, // Pulse effect
-                { scale: 1, opacity: 0.2 },
-                { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
-
-          // Separate animation for initial text fade-in (run once)
-           gsap.to(logoInner, { // Fade in text
+            .fromTo(logoCircle,
+              { scale: 1, opacity: 0.2 },
+              { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0)
+            .to(logoInner, {
               opacity: 1,
               duration: 1.5,
-              delay: 0.5, // Delay slightly after page load
               ease: "power2.out"
-            });
+            }, 0.5);
       }
     }
 
     // --- Initialize Product Section Animations ---
     function initProduct() {
-       const productSection = document.querySelector('.product');
-       if (!productSection) return;
+        const productSection = document.querySelector('.product');
+        if (!productSection) return;
 
-        // Text and elements fade-in animation
         gsap.timeline({
             scrollTrigger: {
                 trigger: productSection,
-                start: "top 60%", // Trigger when 60% of section is visible
-                toggleActions: "play none none reverse" // Play on enter, reverse on leave
+                start: "top 60%",
+                toggleActions: "play none none reverse"
             }
         })
         .to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
-        .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6") // Overlap slightly
+        .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6")
         .to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5")
         .to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
 
-        // Phone 3D rotation based on scroll progress within the section
         const phoneImage = document.querySelector('.product-image');
         if (phoneImage) {
             gsap.to(phoneImage, {
-                rotationY: 30, // Max rotation angle
+                rotationY: 30,
                 ease: "none",
                 scrollTrigger: {
                     trigger: productSection,
-                    start: "top bottom", // Start rotating when section enters viewport
-                    end: "bottom top", // End rotating when section leaves viewport
-                    scrub: 1 // Smooth scrubbing effect
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
                 }
             });
         }
 
-        // Screen gradient animation (continuous)
         const phoneScreen = document.querySelector('.phone-screen');
         if (phoneScreen) {
             gsap.to(phoneScreen, {
-                background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', // Animate to different angle/colors
+                background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)',
                 duration: 8,
                 repeat: -1,
                 yoyo: true,
@@ -872,7 +891,7 @@
         gsap.timeline({
             scrollTrigger: {
                 trigger: featuresSection,
-                start: "top 70%", // Trigger slightly earlier
+                start: "top 70%",
                 toggleActions: "play none none reverse"
             }
         })
@@ -880,127 +899,43 @@
         .to('.feature-box', {
             y: 0,
             opacity: 1,
-            stagger: 0.15, // Slightly more stagger
+            stagger: 0.15,
             duration: 0.7,
             ease: "power3.out"
-        }, "-=0.5"); // Start boxes animation slightly before title finishes
+        }, "-=0.5");
     }
 
-    // --- Initialize 3D Objects Animations (Revised) ---
-    function init3DObjects() {
-      const objectsSection = document.querySelector('.objects');
-      const cube = document.getElementById('cube');
-      const pyramid = document.getElementById('pyramid');
-      if (!objectsSection || (!cube && !pyramid)) return;
 
-      // --- Mouse Interaction ---
-      let mouseX = 0, mouseY = 0;
-      // Get initial rotations from CSS (might be better than fixed values)
-      let initialCubeRotX = gsap.getProperty(cube, "rotationX");
-      let initialCubeRotY = gsap.getProperty(cube, "rotationY");
-      let initialPyrRotX = gsap.getProperty(pyramid, "rotationX");
-      let initialPyrRotY = gsap.getProperty(pyramid, "rotationY");
-
-      let targetCubeRotX = initialCubeRotX;
-      let targetCubeRotY = initialCubeRotY;
-      let targetPyrRotX = initialPyrRotX;
-      let targetPyrRotY = initialPyrRotY;
-
-      const windowHalfX = window.innerWidth / 2;
-      const windowHalfY = window.innerHeight / 2;
-      const mouseSensitivity = 0.08; // Adjusted sensitivity
-      const lerpFactor = 0.08; // Smoothing factor
-
-      let currentCubeRotX = targetCubeRotX;
-      let currentCubeRotY = targetCubeRotY;
-      let currentPyrRotX = targetPyrRotX;
-      let currentPyrRotY = targetPyrRotY;
-      let animationFrameId_3D; // To potentially cancel loop if needed
-
-      function onMouseMove(event) {
-          mouseX = (event.clientX - windowHalfX);
-          mouseY = (event.clientY - windowHalfY);
-
-          // Calculate target rotation based on mouse position relative to initial rotation
-          targetCubeRotY = initialCubeRotY + (-mouseX * mouseSensitivity);
-          targetCubeRotX = initialCubeRotX + (mouseY * mouseSensitivity);
-          targetPyrRotY = initialPyrRotY + (-mouseX * mouseSensitivity * 1.1); // Slightly different reaction
-          targetPyrRotX = initialPyrRotX + (mouseY * mouseSensitivity * 0.9);
-
-          // Optional: Clamp rotation values
-          // targetCubeRotX = Math.max(-60, Math.min(60, targetCubeRotX));
-          // targetCubeRotY = Math.max(-45, Math.min(85, targetCubeRotY));
-      }
-      document.addEventListener('mousemove', onMouseMove, false);
-
-      function updateRotation() {
-          // Lerp current towards target
-          currentCubeRotX += (targetCubeRotX - currentCubeRotX) * lerpFactor;
-          currentCubeRotY += (targetCubeRotY - currentCubeRotY) * lerpFactor;
-          currentPyrRotX += (targetPyrRotX - currentPyrRotX) * lerpFactor;
-          currentPyrRotY += (targetPyrRotY - currentPyrRotY) * lerpFactor;
-
-
-          // Apply the smoothed rotation using direct set for performance
-          if (cube) {
-              gsap.set(cube, { rotationX: currentCubeRotX, rotationY: currentCubeRotY });
-          }
-          if (pyramid) {
-              gsap.set(pyramid, { rotationX: currentPyrRotX, rotationY: currentPyrRotY });
-          }
-
-          animationFrameId_3D = requestAnimationFrame(updateRotation);
-      }
-      updateRotation(); // Start the animation loop
-
-      // --- Scroll-Based Rotation ---
-      if (cube) {
-          gsap.to(cube, {
-              rotationZ: 60,
-              ease: "none",
-              scrollTrigger: {
-                  trigger: objectsSection,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: 1.5
-              }
-          });
-      }
-       if (pyramid) {
-          gsap.to(pyramid, {
-              rotationZ: -45,
-              ease: "none",
-              scrollTrigger: {
-                  trigger: objectsSection,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: 2
-              }
-          });
-      }
-    }
-
-    // --- Initialize Canvas Section (Particles and Text) ---
-    function initCanvas() {
+    // --- Initialize Canvas Section (First Section - Particles) ---
+    function initCanvasWelcome() {
       const canvasSection = document.querySelector('.canvas-section');
       const canvas = document.getElementById('particleCanvas');
       if (!canvasSection || !canvas) return;
       const ctx = canvas.getContext('2d');
 
       let particles = [];
-      const maxParticles = 150; // Adjust density
-      let animationFrameId_Canvas; // For canvas animation loop
+      const maxParticles = 150;
+      let animationFrameId;
+      let mouse = { x: null, y: null, radius: 100 }; // Mouse interaction radius
+
+      window.addEventListener('mousemove', (event) => {
+          const rect = canvas.getBoundingClientRect();
+          mouse.x = event.clientX - rect.left;
+          mouse.y = event.clientY - rect.top;
+      });
+       window.addEventListener('mouseout', () => {
+           mouse.x = null;
+           mouse.y = null;
+       });
+
 
       function resizeCanvas() {
-        // Use clientWidth/clientHeight for actual rendered size
-        canvas.width = canvasSection.clientWidth;
-        canvas.height = canvasSection.clientHeight;
-
-        // Recreate particles on resize for simplicity
-        if (animationFrameId_Canvas) cancelAnimationFrame(animationFrameId_Canvas);
+        canvas.width = canvasSection.offsetWidth;
+        canvas.height = canvasSection.offsetHeight;
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
         particles = [];
-        createCanvasParticles();
-        animateCanvas();
+        createCanvasWelcomeParticles();
+        animateCanvasWelcome();
       }
 
       window.addEventListener('resize', resizeCanvas);
@@ -1009,17 +944,50 @@
         constructor() {
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
+          this.baseX = this.x; // Store original position
+          this.baseY = this.y;
           this.size = Math.random() * 2.5 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 1.5;
-          this.speedY = (Math.random() - 0.5) * 1.5;
+          this.speedX = (Math.random() - 0.5) * 1.0; // Slower speed
+          this.speedY = (Math.random() - 0.5) * 1.0;
+          this.density = (Math.random() * 30) + 1; // How much it reacts to mouse
           this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`;
         }
+
         update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+          // Mouse interaction
+           let dx = mouse.x - this.x;
+           let dy = mouse.y - this.y;
+           let distance = Math.sqrt(dx*dx + dy*dy);
+           let forceDirectionX = dx / distance;
+           let forceDirectionY = dy / distance;
+           let maxDistance = mouse.radius;
+           // Force is inversely proportional to distance (stronger when closer)
+           let force = (maxDistance - distance) / maxDistance;
+           let directionX = forceDirectionX * force * this.density;
+           let directionY = forceDirectionY * force * this.density;
+
+           if (distance < mouse.radius) {
+               this.x -= directionX;
+               this.y -= directionY;
+           } else {
+                // Return to base position slowly if not moving
+                if (this.x !== this.baseX) {
+                    let dxToBase = this.x - this.baseX;
+                    this.x -= dxToBase / 20; // Adjust speed of return
+                }
+                 if (this.y !== this.baseY) {
+                    let dyToBase = this.y - this.baseY;
+                    this.y -= dyToBase / 20;
+                }
+                // Keep slight random movement
+                this.x += this.speedX;
+                this.y += this.speedY;
+                // Bounce off edges (slightly adjusted for return logic)
+                if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); }
+                if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); }
+           }
         }
+
         draw() {
           ctx.fillStyle = this.color;
           ctx.beginPath();
@@ -1028,22 +996,25 @@
         }
       }
 
-      function createCanvasParticles() {
+      function createCanvasWelcomeParticles() {
         for (let i = 0; i < maxParticles; i++) {
           particles.push(new Particle());
         }
       }
 
-      function connectParticles() {
+      function connectWelcomeParticles() {
         const maxDistance = 80;
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = 0.3; // Thinner lines
+
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
+
             if (distance < maxDistance) {
+              const opacity = 1 - (distance / maxDistance);
+              ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; // Soft blue lines
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
@@ -1054,19 +1025,18 @@
         }
       }
 
-      function animateCanvas() {
+      function animateCanvasWelcome() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(particle => {
           particle.update();
           particle.draw();
         });
-        connectParticles();
-        animationFrameId_Canvas = requestAnimationFrame(animateCanvas);
+        connectWelcomeParticles();
+        animationFrameId = requestAnimationFrame(animateCanvasWelcome);
       }
 
       resizeCanvas(); // Initial setup
 
-      // Text fade-in animation
        gsap.timeline({
             scrollTrigger: {
                 trigger: canvasSection,
@@ -1074,116 +1044,361 @@
                 toggleActions: "play none none reverse"
             }
         })
-      .to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" })
-      .to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
+       .to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" })
+       .to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
     }
+
+    // --- NEW: Initialize Network Graph Section Animations ---
+     function initNetworkGraph() {
+        const section = document.querySelector('.network-graph');
+        const canvas = document.getElementById('networkCanvas');
+        if (!section || !canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        let nodes = [];
+        const maxNodes = 80; // Adjust node density
+        let animationFrameId_network;
+        let mouse_network = { x: null, y: null, radius: 120 }; // Interaction radius for this canvas
+
+        // --- Mouse Interaction ---
+         canvas.addEventListener('mousemove', (event) => { // Attach to canvas specifically
+            const rect = canvas.getBoundingClientRect();
+            mouse_network.x = event.clientX - rect.left;
+            mouse_network.y = event.clientY - rect.top;
+        });
+         canvas.addEventListener('mouseleave', () => { // Use mouseleave on canvas
+             mouse_network.x = null;
+             mouse_network.y = null;
+         });
+
+        // --- Resize Handling ---
+        function resizeNetworkCanvas() {
+            canvas.width = section.offsetWidth;
+            canvas.height = section.offsetHeight;
+            if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network);
+            nodes = [];
+            createNetworkNodes();
+            animateNetwork();
+        }
+        window.addEventListener('resize', resizeNetworkCanvas);
+
+        // --- Node Class ---
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1; // Size range
+                this.baseSize = this.size;
+                this.speedX = (Math.random() - 0.5) * 0.8; // Slow movement
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                // Color variation (more techy blues/cyans)
+                this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`;
+            }
+
+            update() {
+                 // Mouse interaction - make nodes pulse/grow when near
+                let dx_mouse = mouse_network.x - this.x;
+                let dy_mouse = mouse_network.y - this.y;
+                let distance_mouse = Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse);
+
+                if (distance_mouse < mouse_network.radius) {
+                    // Grow based on proximity
+                    this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; // Grow up to 4px larger
+                 } else {
+                    // Shrink back to base size smoothly
+                    if (this.size > this.baseSize) {
+                       this.size -= 0.1; // Adjust shrink speed
+                    } else {
+                       this.size = this.baseSize;
+                    }
+                }
+
+                // Movement and boundary check
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+                 // Clamp position if somehow escapes
+                 this.x = Math.max(0, Math.min(canvas.width, this.x));
+                 this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // --- Create Nodes ---
+        function createNetworkNodes() {
+            for (let i = 0; i < maxNodes; i++) {
+                nodes.push(new Node());
+            }
+        }
+
+        // --- Connect Nodes ---
+        function connectNodes() {
+            const maxDistance = 100; // Max distance for line connection
+            ctx.lineWidth = 0.2; // Very thin lines
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = 1 - (distance / maxDistance);
+                        // Brighter lines, maybe white or light cyan
+                        ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+        }
+
+        // --- Animation Loop ---
+        function animateNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            connectNodes(); // Draw connecting lines
+            animationFrameId_network = requestAnimationFrame(animateNetwork); // Loop
+        }
+
+        // --- Initial Setup & Text Animation ---
+        resizeNetworkCanvas(); // Set initial size and start animation
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top 60%", // Trigger text fade earlier
+                toggleActions: "play none none reverse"
+            }
+        })
+        .to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" })
+        .to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7"); // Overlap slightly
+    }
+
+
+    // --- NEW: Initialize Timeline Section Animations ---
+    function initTimeline() {
+        const section = document.querySelector('.timeline');
+        const timelineContainer = section.querySelector('.timeline-container');
+        const timelineItems = section.querySelectorAll('.timeline-item');
+        const titleArea = section.querySelector('.timeline-title-area');
+
+        if (!section || !timelineContainer || !timelineItems.length || !titleArea) return;
+
+        // --- Horizontal Scroll Animation ---
+        // Pin the section and scrub the horizontal scroll
+        let horizontalScroll = gsap.to(timelineContainer, {
+            // Calculate the distance to scroll: total width minus viewport width
+            x: () => `-${timelineContainer.scrollWidth - section.offsetWidth}px`,
+            ease: "none", // Linear movement is usually best for scrub
+            scrollTrigger: {
+                trigger: section,
+                pin: true,          // Pin the entire section
+                scrub: 1,           // Smooth scrubbing effect (adjust number for speed)
+                start: "top top",   // Start pinning when section top hits viewport top
+                end: () => `+=${timelineContainer.scrollWidth - section.offsetWidth}`, // End pinning after scrolling the calculated distance
+                invalidateOnRefresh: true // Recalculate on resize
+            }
+        });
+
+        // --- Fade in Title when section starts pinning ---
+         gsap.to(titleArea, {
+            opacity: 1,
+            y: 0,
+             ease: "power2.out",
+             duration: 0.8,
+            scrollTrigger: {
+                trigger: section,
+                start: "top top+=5%", // Start fading slightly after pinning starts
+                toggleActions: "play none none reverse"
+            }
+         });
+
+
+        // --- Animate Timeline Items In ---
+        // Animate each item as it enters the view during the horizontal scroll
+        timelineItems.forEach((item, index) => {
+            gsap.to(item, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: item,
+                    containerAnimation: horizontalScroll, // Link to the horizontal scroll animation
+                    start: "left 85%", // Trigger when item's left edge is 85% from the viewport left
+                    toggleActions: "play none none reverse", // Play on enter, reverse on leave
+                     // markers: true, // Uncomment for debugging item triggers
+                     id: `item-${index}` // Add ID for debugging
+                }
+            });
+        });
+    }
+
 
     // --- Navigation Dots Functionality ---
     function initNavigation() {
-      const sections = document.querySelectorAll('section');
-      const navDots = document.querySelectorAll('.nav-dot');
-      if (navDots.length === 0 || sections.length === 0) return; // Exit if no dots/sections
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+        if (navDots.length === 0 || sections.length === 0) return;
 
-       // Simple check if counts match (optional)
-      // if (navDots.length !== sections.length) {
-      //    console.warn("Section count and Nav dot count mismatch.");
-      // }
-
-      navDots.forEach((dot, index) => {
-        // Ensure the corresponding section exists before adding listener
-        if (sections[index]) {
-            dot.addEventListener('click', () => {
-              const targetSection = sections[index];
-              gsap.to(window, {
-                duration: 1.2,
-                scrollTo: { y: targetSection, offsetY: 0 },
-                ease: "power2.inOut"
-              });
-            });
+        // Optional check: Warn if mismatch, but proceed based on dots found
+        if (navDots.length !== sections.length) {
+           console.warn("Mismatch between number of sections and nav dots. Found", sections.length, "sections and", navDots.length, "dots.");
         }
-      });
 
-      function updateActiveDot() {
-        let currentSectionIndex = -1; // Default to none active
-        const scrollThreshold = window.innerHeight * 0.5;
+        // Scroll to section on dot click
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
+                 // Check if the index is valid for the sections nodelist
+                 if (sectionIndex >= 0 && sectionIndex < sections.length) {
+                     const targetSection = sections[sectionIndex];
+                     if (targetSection) {
+                        gsap.to(window, {
+                            duration: 1.2,
+                            scrollTo: { y: targetSection, offsetY: 0 },
+                            ease: "power2.inOut"
+                        });
+                    }
+                 } else {
+                     console.error("Invalid section index:", sectionIndex);
+                 }
+            });
+        });
 
+        // Update active dot based on scroll position (using ScrollTrigger is more robust)
         sections.forEach((section, index) => {
-          const sectionTop = section.offsetTop;
-          const sectionBottom = sectionTop + section.offsetHeight;
-          // Check if the middle of the viewport is within the section
-          if (window.scrollY >= sectionTop - scrollThreshold && window.scrollY < sectionBottom - scrollThreshold) {
-            currentSectionIndex = index;
-          }
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top center", // When section top hits center
+                end: "bottom center", // When section bottom hits center
+                // markers: true, // uncomment for debugging zones
+                id: `section-nav-${index}`,
+                onToggle: self => {
+                     if (self.isActive) {
+                        navDots.forEach((dot, dotIndex) => {
+                             if (dotIndex === index) {
+                                 dot.classList.add('active');
+                             } else {
+                                 dot.classList.remove('active');
+                             }
+                         });
+                    }
+                }
+                // Use onEnter/onLeaveBack for slightly different behavior if needed
+                /*
+                onEnter: () => setActiveDot(index),
+                onLeaveBack: () => setActiveDot(index - 1 >= 0 ? index - 1 : 0), // Activate previous on scrolling up
+                */
+            });
         });
 
-        navDots.forEach((dot, index) => {
-          if (index === currentSectionIndex) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
+        // Function to manually set active dot (if needed, e.g. for onEnter/Leave)
+        /*
+        function setActiveDot(index) {
+             if (index >= 0 && index < navDots.length) {
+                 navDots.forEach((dot, i) => {
+                     dot.classList.toggle('active', i === index);
+                 });
+             }
+        }
+        // Initial check (might need slight delay or use Refresh)
+         ScrollTrigger.refresh(); // Ensure triggers are calculated
+         setTimeout(() => { // Update dot state shortly after load
+             ScrollTrigger.getAll().forEach(st => {
+                 if (st.vars.id && st.vars.id.startsWith('section-nav-') && st.isActive) {
+                     st.vars.onToggle(st); // Re-run the toggle logic
+                 }
+             });
+         }, 100);
+        */
+
+
+        // Hide scroll indicator after first scroll
+        ScrollTrigger.create({
+            start: 50, // Pixels from top
+            onEnter: () => document.body.classList.add('scrolled'),
+            onLeaveBack: () => document.body.classList.remove('scrolled') // Optional: show again if scrolled to top
         });
-      }
-
-      let scrollTimeout;
-      window.addEventListener('scroll', () => {
-          clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(updateActiveDot, 50); // Update shortly after scroll stops
-
-           // Hide scroll indicator after first scroll
-           if (window.scrollY > 50 && !document.body.classList.contains('scrolled')) {
-               document.body.classList.add('scrolled');
-           }
-      }, false);
-
-      updateActiveDot(); // Initial check
     }
 
     // --- Initialize All Animations & Functionality ---
     function initAll() {
       console.log("Initializing animations...");
-      initCanvas();
-      initIntro();
-      initProduct();
-      initFeatures();
-      init3DObjects(); // Initialize revised 3D objects
-      initNavigation();
+      // Initialize sections in order
+      initCanvasWelcome(); // Section 0
+      initIntro();       // Section 1
+      initProduct();     // Section 2
+      initFeatures();    // Section 3
+      initNetworkGraph();// Section 4 (New)
+      initTimeline();    // Section 5 (New)
+      initNavigation();  // Navigation depends on all sections being measurable
 
-      // Smooth scrolling for internal links
+      // Smooth scrolling for internal links (e.g., CTA button if it links to #)
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
-          if (href.length > 1) {
-              const target = document.querySelector(href);
-              if (target) {
-                  e.preventDefault();
-                  gsap.to(window, {
-                    duration: 1,
-                    scrollTo: { y: target, offsetY: 0 },
-                    ease: "power2.inOut"
-                  });
-              }
+          if (href.length > 1) { // Ensure it's not just "#"
+            try {
+                 const target = document.querySelector(href);
+                 if (target) {
+                    e.preventDefault();
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: target, offsetY: 0 },
+                        ease: "power2.inOut"
+                    });
+                }
+            } catch (error) {
+                 console.warn("Could not find target for anchor:", href, error);
+            }
+          } else if (href === "#") {
+             e.preventDefault(); // Prevent jump for "#" links
           }
         });
       });
 
-      // Refresh ScrollTrigger on load/resize
-      ScrollTrigger.refresh();
-      // Debounce resize refresh for performance
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-              console.log("Refreshing ScrollTrigger positions...");
-              ScrollTrigger.refresh();
-          }, 250); // Refresh 250ms after resize stops
-      });
+        // Refresh ScrollTrigger on load and resize AFTER everything is initialized
+        // Use a small timeout to ensure layout is stable after JS manipulations
+         setTimeout(() => {
+             ScrollTrigger.refresh();
+             console.log("ScrollTrigger refreshed initially.");
+         }, 100); // Adjust delay if needed
 
-      console.log("Initialization complete.");
+         let resizeTimer;
+         window.addEventListener('resize', () => {
+             clearTimeout(resizeTimer);
+             resizeTimer = setTimeout(() => {
+                 console.log("Resizing - Refreshing ScrollTrigger...");
+                 ScrollTrigger.refresh();
+             }, 250); // Debounce resize refresh
+         });
+
+
+      console.log("Initialization sequence complete.");
     }
 
-    // Start everything when the page loads
-    window.addEventListener('load', initAll);
+    // Start everything when the DOM is fully loaded
+    // Using 'DOMContentLoaded' is often faster than 'load' if images aren't critical for layout
+    // window.addEventListener('DOMContentLoaded', initAll);
+    // Using 'load' ensures images are loaded, which might affect section heights
+     window.addEventListener('load', initAll);
 
   </script>
 </body>
