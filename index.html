@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Premium GSAP Animation Showcase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -14,7 +15,8 @@
     body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
+      /* Height 100% might not be needed if relying on section heights */
+      /* height: 100%; */
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #333;
       overflow-x: hidden; /* Prevent horizontal scroll */
@@ -25,6 +27,113 @@
         overflow-y: auto;
     }
 
+    /* --- BASE STYLES --- */
+    :root {
+        --header-height: 60px; /* Example variable */
+        --accent-color-1: #ff6b6b;
+        --accent-color-2: #f35588;
+        --accent-color-3: #4158D0;
+        --accent-color-4: #C850C0;
+        --text-light: #f1f1f1;
+        --text-dark: #333;
+        --bg-dark-1: #000;
+        --bg-dark-2: #111;
+        --bg-light-1: #f4f7f6;
+        --bg-light-2: #ffffff;
+    }
+
+    /* --- HEADER STYLES --- */
+    .site-header {
+        position: fixed;
+        top: 0;
+        right: 0; /* Position top-right */
+        padding: 15px 30px;
+        z-index: 100; /* High z-index */
+        opacity: 0; /* Start hidden */
+        transform: translateY(-100%); /* Start off-screen */
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        /* background: rgba(0, 0, 0, 0.1); Optional subtle bg on scroll */
+        /* backdrop-filter: blur(5px); Optional blur */
+        border-radius: 0 0 0 10px; /* Optional subtle rounding */
+    }
+
+    .site-header.header-scrolled {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .site-header nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px; /* Space between icons */
+    }
+
+    .site-header nav a {
+        text-decoration: none;
+        color: var(--text-light); /* Default light color for icons */
+        font-size: 1.1rem; /* Adjust icon size */
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: inline-block; /* Allows transform */
+    }
+
+     /* Adjust color for light sections - needs JS or complex CSS */
+    body.on-light-section .site-header nav a {
+       /* color: var(--text-dark); */ /* JS will handle this for simplicity */
+    }
+
+
+    .site-header nav a:hover {
+        transform: scale(1.15);
+        color: var(--accent-color-2); /* Example hover color */
+    }
+
+    /* --- FOOTER STYLES --- */
+    /* Parent section needs position relative */
+    section.timeline {
+        position: relative; /* Ensure footer positions relative to this */
+    }
+
+    .site-footer {
+        position: absolute;
+        bottom: 30px; /* Position near bottom of parent section */
+        left: 0;
+        width: 100%;
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        z-index: 5; /* Above section content but below nav dots */
+        opacity: 0; /* Start hidden */
+        transform: translateY(30px); /* Start slightly down */
+        transition: opacity 0.6s ease, transform 0.6s ease; /* For JS animation fallback */
+    }
+
+    .site-footer .copyright {
+        font-size: 0.85rem;
+        color: #888; /* Muted color */
+    }
+
+    .site-footer .social-icons {
+        display: flex;
+        gap: 20px;
+    }
+
+    .site-footer .social-icons a {
+        text-decoration: none;
+        color: #aaa; /* Muted icon color */
+        font-size: 1.2rem;
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: inline-block;
+    }
+
+    .site-footer .social-icons a:hover {
+        transform: scale(1.1);
+        color: var(--accent-color-4); /* Example hover color */
+    }
+
+
+    /* --- SECTION STYLES --- */
     section {
       /* Default height, can be overridden */
       height: 100vh;
@@ -38,7 +147,7 @@
 
     /* Canvas Section (First) */
     .canvas-section {
-      background-color: #000;
+      background-color: var(--bg-dark-1);
     }
 
     #particleCanvas {
@@ -53,7 +162,7 @@
     .canvas-text {
       position: relative;
       z-index: 1; /* Above canvas */
-      color: white;
+      color: var(--text-light);
       text-align: center;
       padding: 20px; /* Add padding */
     }
@@ -63,7 +172,7 @@
       font-weight: 800;
       margin-bottom: 20px;
       /* Gradient text effect */
-      background: linear-gradient(90deg, #ff6b6b, #f35588, #4158D0, #C850C0, #FFCC70);
+      background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-4), #FFCC70);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -79,8 +188,8 @@
 
     /* Intro Section */
     .intro {
-      background-color: #000;
-      color: white;
+      background-color: var(--bg-dark-1);
+      color: var(--text-light);
     }
 
     .logo-container {
@@ -130,7 +239,8 @@
 
     /* Product Section */
     .product {
-      background: linear-gradient(135deg, #111, #222);
+      background: linear-gradient(135deg, var(--bg-dark-2), #222);
+      color: var(--text-light);
     }
 
     .product-container {
@@ -145,7 +255,6 @@
 
     .product-text {
       width: 45%;
-      color: white;
     }
 
     .product-title {
@@ -184,7 +293,7 @@
 
     .product-cta {
       display: inline-block;
-      background: linear-gradient(90deg, #ff6b6b, #f35588);
+      background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2));
       color: white;
       padding: 12px 30px;
       border-radius: 30px;
@@ -227,7 +336,7 @@
       left: 10px;
       right: 10px;
       bottom: 10px;
-      background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+      background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4), #FFCC70);
       border-radius: 30px;
       overflow: hidden;
     }
@@ -282,7 +391,8 @@
 
     /* Features Section */
     .features {
-      background-color: white;
+      background-color: var(--bg-light-2);
+      color: var(--text-dark);
       padding: 80px 0;
     }
 
@@ -305,7 +415,6 @@
 
     .features-grid {
       display: grid;
-      /* Responsive grid */
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
       width: 100%;
@@ -334,7 +443,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #4158D0, #C850C0);
+      background: linear-gradient(135deg, var(--accent-color-3), var(--accent-color-4));
       color: white;
       font-size: 30px;
     }
@@ -353,8 +462,8 @@
 
     /* Network Graph Section */
     .network-graph {
-        background-color: #0a0a1a; /* Dark blue/purple background */
-        color: white;
+        background-color: #0a0a1a;
+        color: var(--text-light);
     }
 
     #networkCanvas {
@@ -389,15 +498,15 @@
         transform: translateY(30px);
     }
 
-    /* --- REVISED SECTION: Vertical Timeline --- */
+    /* Vertical Timeline Section */
     .timeline {
-        background-color: #f4f7f6;
+        background-color: var(--bg-light-1);
+        color: var(--text-dark);
         height: auto; /* Let content determine height */
         min-height: 170vh; /* Increase min-height for scroll room */
         padding: 10vh 0 20vh; /* Add padding top and significant padding bottom */
         display: block; /* Override section default flex */
-        /* Centering is now handled by the wrapper */
-        /* align-items: center; Removed */
+        position: relative; /* Needed for absolute footer positioning */
         overflow: visible; /* Allow content overflow if needed */
     }
 
@@ -418,7 +527,7 @@
      .timeline-main-title {
         font-size: 48px;
         font-weight: 800;
-        color: #222;
+        color: var(--text-dark);
         margin-bottom: 10px;
      }
       .timeline-subtitle {
@@ -432,20 +541,15 @@
         align-items: center; /* Center items horizontally */
         gap: 60px; /* Space between timeline items */
         position: relative; /* For potential line drawing later */
-        /* Removed width: 300% */
-        /* Removed align-items: center (already set on flex container) */
-        /* Removed horizontal padding, handled by wrapper */
     }
 
     .timeline-item {
-        /* flex: 0 0 auto; Removed - not needed for vertical stack */
         width: 100%; /* Take full width of the container */
         max-width: 600px; /* Limit item width */
         height: auto;
-        background-color: white;
+        background-color: var(--bg-light-2);
         border-radius: 15px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        /* margin-right: 60px; Removed */
         padding: 30px;
         display: flex;
         flex-direction: column;
@@ -462,14 +566,14 @@
     .timeline-item-year {
         font-size: 14px;
         font-weight: 600;
-        color: #C850C0; /* Accent color */
+        color: var(--accent-color-4); /* Accent color */
         margin-bottom: 10px;
     }
 
     .timeline-item-title {
         font-size: 22px;
         font-weight: 700;
-        color: #333;
+        color: var(--text-dark);
         margin-bottom: 15px;
     }
 
@@ -479,7 +583,7 @@
         color: #666;
     }
 
-    /* Navigation dots */
+    /* --- Navigation Dots --- */
     .nav-dots {
       position: fixed;
       top: 50%;
@@ -487,7 +591,7 @@
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      z-index: 10; /* Ensure dots are above everything */
+      z-index: 101; /* Above header */
     }
 
     .nav-dot {
@@ -500,8 +604,7 @@
       transition: background-color 0.3s, transform 0.3s;
     }
      /* Adjust dot color based on section background */
-    .timeline .nav-dot,
-    .features .nav-dot {
+    body.on-light-section .nav-dot {
         background-color: rgba(0, 0, 0, 0.2); /* Dark dots for light sections */
     }
 
@@ -509,12 +612,11 @@
       background-color: white; /* Default active */
       transform: scale(1.3);
     }
-    .timeline .nav-dot.active,
-    .features .nav-dot.active {
+    body.on-light-section .nav-dot.active {
          background-color: #333; /* Active dark */
     }
 
-    /* Scroll indicator */
+    /* --- Scroll Indicator (First Section) --- */
     .scroll-indicator {
       position: absolute;
       bottom: 30px;
@@ -541,60 +643,37 @@
     }
 
     @keyframes scrollArrow {
-      0% {
-        transform: rotate(45deg) translate(0, 0);
-        opacity: 0.4;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: rotate(45deg) translate(10px, 10px);
-        opacity: 0.4;
-      }
+      0% { transform: rotate(45deg) translate(0, 0); opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { transform: rotate(45deg) translate(10px, 10px); opacity: 0.4; }
     }
 
-    /* Hide scroll indicator after first scroll */
     body.scrolled .scroll-indicator {
         opacity: 0;
         pointer-events: none;
     }
 
-    /* Responsive adjustments */
+    /* --- RESPONSIVE STYLES --- */
     @media (max-width: 992px) {
-        /* Previous responsive styles */
-        .product-container {
-            flex-direction: column;
-            text-align: center;
-        }
-        .product-text, .product-image-container {
-            width: 80%;
-        }
-        .product-image-container {
-            height: 500px;
-            margin-top: 40px;
-        }
-        .product-image {
-             width: 250px;
-             height: 500px;
-        }
-        .features-grid {
-             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
+        .canvas-title { font-size: 50px; }
+        .canvas-description { font-size: 20px; }
+        .product-container { flex-direction: column; text-align: center; }
+        .product-text, .product-image-container { width: 80%; }
+        .product-image-container { height: 500px; margin-top: 40px; }
+        .product-image { width: 250px; height: 500px; }
+        .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
         .network-title { font-size: 40px; }
-
-        /* Timeline Responsive */
         .timeline { min-height: 150vh; padding: 8vh 0 15vh; }
         .timeline-main-title { font-size: 40px; }
         .timeline-container { gap: 50px; }
+        .site-header { padding: 10px 20px; }
+        .site-header nav ul { gap: 20px; }
     }
 
      @media (max-width: 768px) {
-        /* Previous responsive styles */
         section {
-            /* Allow slightly less height on mobile if needed */
-            /* Consider removing fixed vh height on mobile if content varies */
-            /* min-height: 80vh; height: auto; padding: 60px 0; */
+            /* Consider removing fixed 100vh on mobile if content needs flow */
+            /* height: auto; min-height: 80vh; padding-top: 60px; padding-bottom: 60px; */
         }
         .features-title { font-size: 36px; }
         .canvas-title { font-size: 40px; }
@@ -605,30 +684,57 @@
          .product-text, .product-image-container { width: 90%; }
          .product-image { width: 220px; height: 440px; }
 
-         /* Adjust timeline for mobile */
-        .timeline { min-height: 140vh; padding: 6vh 0 10vh; }
-        .timeline-wrapper { width: 95%; }
-        .timeline-title-area { margin-bottom: 60px; }
-        .timeline-main-title { font-size: 32px; }
-        .timeline-subtitle { font-size: 16px; }
-        .timeline-container { gap: 40px; }
-        .timeline-item { padding: 25px; }
+         .timeline { min-height: 140vh; padding: 6vh 0 10vh; }
+         .timeline-wrapper { width: 95%; }
+         .timeline-title-area { margin-bottom: 60px; }
+         .timeline-main-title { font-size: 32px; }
+         .timeline-subtitle { font-size: 16px; }
+         .timeline-container { gap: 40px; }
+         .timeline-item { padding: 25px; }
 
          .network-title { font-size: 32px; }
          .network-description { font-size: 16px; }
+
+         .site-header {
+             /* Maybe move header slightly more inboard on mobile */
+             /* right: 10px; top: 10px; */
+             padding: 8px 15px;
+             background: rgba(0, 0, 0, 0.2); /* Add slight background for mobile */
+         }
+         .site-header nav ul { gap: 15px; }
+         .site-header nav a { font-size: 1rem; }
+
+         .site-footer { bottom: 20px; }
+         .site-footer .copyright { font-size: 0.75rem; }
+         .site-footer .social-icons { gap: 15px; }
+         .site-footer .social-icons a { font-size: 1.1rem; }
     }
 
   </style>
 </head>
 <body>
+
+  <header class="site-header" id="site-header">
+      <nav>
+          <ul>
+              <li><a href="#" aria-label="Home"><i class="fas fa-home"></i></a></li>
+              <li><a href="#" aria-label="About"><i class="fas fa-info-circle"></i></a></li>
+              <li><a href="#" aria-label="Products"><i class="fas fa-rocket"></i></a></li>
+              <li><a href="#" aria-label="Contact"><i class="fas fa-envelope"></i></a></li>
+          </ul>
+      </nav>
+  </header>
+
   <div class="nav-dots">
     <div class="nav-dot active" data-section="0"></div>
     <div class="nav-dot" data-section="1"></div>
     <div class="nav-dot" data-section="2"></div>
     <div class="nav-dot" data-section="3"></div>
-    <div class="nav-dot" data-section="4"></div> <div class="nav-dot" data-section="5"></div> </div>
+    <div class="nav-dot" data-section="4"></div>
+    <div class="nav-dot" data-section="5"></div>
+  </div>
 
-  <section class="canvas-section" id="section-0">
+  <section class="canvas-section" id="section-0" data-theme="dark">
     <canvas id="particleCanvas"></canvas>
     <div class="canvas-text">
       <h2 class="canvas-title">Experience The Future</h2>
@@ -640,7 +746,7 @@
     </div>
   </section>
 
-  <section class="intro" id="section-1">
+  <section class="intro" id="section-1" data-theme="dark">
     <div class="particles-container" id="particlesContainer"></div>
     <div class="logo-container">
       <div class="logo-circle" id="logoCircle"></div>
@@ -648,7 +754,7 @@
     </div>
   </section>
 
-  <section class="product" id="section-2">
+  <section class="product" id="section-2" data-theme="dark">
     <div class="product-container">
       <div class="product-text">
         <h2 class="product-title">Introducing Nova X1</h2>
@@ -674,45 +780,21 @@
     </div>
   </section>
 
-  <section class="features" id="section-3">
+  <section class="features" id="section-3" data-theme="light">
     <div class="features-container">
       <h2 class="features-title">Exceptional Features</h2>
       <div class="features-grid">
-        <div class="feature-box">
-          <div class="feature-icon">✨</div>
-          <h3 class="feature-title">Premium Design</h3>
-          <p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">⚡</div>
-          <h3 class="feature-title">Lightning Fast</h3>
-          <p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">🔋</div>
-          <h3 class="feature-title">All-Day Battery</h3>
-          <p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">📸</div>
-          <h3 class="feature-title">Pro Camera</h3>
-          <p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">🔒</div>
-          <h3 class="feature-title">Enhanced Security</h3>
-          <p class="feature-description">Advanced security features to keep your data safe and protected.</p>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">🌐</div>
-          <h3 class="feature-title">Global Connectivity</h3>
-          <p class="feature-description">Stay connected anywhere with advanced network capabilities.</p>
-        </div>
+        <div class="feature-box"><div class="feature-icon">✨</div><h3 class="feature-title">Premium Design</h3><p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p></div>
+        <div class="feature-box"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p></div>
+        <div class="feature-box"><div class="feature-icon">🔋</div><h3 class="feature-title">All-Day Battery</h3><p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p></div>
+        <div class="feature-box"><div class="feature-icon">📸</div><h3 class="feature-title">Pro Camera</h3><p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p></div>
+        <div class="feature-box"><div class="feature-icon">🔒</div><h3 class="feature-title">Enhanced Security</h3><p class="feature-description">Advanced security features to keep your data safe and protected.</p></div>
+        <div class="feature-box"><div class="feature-icon">🌐</div><h3 class="feature-title">Global Connectivity</h3><p class="feature-description">Stay connected anywhere with advanced network capabilities.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="network-graph" id="section-4">
+  <section class="network-graph" id="section-4" data-theme="dark">
      <canvas id="networkCanvas"></canvas>
      <div class="network-text-overlay">
          <h2 class="network-title">Connecting Ideas</h2>
@@ -720,38 +802,29 @@
      </div>
   </section>
 
-  <section class="timeline" id="section-5">
-     <div class="timeline-wrapper"> <div class="timeline-title-area">
+  <section class="timeline" id="section-5" data-theme="light">
+     <div class="timeline-wrapper">
+        <div class="timeline-title-area">
              <h2 class="timeline-main-title">Our Journey</h2>
              <p class="timeline-subtitle">Milestones that shaped our path.</p>
          </div>
-         <div class="timeline-container"> <div class="timeline-item">
-                 <div class="timeline-item-year">2018</div>
-                 <h3 class="timeline-item-title">The Spark</h3>
-                 <p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p>
-             </div>
-             <div class="timeline-item">
-                 <div class="timeline-item-year">2020</div>
-                 <h3 class="timeline-item-title">First Breakthrough</h3>
-                 <p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p>
-             </div>
-             <div class="timeline-item">
-                 <div class="timeline-item-year">2022</div>
-                 <h3 class="timeline-item-title">Nova X1 Launch</h3>
-                 <p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p>
-             </div>
-             <div class="timeline-item">
-                 <div class="timeline-item-year">2024</div>
-                 <h3 class="timeline-item-title">Global Expansion</h3>
-                 <p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p>
-             </div>
-              <div class="timeline-item">
-                 <div class="timeline-item-year">Future</div>
-                 <h3 class="timeline-item-title">Next Horizons</h3>
-                 <p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p>
-             </div>
-             </div>
+         <div class="timeline-container">
+             <div class="timeline-item"><div class="timeline-item-year">2018</div><h3 class="timeline-item-title">The Spark</h3><p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p></div>
+             <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
+             <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
+             <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
+              <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
+         </div>
      </div>
+     <footer class="site-footer">
+         <div class="social-icons">
+             <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+             <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+         </div>
+         <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
+     </footer>
   </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -765,668 +838,279 @@
     // --- Particle Creation (Intro Section) ---
     function createIntroParticles() {
       const container = document.getElementById('particlesContainer');
-      if (!container) return; // Exit if container not found
+      if (!container) return;
       const numParticles = 100;
-      // Clear existing particles if function is called again
       container.innerHTML = '';
-
       for (let i = 0; i < numParticles; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
         particle.style.opacity = Math.random() * 0.5 + 0.1;
-        const size = Math.random() * 3 + 1; // Smaller size range
+        const size = Math.random() * 3 + 1;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-
         container.appendChild(particle);
-
-        // Animate each particle gently
-        gsap.to(particle, {
-          x: (Math.random() - 0.5) * 100, // Reduced movement range
-          y: (Math.random() - 0.5) * 100,
-          duration: Math.random() * 15 + 10, // Slower duration
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
+        gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
       }
     }
 
     // --- Initialize Intro Animations ---
     function initIntro() {
-      createIntroParticles(); // Create particles for the intro section
-
+      createIntroParticles();
       const logoCircle = document.querySelector('.intro .logo-circle');
       const logoInner = document.querySelector('.intro .logo-inner');
-
       if (logoCircle && logoInner) {
-          // Logo animation timeline
-          const introTl = gsap.timeline({
-              scrollTrigger: {
-                  trigger: ".intro",
-                  start: "top 80%", // Start animation when 80% of section is visible
-                  toggleActions: "play none none reverse" // Play on enter, reverse on leave up
-              }
-          });
-
-          introTl.to(logoCircle, {
-              rotation: 360,
-              duration: 30, // Slower rotation
-              repeat: -1,
-              ease: "none"
-            }, 0)
-            .fromTo(logoCircle, // Pulse effect
-              { scale: 1, opacity: 0.2 },
-              { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0)
-            .to(logoInner, { // Fade in text
-              opacity: 1,
-              duration: 1.5,
-              ease: "power2.out"
-            }, 0.5); // Start text fade slightly after circle appears
+          const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
+          introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0)
+            .fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0)
+            .to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
       }
     }
 
     // --- Initialize Product Section Animations ---
     function initProduct() {
-        const productSection = document.querySelector('.product');
-        if (!productSection) return;
-
-        // Text and elements fade-in animation
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: productSection,
-                start: "top 60%", // Trigger when 60% of section is visible
-                toggleActions: "play none none reverse" // Play on enter, reverse on leave
-            }
-        })
+        const productSection = document.querySelector('.product'); if (!productSection) return;
+        gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } })
         .to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
-        .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6") // Overlap slightly
+        .to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6")
         .to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5")
         .to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-
-        // Phone 3D rotation based on scroll progress within the section
-        const phoneImage = document.querySelector('.product-image');
-        if (phoneImage) {
-            gsap.to(phoneImage, {
-                rotationY: 30, // Max rotation angle
-                ease: "none",
-                scrollTrigger: {
-                    trigger: productSection,
-                    start: "top bottom", // Start rotating when section enters viewport
-                    end: "bottom top", // End rotating when section leaves viewport
-                    scrub: 1 // Smooth scrubbing effect
-                }
-            });
-        }
-
-        // Screen gradient animation (continuous)
-        const phoneScreen = document.querySelector('.phone-screen');
-        if (phoneScreen) {
-            gsap.to(phoneScreen, {
-                background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', // Animate to different angle/colors
-                duration: 8,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
-        }
+        const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
+        const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
     }
 
     // --- Initialize Features Section Animations ---
     function initFeatures() {
-        const featuresSection = document.querySelector('.features');
-        if (!featuresSection) return;
-
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: featuresSection,
-                start: "top 70%", // Trigger slightly earlier
-                toggleActions: "play none none reverse"
-            }
-        })
+        const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
+        gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } })
         .to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" })
-        .to('.feature-box', {
-            y: 0,
-            opacity: 1,
-            stagger: 0.15, // Slightly more stagger
-            duration: 0.7,
-            ease: "power3.out"
-        }, "-=0.5"); // Start boxes animation slightly before title finishes
+        .to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
     }
-
 
     // --- Initialize Canvas Section (First Section - Particles) ---
     function initCanvasWelcome() {
-      const canvasSection = document.querySelector('.canvas-section');
-      const canvas = document.getElementById('particleCanvas');
-      if (!canvasSection || !canvas) return;
-      const ctx = canvas.getContext('2d');
-
-      let particles = [];
-      const maxParticles = 150; // Adjust density
-      let animationFrameId;
-      let mouse = { x: null, y: null, radius: 100 }; // Mouse interaction radius
-
-      window.addEventListener('mousemove', (event) => {
-          const rect = canvas.getBoundingClientRect();
-          mouse.x = event.clientX - rect.left;
-          mouse.y = event.clientY - rect.top;
-      });
-       window.addEventListener('mouseout', () => {
-           mouse.x = null;
-           mouse.y = null;
-       });
-
-
-      function resizeCanvas() {
-        canvas.width = canvasSection.offsetWidth; // Use section width/height
-        canvas.height = canvasSection.offsetHeight;
-        // Re-initialize particles on resize if needed, or just adjust boundaries
-        // Simple approach: clear and recreate
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        particles = []; // Clear existing particles
-        createCanvasWelcomeParticles(); // Create new ones for new size
-        animateCanvasWelcome(); // Restart animation
-      }
-
-      window.addEventListener('resize', resizeCanvas);
-
-      // Particle class
-      class Particle {
-        constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.baseX = this.x; // Store original position
-          this.baseY = this.y;
-          this.size = Math.random() * 2.5 + 0.5; // Slightly larger max size
-          this.speedX = (Math.random() - 0.5) * 1.0; // Slower speed
-          this.speedY = (Math.random() - 0.5) * 1.0;
-          this.density = (Math.random() * 30) + 1; // How much it reacts to mouse
-          // Color variation (cool blues/purples)
-          this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`;
-        }
-
-        update() {
-          // Mouse interaction
-           let dx = mouse.x - this.x;
-           let dy = mouse.y - this.y;
-           let distance = Math.sqrt(dx*dx + dy*dy);
-           let forceDirectionX = dx / distance;
-           let forceDirectionY = dy / distance;
-           let maxDistance = mouse.radius;
-           // Force is inversely proportional to distance (stronger when closer)
-           let force = (maxDistance - distance) / maxDistance;
-           let directionX = forceDirectionX * force * this.density;
-           let directionY = forceDirectionY * force * this.density;
-
-           if (distance < mouse.radius && mouse.x != null) { // Check mouse is inside canvas
-               this.x -= directionX;
-               this.y -= directionY;
-           } else {
-                // Return to base position slowly if not moving
-                if (this.x !== this.baseX) {
-                    let dxToBase = this.x - this.baseX;
-                    this.x -= dxToBase / 20; // Adjust speed of return
-                }
-                 if (this.y !== this.baseY) {
-                    let dyToBase = this.y - this.baseY;
-                    this.y -= dyToBase / 20;
-                }
-                // Keep slight random movement
-                this.x += this.speedX;
-                this.y += this.speedY;
-                // Bounce off edges (slightly adjusted for return logic)
-                if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); }
-                if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); }
-           }
-        }
-
-        draw() {
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      function createCanvasWelcomeParticles() {
-        for (let i = 0; i < maxParticles; i++) {
-          particles.push(new Particle());
-        }
-      }
-
-      // Connect particles with lines
-      function connectWelcomeParticles() {
-        const maxDistance = 80; // Max distance to draw a line
-        ctx.lineWidth = 0.3; // Thinner lines
-
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < maxDistance) {
-              const opacity = 1 - (distance / maxDistance);
-              ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; // Soft blue lines
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
-              ctx.closePath();
-            }
-          }
-        }
-      }
-
-      // Animation loop
-      function animateCanvasWelcome() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas each frame
-
-        particles.forEach(particle => {
-          particle.update();
-          particle.draw();
-        });
-
-        connectWelcomeParticles(); // Draw lines between particles
-
-        animationFrameId = requestAnimationFrame(animateCanvasWelcome); // Loop
-      }
-
-      // Initial setup
-      resizeCanvas(); // Set initial size and start animation
-
-      // Text fade-in animation (triggered on scroll)
-       gsap.timeline({
-            scrollTrigger: {
-                trigger: canvasSection,
-                start: "top 50%", // Trigger when section center hits viewport top
-                toggleActions: "play none none reverse"
-            }
-        })
-       .to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" })
-       .to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8"); // Overlap description animation
+      const canvasSection = document.querySelector('.canvas-section'); const canvas = document.getElementById('particleCanvas'); if (!canvasSection || !canvas) return; const ctx = canvas.getContext('2d'); let particles = []; const maxParticles = 150; let animationFrameId; let mouse = { x: null, y: null, radius: 100 }; window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse.x = event.clientX - rect.left; mouse.y = event.clientY - rect.top; }); window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; }); function resizeCanvas() { canvas.width = canvasSection.offsetWidth; canvas.height = canvasSection.offsetHeight; if (animationFrameId) cancelAnimationFrame(animationFrameId); particles = []; createCanvasWelcomeParticles(); animateCanvasWelcome(); } window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 2.5 + 0.5; this.speedX = (Math.random() - 0.5) * 1.0; this.speedY = (Math.random() - 0.5) * 1.0; this.density = (Math.random() * 30) + 1; this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`; } update() { let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = mouse.x == null ? Infinity : Math.sqrt(dx*dx + dy*dy); let forceDirectionX = dx / distance; let forceDirectionY = dy / distance; let maxDistance = mouse.radius; let force = (maxDistance - distance) / maxDistance; let directionX = forceDirectionX * force * this.density; let directionY = forceDirectionY * force * this.density; if (distance < mouse.radius) { this.x -= directionX; this.y -= directionY; } else { if (this.x !== this.baseX) { let dxToBase = this.x - this.baseX; this.x -= dxToBase / 20; } if (this.y !== this.baseY) { let dyToBase = this.y - this.baseY; this.y -= dyToBase / 20; } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); } if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createCanvasWelcomeParticles() { for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); } } function connectWelcomeParticles() { const maxDistance = 80; ctx.lineWidth = 0.3; for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateCanvasWelcome() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(particle => { particle.update(); particle.draw(); }); connectWelcomeParticles(); animationFrameId = requestAnimationFrame(animateCanvasWelcome); } resizeCanvas(); gsap.timeline({ scrollTrigger: { trigger: canvasSection, start: "top 50%", toggleActions: "play none none reverse" } }) .to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" }) .to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
     }
 
-    // --- NEW: Initialize Network Graph Section Animations ---
+    // --- Initialize Network Graph Section Animations ---
      function initNetworkGraph() {
-        const section = document.querySelector('.network-graph');
-        const canvas = document.getElementById('networkCanvas');
-        if (!section || !canvas) return;
-        const ctx = canvas.getContext('2d');
-
-        let nodes = [];
-        const maxNodes = 80; // Adjust node density
-        let animationFrameId_network;
-        let mouse_network = { x: null, y: null, radius: 120 }; // Interaction radius for this canvas
-
-        // --- Mouse Interaction ---
-         canvas.addEventListener('mousemove', (event) => { // Attach to canvas specifically
-            const rect = canvas.getBoundingClientRect();
-            mouse_network.x = event.clientX - rect.left;
-            mouse_network.y = event.clientY - rect.top;
-        });
-         canvas.addEventListener('mouseleave', () => { // Use mouseleave on canvas
-             mouse_network.x = null;
-             mouse_network.y = null;
-         });
-
-        // --- Resize Handling ---
-        function resizeNetworkCanvas() {
-            canvas.width = section.offsetWidth;
-            canvas.height = section.offsetHeight;
-            if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network);
-            nodes = [];
-            createNetworkNodes();
-            animateNetwork();
-        }
-        window.addEventListener('resize', resizeNetworkCanvas);
-
-        // --- Node Class ---
-        class Node {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1; // Size range
-                this.baseSize = this.size;
-                this.speedX = (Math.random() - 0.5) * 0.8; // Slow movement
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                // Color variation (more techy blues/cyans)
-                this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`;
-            }
-
-            update() {
-                 // Mouse interaction - make nodes pulse/grow when near
-                let dx_mouse = mouse_network.x - this.x;
-                let dy_mouse = mouse_network.y - this.y;
-                let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); // Avoid NaN if mouse is null
-
-                if (distance_mouse < mouse_network.radius) {
-                    // Grow based on proximity
-                    this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; // Grow up to 4px larger
-                 } else {
-                    // Shrink back to base size smoothly
-                    if (this.size > this.baseSize) {
-                       this.size -= 0.1; // Adjust shrink speed
-                    } else {
-                       this.size = this.baseSize;
-                    }
-                }
-
-                // Movement and boundary check
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-                 // Clamp position if somehow escapes
-                 this.x = Math.max(0, Math.min(canvas.width, this.x));
-                 this.y = Math.max(0, Math.min(canvas.height, this.y));
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        // --- Create Nodes ---
-        function createNetworkNodes() {
-            for (let i = 0; i < maxNodes; i++) {
-                nodes.push(new Node());
-            }
-        }
-
-        // --- Connect Nodes ---
-        function connectNodes() {
-            const maxDistance = 100; // Max distance for line connection
-            ctx.lineWidth = 0.2; // Very thin lines
-
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        const opacity = 1 - (distance / maxDistance);
-                        // Brighter lines, maybe white or light cyan
-                        ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`;
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.stroke();
-                        ctx.closePath();
-                    }
-                }
-            }
-        }
-
-        // --- Animation Loop ---
-        function animateNetwork() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-            nodes.forEach(node => {
-                node.update();
-                node.draw();
-            });
-            connectNodes(); // Draw connecting lines
-            animationFrameId_network = requestAnimationFrame(animateNetwork); // Loop
-        }
-
-        // --- Initial Setup & Text Animation ---
-        resizeNetworkCanvas(); // Set initial size and start animation
-
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top 60%", // Trigger text fade earlier
-                toggleActions: "play none none reverse"
-            }
-        })
-        .to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" })
-        .to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7"); // Overlap slightly
+        const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }) .to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }) .to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
     }
 
-
-    // --- REVISED: Initialize Vertical Timeline Section Animations ---
+    // --- Initialize Vertical Timeline Section Animations ---
     function initTimeline() {
         const section = document.querySelector('.timeline');
         const titleArea = section.querySelector('.timeline-title-area');
-        const timelineItems = gsap.utils.toArray('.timeline-item'); // Use GSAP utility for array
+        const timelineItems = gsap.utils.toArray('.timeline-item');
 
-        if (!section || !titleArea || timelineItems.length === 0) {
-             console.warn("Timeline section or its elements not found.");
-             return;
+        if (!section || !titleArea || timelineItems.length === 0) { console.warn("Timeline section or its elements not found."); return; }
+
+        gsap.to(titleArea, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse", id: "timeline-title" } });
+        gsap.to(timelineItems, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out', stagger: 0.3, scrollTrigger: { trigger: '.timeline-container', start: "top 65%", end: "bottom 80%", toggleActions: "play none none reverse", id: "timeline-items" } });
+        // Fade out effect at the end is removed for simplicity now, footer handles end-of-page content reveal. Re-add if needed.
+    }
+
+    // --- Initialize Header Animation ---
+    function initHeader() {
+        const header = document.getElementById('site-header');
+        if (!header) return;
+
+        ScrollTrigger.create({
+            start: 50, // Pixels scrolled down
+            end: 99999, // Effectively always active after start
+            toggleClass: { className: "header-scrolled", targets: header },
+            // markers: true, // for debugging trigger point
+            id: "header-scroll-toggle"
+        });
+    }
+
+    // --- Initialize Footer Animation ---
+    function initFooter() {
+        const footer = document.querySelector('#section-5 .site-footer'); // Target footer inside last section
+        const copyrightYearSpan = document.getElementById('copyright-year');
+
+        if (!footer) return;
+
+        // Set copyright year
+        if(copyrightYearSpan) {
+            copyrightYearSpan.textContent = new Date().getFullYear();
         }
 
-        // 1. Animate the title area in
-        gsap.to(titleArea, {
+        // Animate footer in
+        gsap.to(footer, {
             opacity: 1,
             y: 0,
             duration: 1.0,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: section, // Trigger based on the section itself
-                start: "top 70%", // Start when section top is 70% from viewport top
-                toggleActions: "play none none reverse", // Play on enter, reverse on scroll up past start
-                 // markers: true, // Uncomment for debugging title trigger
-                 id: "timeline-title"
-            }
-        });
-
-        // 2. Animate timeline items in with stagger
-        gsap.to(timelineItems, {
-            opacity: 1,
-            y: 0,        // Target Y position
-            scale: 1,    // Target scale
-            duration: 0.8, // Duration for each item's animation
             ease: 'power2.out',
-            stagger: 0.3, // Delay between the start of each item's animation
             scrollTrigger: {
-                trigger: '.timeline-container', // Trigger when the container enters view
-                start: "top 65%",      // Start animations when container top is 65% from viewport top
-                end: "bottom 80%",    // Optional: Define an end point if needed
-                toggleActions: "play none none reverse", // Play items in, reverse them out
-                 // markers: true, // Uncomment for debugging items trigger
-                 id: "timeline-items"
+                trigger: '#section-5', // Trigger based on the last section
+                start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
+                toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
+                // markers: true,
+                id: "footer-reveal"
             }
-        });
-
-        // 3. Add the "dissolve" (fade out) effect at the end of the section scroll
-        gsap.to([titleArea, timelineItems], { // Target both title and all items
-             opacity: 0,
-             // y: -20, // Optional: slight upward movement on fade
-             duration: 0.6, // Fade duration
-             ease: 'power1.in',
-             scrollTrigger: {
-                trigger: section, // Trigger based on the whole section
-                start: "bottom bottom-=150px", // Start fading when section bottom is 150px from viewport bottom
-                end: "bottom center", // Be fully faded by the time section bottom reaches viewport center
-                scrub: 0.5, // Smooth fade linked to scroll
-                 // markers: true, // Uncomment for debugging fade-out trigger
-                 id: "timeline-fadeout"
-             }
         });
     }
 
 
-    // --- Navigation Dots Functionality ---
+    // --- Navigation Dots & Theme Switching ---
     function initNavigation() {
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('section[data-theme]'); // Select sections with theme data
         const navDots = document.querySelectorAll('.nav-dot');
+        const headerLinks = document.querySelectorAll('.site-header nav a');
+        const body = document.body;
+
         if (navDots.length === 0 || sections.length === 0) return;
 
-        // Optional check: Warn if mismatch, but proceed based on dots found
         if (navDots.length !== sections.length) {
-           console.warn("Mismatch between number of sections and nav dots. Found", sections.length, "sections and", navDots.length, "dots.");
+           console.warn("Mismatch between number of sections and nav dots.");
         }
 
-        // Scroll to section on dot click
         navDots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
-                 // Check if the index is valid for the sections nodelist
                  if (sectionIndex >= 0 && sectionIndex < sections.length) {
                      const targetSection = sections[sectionIndex];
                      if (targetSection) {
-                        // Calculate offset dynamically - important if using variable height sections
                         let offsetY = 0;
-                        // Add specific offsets here if needed, e.g., for the taller timeline section
-                        // if (targetSection.classList.contains('timeline')) { offsetY = -50; }
                         gsap.to(window, {
                             duration: 1.2,
                             scrollTo: { y: targetSection, offsetY: offsetY },
                             ease: "power2.inOut"
                         });
                     }
-                 } else {
-                     console.error("Invalid section index:", sectionIndex);
-                 }
+                 } else { console.error("Invalid section index:", sectionIndex); }
             });
         });
 
-        // Update active dot based on scroll position (using ScrollTrigger)
+        // Update active dot AND body theme class based on scroll position
         sections.forEach((section, index) => {
-            // Default trigger points
             let startPoint = "top center";
             let endPoint = "bottom center";
+            const theme = section.getAttribute('data-theme') || 'dark'; // Default to dark
 
-            // Use more specific triggers for variable height sections like timeline
             if (section.classList.contains('timeline')) {
-                 startPoint = "top top+=100px"; // Activate when top is 100px below viewport top
-                 endPoint = "bottom bottom-=100px"; // Deactivate when bottom is 100px above viewport bottom
-                 // Make sure end is after start
-                 if (section.offsetHeight < 200) { // If section is very short, revert to center
-                    startPoint = "top center";
-                    endPoint = "bottom center";
-                 }
+                 startPoint = "top top+=100px";
+                 endPoint = "bottom bottom-=100px";
+                 if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
             } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                 // For very short sections, trigger when fully visible
-                 startPoint = "top bottom-=100px"; // Activate when top is 100px above bottom
-                 endPoint = "bottom top+=100px"; // Deactivate when bottom is 100px below top
+                 startPoint = "top bottom-=100px";
+                 endPoint = "bottom top+=100px";
             }
-
 
             ScrollTrigger.create({
                 trigger: section,
                 start: startPoint,
                 end: endPoint,
-                 // markers: true, // uncomment for debugging zones
                  id: `section-nav-${index}`,
-                onToggle: self => {
-                     if (self.isActive) {
-                        navDots.forEach((dot, dotIndex) => {
-                             // Match based on data-section attribute for safety
-                             const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                             if (dotSecIndex === index) {
-                                 dot.classList.add('active');
-                             } else {
-                                 dot.classList.remove('active');
-                             }
-                         });
-                    }
-                }
-                // Use onEnter/onLeaveBack for slightly different behavior if needed
-                /*
-                onEnter: () => setActiveDot(index),
-                onLeaveBack: () => setActiveDot(index - 1 >= 0 ? index - 1 : 0), // Activate previous on scrolling up
-                */
+                onEnter: () => updateActiveState(index, theme),
+                onEnterBack: () => updateActiveState(index, theme),
+                // markers: true,
             });
         });
 
-        // Function to manually set active dot (if needed, e.g. for onEnter/Leave)
-        /*
-        function setActiveDot(index) {
-             if (index >= 0 && index < navDots.length) {
-                 navDots.forEach((dot, i) => {
-                    const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                     dot.classList.toggle('active', dotSecIndex === index);
-                 });
+        function updateActiveState(activeIndex, activeTheme) {
+            // Update Nav Dots
+             navDots.forEach((dot) => {
+                 const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                 dot.classList.toggle('active', dotSecIndex === activeIndex);
+             });
+
+             // Update Body Class for Theme Styling
+             if (activeTheme === 'light') {
+                 body.classList.add('on-light-section');
+                 headerLinks.forEach(link => link.style.color = 'var(--text-dark)'); // Change header icon color
+             } else {
+                 body.classList.remove('on-light-section');
+                 headerLinks.forEach(link => link.style.color = 'var(--text-light)'); // Revert header icon color
              }
+             console.log(`Entered Section ${activeIndex}, Theme: ${activeTheme}`);
         }
-        */
 
         // Hide scroll indicator after first scroll
         ScrollTrigger.create({
-            start: 50, // Pixels from top
+            start: 50,
             onEnter: () => document.body.classList.add('scrolled'),
-            onLeaveBack: () => document.body.classList.remove('scrolled') // Optional: show again if scrolled to top
+            onLeaveBack: () => document.body.classList.remove('scrolled')
         });
     }
 
     // --- Initialize All Animations & Functionality ---
     function initAll() {
       console.log("Initializing animations...");
-      // Initialize sections in order
-      initCanvasWelcome(); // Section 0
-      initIntro();       // Section 1
-      initProduct();     // Section 2
-      initFeatures();    // Section 3
-      initNetworkGraph();// Section 4 (New)
-      initTimeline();    // Section 5 (Revised Vertical)
-      initNavigation();  // Navigation depends on all sections being measurable
+      initHeader(); // Init Header First
+      initCanvasWelcome();
+      initIntro();
+      initProduct();
+      initFeatures();
+      initNetworkGraph();
+      initTimeline();
+      initFooter();    // Init Footer
+      initNavigation(); // Navigation depends on all sections being measurable
 
       // Smooth scrolling for internal links (e.g., CTA button if it links to #)
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
-          if (href.length > 1) { // Ensure it's not just "#"
+          if (href.length > 1) {
             try {
                  const target = document.querySelector(href);
                  if (target) {
-                    e.preventDefault(); // Prevent default jump
-                    gsap.to(window, {
-                        duration: 1,
-                        scrollTo: { y: target, offsetY: 0 },
-                        ease: "power2.inOut"
-                    });
+                    e.preventDefault();
+                    gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" });
                 }
-            } catch (error) {
-                 console.warn("Could not find target for anchor:", href, error);
-            }
-          } else if (href === "#") {
-             e.preventDefault(); // Prevent jump for "#" links
-          }
+            } catch (error) { console.warn("Could not find target for anchor:", href, error); }
+          } else if (href === "#") { e.preventDefault(); }
         });
       });
 
         // Initial Refresh + Debounced Resize Refresh
-        // Use a small timeout to ensure layout is stable after JS manipulations
          setTimeout(() => {
              ScrollTrigger.refresh();
              console.log("ScrollTrigger refreshed initially.");
 
-             // Force update nav dots after refresh, just in case active state wasn't caught
-             // This checks which section is currently most centered in the viewport
+             // Force update nav dots and theme after refresh
              let mostCenteredIndex = -1;
              let minCenterDist = window.innerHeight;
              const viewportCenter = window.innerHeight / 2;
+             let activeTheme = 'dark'; // default
 
              document.querySelectorAll('section').forEach((section, index) => {
                 const rect = section.getBoundingClientRect();
                 const sectionCenter = rect.top + rect.height / 2;
                 const dist = Math.abs(viewportCenter - sectionCenter);
 
-                if (dist < minCenterDist) {
+                // Check if section is reasonably visible
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                if (isVisible && dist < minCenterDist) {
                     minCenterDist = dist;
                     mostCenteredIndex = index;
+                    activeTheme = section.getAttribute('data-theme') || 'dark';
                 }
              });
 
-             if(mostCenteredIndex !== -1) {
-                 document.querySelectorAll('.nav-dot').forEach((dot) => {
-                     const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                     dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
-                 });
-                 console.log(`Initial active dot set to section ${mostCenteredIndex}`);
+              if(mostCenteredIndex !== -1) {
+                 // Update dots
+                  document.querySelectorAll('.nav-dot').forEach((dot) => {
+                      const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                      dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
+                  });
+                  // Update theme
+                  const body = document.body;
+                  const headerLinks = document.querySelectorAll('.site-header nav a');
+                   if (activeTheme === 'light') {
+                       body.classList.add('on-light-section');
+                       headerLinks.forEach(link => link.style.color = 'var(--text-dark)');
+                   } else {
+                       body.classList.remove('on-light-section');
+                       headerLinks.forEach(link => link.style.color = 'var(--text-light)');
+                   }
+                  console.log(`Initial active section ${mostCenteredIndex}, theme ${activeTheme}`);
               }
 
-         }, 150); // Adjust delay if needed (150ms)
+         }, 150);
 
          let resizeTimer;
          window.addEventListener('resize', () => {
@@ -1434,15 +1118,13 @@
              resizeTimer = setTimeout(() => {
                  console.log("Resizing - Refreshing ScrollTrigger...");
                  ScrollTrigger.refresh();
-             }, 250); // Debounce resize refresh
+             }, 250);
          });
-
 
       console.log("Initialization sequence complete.");
     }
 
     // Start everything when the DOM is fully loaded
-    // Using 'load' ensures images are loaded, which might affect section heights
      window.addEventListener('load', initAll);
 
   </script>
