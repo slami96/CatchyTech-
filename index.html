@@ -710,431 +710,437 @@
 </head>
 <body data-current-theme="dark">
     <header class="site-header" id="site-header">
-         <nav>
-             <ul>
-                 <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
-                 <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
-                 <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
-                 <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
-                 </ul>
-         </nav>
-     </header>
+       <nav>
+           <ul>
+               <li><a href="#section-0" aria-label="Home"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>
+               <li><a href="#section-3" aria-label="Features"><i class="fas fa-star"></i><span class="nav-label">Features</span></a></li>
+               <li><a href="#section-4" aria-label="Network"><i class="fas fa-project-diagram"></i><span class="nav-label">Network</span></a></li>
+               <li><a href="#section-5" aria-label="Journey"><i class="fas fa-route"></i><span class="nav-label">Journey</span></a></li>
+               </ul>
+       </nav>
+    </header>
 
-     <div class="nav-dots">
-       <div class="nav-dot active" data-section="0"></div>
-       <div class="nav-dot" data-section="1"></div>
-       <div class="nav-dot" data-section="2"></div>
-       <div class="nav-dot" data-section="3"></div>
-       <div class="nav-dot" data-section="4"></div>
-       <div class="nav-dot" data-section="5"></div>
-     </div>
+    <div class="nav-dots">
+      <div class="nav-dot active" data-section="0"></div>
+      <div class="nav-dot" data-section="1"></div>
+      <div class="nav-dot" data-section="2"></div>
+      <div class="nav-dot" data-section="3"></div>
+      <div class="nav-dot" data-section="4"></div>
+      <div class="nav-dot" data-section="5"></div>
+    </div>
 
-     <section class="canvas-section" id="section-0" data-theme="dark">
-       <canvas id="particleCanvas"></canvas>
-       <div class="canvas-text">
-         <h2 class="canvas-title">Experience The Future</h2>
-         <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
-       </div>
-       <div class="scroll-indicator">
-         <span>Scroll to explore</span>
-         <div class="scroll-arrow"></div>
-       </div>
-     </section>
+    <section class="canvas-section" id="section-0" data-theme="dark">
+      <canvas id="particleCanvas"></canvas>
+      <div class="canvas-text">
+        <h2 class="canvas-title">Experience The Future</h2>
+        <p class="canvas-description">Join us on a journey to redefine what's possible with technology.</p>
+      </div>
+      <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
 
-     <section class="intro" id="section-1" data-theme="dark">
-       <div class="particles-container" id="particlesContainer"></div>
-       <div class="logo-container">
-         <div class="logo-circle" id="logoCircle"></div>
-         <div class="logo-inner">NOVA</div>
-       </div>
-     </section>
+    <section class="intro" id="section-1" data-theme="dark">
+      <div class="particles-container" id="particlesContainer"></div>
+      <div class="logo-container">
+        <div class="logo-circle" id="logoCircle"></div>
+        <div class="logo-inner">NOVA</div>
+      </div>
+    </section>
 
-     <section class="product" id="section-2" data-theme="dark">
-       <div class="product-container">
-         <div class="product-text">
-           <h2 class="product-title">Introducing Nova X1</h2>
-           <p class="product-description">Experience the future of technology with our revolutionary device. Designed for those who want to push boundaries and explore new possibilities.</p>
-           <div class="product-highlights">
-             <div class="highlight">Cutting-edge design</div><div class="highlight">Revolutionary display</div><div class="highlight">Unmatched performance</div><div class="highlight">Next-gen battery</div>
-           </div>
-           <a href="#" class="product-cta">Learn More</a>
-         </div>
-         <div class="product-image-container">
-           <div class="product-image">
-             <div class="phone-notch"></div><div class="phone-button"></div>
-             <div class="phone-screen"><div class="screen-content"></div></div>
-             <div class="phone-reflections"></div>
-           </div>
-         </div>
-       </div>
-     </section>
-
-     <section class="features" id="section-3" data-theme="light">
-       <div class="features-container">
-         <h2 class="features-title">Exceptional Features</h2>
-         <div class="features-grid">
-           <div class="feature-box"><div class="feature-icon">✨</div><h3 class="feature-title">Premium Design</h3><p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p></div>
-           <div class="feature-box"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p></div>
-           <div class="feature-box"><div class="feature-icon">🔋</div><h3 class="feature-title">All-Day Battery</h3><p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p></div>
-           <div class="feature-box"><div class="feature-icon">📸</div><h3 class="feature-title">Pro Camera</h3><p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p></div>
-           <div class="feature-box"><div class="feature-icon">🔒</div><h3 class="feature-title">Enhanced Security</h3><p class="feature-description">Advanced security features to keep your data safe and protected.</p></div>
-           <div class="feature-box"><div class="feature-icon">🌐</div><h3 class="feature-title">Global Connectivity</h3><p class="feature-description">Stay connected anywhere with advanced network capabilities.</p></div>
-         </div>
-       </div>
-     </section>
-
-     <section class="network-graph" id="section-4" data-theme="dark">
-        <canvas id="networkCanvas"></canvas>
-        <div class="network-text-overlay">
-            <h2 class="network-title">Connecting Ideas</h2>
-            <p class="network-description">Visualizing the complex web of innovation and technology that drives progress. Interact and explore the connections.</p>
+    <section class="product" id="section-2" data-theme="dark">
+      <div class="product-container">
+        <div class="product-text">
+          <h2 class="product-title">Introducing Nova X1</h2>
+          <p class="product-description">Experience the future of technology with our revolutionary device. Designed for those who want to push boundaries and explore new possibilities.</p>
+          <div class="product-highlights">
+            <div class="highlight">Cutting-edge design</div><div class="highlight">Revolutionary display</div><div class="highlight">Unmatched performance</div><div class="highlight">Next-gen battery</div>
+          </div>
+          <a href="#" class="product-cta">Learn More</a>
         </div>
-     </section>
-
-     <section class="timeline" id="section-5" data-theme="light">
-        <div class="timeline-wrapper">
-           <div class="timeline-title-area">
-                <h2 class="timeline-main-title">Our Journey</h2>
-                <p class="timeline-subtitle">Milestones that shaped our path.</p>
-             </div>
-            <div class="timeline-container">
-                <div class="timeline-item"><div class="timeline-item-year">2018</div><h3 class="timeline-item-title">The Spark</h3><p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p></div>
-                <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
-                <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
-                <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
-                 <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
-            </div>
+        <div class="product-image-container">
+          <div class="product-image">
+            <div class="phone-notch"></div><div class="phone-button"></div>
+            <div class="phone-screen"><div class="screen-content"></div></div>
+            <div class="phone-reflections"></div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <footer class="site-footer">
-            <div class="social-icons">
-                <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <section class="features" id="section-3" data-theme="light">
+      <div class="features-container">
+        <h2 class="features-title">Exceptional Features</h2>
+        <div class="features-grid">
+          <div class="feature-box"><div class="feature-icon">✨</div><h3 class="feature-title">Premium Design</h3><p class="feature-description">Crafted with precision using premium materials for an elegant and durable finish.</p></div>
+          <div class="feature-box"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-description">Powered by our newest processor for unparalleled speed and performance.</p></div>
+          <div class="feature-box"><div class="feature-icon">🔋</div><h3 class="feature-title">All-Day Battery</h3><p class="feature-description">Advanced battery technology that keeps you going all day on a single charge.</p></div>
+          <div class="feature-box"><div class="feature-icon">📸</div><h3 class="feature-title">Pro Camera</h3><p class="feature-description">Capture stunning photos and videos with our professional-grade camera system.</p></div>
+          <div class="feature-box"><div class="feature-icon">🔒</div><h3 class="feature-title">Enhanced Security</h3><p class="feature-description">Advanced security features to keep your data safe and protected.</p></div>
+          <div class="feature-box"><div class="feature-icon">🌐</div><h3 class="feature-title">Global Connectivity</h3><p class="feature-description">Stay connected anywhere with advanced network capabilities.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="network-graph" id="section-4" data-theme="dark">
+       <canvas id="networkCanvas"></canvas>
+       <div class="network-text-overlay">
+           <h2 class="network-title">Connecting Ideas</h2>
+           <p class="network-description">Visualizing the complex web of innovation and technology that drives progress. Interact and explore the connections.</p>
+       </div>
+    </section>
+
+    <section class="timeline" id="section-5" data-theme="light">
+       <div class="timeline-wrapper">
+          <div class="timeline-title-area">
+              <h2 class="timeline-main-title">Our Journey</h2>
+              <p class="timeline-subtitle">Milestones that shaped our path.</p>
             </div>
-            <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
-        </footer>
-        </section> <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+           <div class="timeline-container">
+               <div class="timeline-item"><div class="timeline-item-year">2018</div><h3 class="timeline-item-title">The Spark</h3><p class="timeline-item-description">Founded with a vision to revolutionize user experience through intuitive technology.</p></div>
+               <div class="timeline-item"><div class="timeline-item-year">2020</div><h3 class="timeline-item-title">First Breakthrough</h3><p class="timeline-item-description">Launched our initial prototype, gaining critical acclaim for its innovative design.</p></div>
+               <div class="timeline-item"><div class="timeline-item-year">2022</div><h3 class="timeline-item-title">Nova X1 Launch</h3><p class="timeline-item-description">Successfully released the Nova X1, setting new standards in mobile performance and aesthetics.</p></div>
+               <div class="timeline-item"><div class="timeline-item-year">2024</div><h3 class="timeline-item-title">Global Expansion</h3><p class="timeline-item-description">Expanded operations to key international markets, bringing Nova tech worldwide.</p></div>
+                <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
+           </div>
+       </div>
 
-     <script>
-        // --- JavaScript Code ---
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+       <footer class="site-footer">
+           <div class="social-icons">
+               <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+               <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+               <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+               <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+           </div>
+           <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
+       </footer>
+       </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
-        // --- Particle Creation (Intro Section) ---
-        function createIntroParticles() {
-         const container = document.getElementById('particlesContainer'); if (!container) return; const numParticles = 100; container.innerHTML = '';
-         for (let i = 0; i < numParticles; i++) {
-           const particle = document.createElement('div'); particle.classList.add('particle');
-           particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
-           gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
-         }
-        }
+    <script>
+      // --- JavaScript Code ---
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        // --- Initialize Intro Animations ---
-        function initIntro() {
-         createIntroParticles(); const logoCircle = document.querySelector('.intro .logo-circle'); const logoInner = document.querySelector('.intro .logo-inner');
-         if (logoCircle && logoInner) {
-            const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
-            introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
-         }
-        }
+      // --- Particle Creation (Intro Section) ---
+      function createIntroParticles() {
+       const container = document.getElementById('particlesContainer'); if (!container) return; const numParticles = 100; container.innerHTML = '';
+       for (let i = 0; i < numParticles; i++) {
+         const particle = document.createElement('div'); particle.classList.add('particle');
+         particle.style.left = `${Math.random() * 100}%`; particle.style.top = `${Math.random() * 100}%`; particle.style.opacity = Math.random() * 0.5 + 0.1; const size = Math.random() * 3 + 1; particle.style.width = `${size}px`; particle.style.height = `${size}px`; container.appendChild(particle);
+         gsap.to(particle, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, duration: Math.random() * 15 + 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+       }
+      }
 
-        // --- Initialize Product Section Animations ---
-        function initProduct() {
-            const productSection = document.querySelector('.product'); if (!productSection) return;
-            gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-            const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
-            const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
-        }
+      // --- Initialize Intro Animations ---
+      function initIntro() {
+       createIntroParticles(); const logoCircle = document.querySelector('.intro .logo-circle'); const logoInner = document.querySelector('.intro .logo-inner');
+       if (logoCircle && logoInner) {
+          const introTl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top 80%", toggleActions: "play none none reverse" } });
+          introTl.to(logoCircle, { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 0).fromTo(logoCircle, { scale: 1, opacity: 0.2 }, { scale: 1.05, opacity: 0.6, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0).to(logoInner, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
+       }
+      }
 
-        // --- Initialize Features Section Animations ---
-        function initFeatures() {
-            const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
-            gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
-        }
+      // --- Initialize Product Section Animations ---
+      function initProduct() {
+          const productSection = document.querySelector('.product'); if (!productSection) return;
+          gsap.timeline({ scrollTrigger: { trigger: productSection, start: "top 60%", toggleActions: "play none none reverse" } }).to('.product-title', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.product-description', { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6").to('.highlight', { opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5").to('.product-cta', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+          const phoneImage = document.querySelector('.product-image'); if (phoneImage) { gsap.to(phoneImage, { rotationY: 30, ease: "none", scrollTrigger: { trigger: productSection, start: "top bottom", end: "bottom top", scrub: 1 } }); }
+          const phoneScreen = document.querySelector('.phone-screen'); if (phoneScreen) { gsap.to(phoneScreen, { background: 'linear-gradient(225deg, #4158D0, #C850C0, #FFCC70)', duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
+      }
 
-        // --- Initialize Canvas Section (First Section - Particles) ---
-        function initCanvasWelcome() {
-         const canvasSection = document.querySelector('.canvas-section'); const canvas = document.getElementById('particleCanvas'); if (!canvasSection || !canvas) return; const ctx = canvas.getContext('2d'); let particles = []; const maxParticles = 150; let animationFrameId; let mouse = { x: null, y: null, radius: 100 }; window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse.x = event.clientX - rect.left; mouse.y = event.clientY - rect.top; }); window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; }); function resizeCanvas() { canvas.width = canvasSection.offsetWidth; canvas.height = canvasSection.offsetHeight; if (animationFrameId) cancelAnimationFrame(animationFrameId); particles = []; createCanvasWelcomeParticles(); animateCanvasWelcome(); } window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 2.5 + 0.5; this.speedX = (Math.random() - 0.5) * 1.0; this.speedY = (Math.random() - 0.5) * 1.0; this.density = (Math.random() * 30) + 1; this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`; } update() { let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = mouse.x == null ? Infinity : Math.sqrt(dx*dx + dy*dy); let forceDirectionX = dx / distance; let forceDirectionY = dy / distance; let maxDistance = mouse.radius; let force = (maxDistance - distance) / maxDistance; let directionX = forceDirectionX * force * this.density; let directionY = forceDirectionY * force * this.density; if (distance < mouse.radius) { this.x -= directionX; this.y -= directionY; } else { if (this.x !== this.baseX) { let dxToBase = this.x - this.baseX; this.x -= dxToBase / 20; } if (this.y !== this.baseY) { let dyToBase = this.y - this.baseY; this.y -= dyToBase / 20; } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); } if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createCanvasWelcomeParticles() { for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); } } function connectWelcomeParticles() { const maxDistance = 80; ctx.lineWidth = 0.3; for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateCanvasWelcome() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(particle => { particle.update(); particle.draw(); }); connectWelcomeParticles(); animationFrameId = requestAnimationFrame(animateCanvasWelcome); } resizeCanvas(); gsap.timeline({ scrollTrigger: { trigger: canvasSection, start: "top 50%", toggleActions: "play none none reverse" } }).to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" }).to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
-        }
+      // --- Initialize Features Section Animations ---
+      function initFeatures() {
+          const featuresSection = document.querySelector('.features'); if (!featuresSection) return;
+          gsap.timeline({ scrollTrigger: { trigger: featuresSection, start: "top 70%", toggleActions: "play none none reverse" } }).to('.features-title', { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }).to('.feature-box', { y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out" }, "-=0.5");
+      }
 
-        // --- Initialize Network Graph Section Animations ---
-         function initNetworkGraph() {
-            const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
-         }
+      // --- Initialize Canvas Section (First Section - Particles) ---
+      function initCanvasWelcome() {
+       const canvasSection = document.querySelector('.canvas-section'); const canvas = document.getElementById('particleCanvas'); if (!canvasSection || !canvas) return; const ctx = canvas.getContext('2d'); let particles = []; const maxParticles = 150; let animationFrameId; let mouse = { x: null, y: null, radius: 100 }; window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse.x = event.clientX - rect.left; mouse.y = event.clientY - rect.top; }); window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; }); function resizeCanvas() { canvas.width = canvasSection.offsetWidth; canvas.height = canvasSection.offsetHeight; if (animationFrameId) cancelAnimationFrame(animationFrameId); particles = []; createCanvasWelcomeParticles(); animateCanvasWelcome(); } window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 2.5 + 0.5; this.speedX = (Math.random() - 0.5) * 1.0; this.speedY = (Math.random() - 0.5) * 1.0; this.density = (Math.random() * 30) + 1; this.color = `hsl(${Math.random() * 60 + 180}, 80%, ${Math.random() * 30 + 50}%)`; } update() { let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = mouse.x == null ? Infinity : Math.sqrt(dx*dx + dy*dy); let forceDirectionX = dx / distance; let forceDirectionY = dy / distance; let maxDistance = mouse.radius; let force = (maxDistance - distance) / maxDistance; let directionX = forceDirectionX * force * this.density; let directionY = forceDirectionY * force * this.density; if (distance < mouse.radius) { this.x -= directionX; this.y -= directionY; } else { if (this.x !== this.baseX) { let dxToBase = this.x - this.baseX; this.x -= dxToBase / 20; } if (this.y !== this.baseY) { let dyToBase = this.y - this.baseY; this.y -= dyToBase / 20; } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) { this.speedX *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); } if (this.y < 0 || this.y > canvas.height) { this.speedY *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createCanvasWelcomeParticles() { for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); } } function connectWelcomeParticles() { const maxDistance = 80; ctx.lineWidth = 0.3; for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 180, 255, ${opacity * 0.5})`; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateCanvasWelcome() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(particle => { particle.update(); particle.draw(); }); connectWelcomeParticles(); animationFrameId = requestAnimationFrame(animateCanvasWelcome); } resizeCanvas(); gsap.timeline({ scrollTrigger: { trigger: canvasSection, start: "top 50%", toggleActions: "play none none reverse" } }).to('.canvas-title', { opacity: 1, duration: 1.2, ease: "power2.out" }).to('.canvas-description', { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.8");
+      }
 
-        // --- Initialize Vertical Timeline Section Animations ---
-        function initTimeline() {
-            const section = document.querySelector('.timeline'); // Target the section itself
-            const titleArea = section.querySelector('.timeline-title-area');
-            const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
+      // --- Initialize Network Graph Section Animations ---
+       function initNetworkGraph() {
+           const section = document.querySelector('.network-graph'); const canvas = document.getElementById('networkCanvas'); if (!section || !canvas) return; const ctx = canvas.getContext('2d'); let nodes = []; const maxNodes = 80; let animationFrameId_network; let mouse_network = { x: null, y: null, radius: 120 }; canvas.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); mouse_network.x = event.clientX - rect.left; mouse_network.y = event.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mouse_network.x = null; mouse_network.y = null; }); function resizeNetworkCanvas() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; if (animationFrameId_network) cancelAnimationFrame(animationFrameId_network); nodes = []; createNetworkNodes(); animateNetwork(); } window.addEventListener('resize', resizeNetworkCanvas); class Node { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.baseSize = this.size; this.speedX = (Math.random() - 0.5) * 0.8; this.speedY = (Math.random() - 0.5) * 0.8; this.color = `hsl(${Math.random() * 60 + 170}, 70%, ${Math.random() * 40 + 40}%)`; } update() { let dx_mouse = mouse_network.x - this.x; let dy_mouse = mouse_network.y - this.y; let distance_mouse = mouse_network.x == null ? Infinity : Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse); if (distance_mouse < mouse_network.radius) { this.size = this.baseSize + (1 - distance_mouse / mouse_network.radius) * 4; } else { if (this.size > this.baseSize) { this.size -= 0.1; } else { this.size = this.baseSize; } } this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width) this.speedX *= -1; if (this.y < 0 || this.y > canvas.height) this.speedY *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); this.y = Math.max(0, Math.min(canvas.height, this.y)); } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } function createNetworkNodes() { for (let i = 0; i < maxNodes; i++) { nodes.push(new Node()); } } function connectNodes() { const maxDistance = 100; ctx.lineWidth = 0.2; for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { const opacity = 1 - (distance / maxDistance); ctx.strokeStyle = `rgba(180, 220, 255, ${opacity * 0.6})`; ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke(); ctx.closePath(); } } } } function animateNetwork() { ctx.clearRect(0, 0, canvas.width, canvas.height); nodes.forEach(node => { node.update(); node.draw(); }); connectNodes(); animationFrameId_network = requestAnimationFrame(animateNetwork); } resizeNetworkCanvas(); gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" } }).to('.network-title', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }).to('.network-description', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+       }
 
-            // Check if the main section exists
-            if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
+      // --- Initialize Vertical Timeline Section Animations ---
+      function initTimeline() {
+          const section = document.querySelector('.timeline'); // Target the section itself
+          const titleArea = section.querySelector('.timeline-title-area');
+          const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
 
-            // Animate title area if found
-            if (titleArea) {
-                gsap.to(titleArea, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.0,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: section, // Trigger based on the section
-                        start: "top 70%",
-                        toggleActions: "play none none reverse",
-                        id: "timeline-title"
-                    }
-                });
-            } else { console.warn("Timeline title area not found within .timeline section."); }
+          // Check if the main section exists
+          if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
 
-            // Animate timeline items if found
-            if (timelineItems.length > 0) {
-                gsap.to(timelineItems, {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.8,
-                    ease: 'power2.out',
-                    stagger: 0.3,
-                    scrollTrigger: {
-                        trigger: '.timeline-container', // Trigger based on the container holding the items
-                        start: "top 65%",
-                        end: "bottom 80%", // Optional: Define an end point
-                        toggleActions: "play none none reverse",
-                        id: "timeline-items"
-                    }
-                });
-            } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
-        }
+          // Animate title area if found
+          if (titleArea) {
+              gsap.to(titleArea, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 1.0,
+                  ease: 'power3.out',
+                  scrollTrigger: {
+                      trigger: section, // Trigger based on the section
+                      start: "top 70%",
+                      toggleActions: "play none none reverse",
+                      id: "timeline-title"
+                  }
+              });
+          } else { console.warn("Timeline title area not found within .timeline section."); }
 
-
-        // --- Initialize Header Animation ---
-        function initHeader() {
-            const header = document.getElementById('site-header'); if (!header) { console.warn("Site header not found."); return; }
-            ScrollTrigger.create({
-                start: 50,
-                end: 99999,
-                toggleClass: { className: "header-scrolled", targets: header },
-                id: "header-scroll-toggle"
-            });
-
-            const headerLinks = document.querySelectorAll('.site-header nav a');
-            headerLinks.forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && href.startsWith('#') && href.length > 1) {
-                        const target = document.querySelector(href);
-                        if (target) {
-                            e.preventDefault();
-                            gsap.to(window, {
-                                duration: 1.2,
-                                scrollTo: { y: target, offsetY: 0 },
-                                ease: "power2.inOut"
-                            });
-                        }
-                    }
-                });
-            });
-        }
-
-        // --- Initialize Footer Animation ---
-        function initFooter() {
-            // Select the footer specifically INSIDE section-5
-            const footer = document.querySelector('#section-5 .site-footer');
-            const copyrightYearSpan = document.getElementById('copyright-year');
-
-            // Check if the footer element was found correctly
-            if (!footer) {
-                console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
-                return; // Stop if footer isn't where it's expected
-            }
-
-            // Set copyright year if the span exists
-            if(copyrightYearSpan) {
-                copyrightYearSpan.textContent = new Date().getFullYear();
-            } else {
-                console.warn("Copyright year span (#copyright-year) not found in footer.");
-            }
-
-            // Animate footer in using GSAP
-            gsap.to(footer, {
-                opacity: 1,
-                y: 0, // Animate from CSS's translateY(30px) to 0
-                duration: 1.0,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '#section-5', // Trigger animation based on the last section
-                    start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
-                    toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
-                    // markers: true, // Uncomment for debugging trigger points
-                    id: "footer-reveal"
-                }
-            });
-             console.log("Footer animation initialized for element:", footer); // Add confirmation
-        }
+          // Animate timeline items if found
+          if (timelineItems.length > 0) {
+              gsap.to(timelineItems, {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  duration: 0.8,
+                  ease: 'power2.out',
+                  stagger: 0.3,
+                  scrollTrigger: {
+                      trigger: '.timeline-container', // Trigger based on the container holding the items
+                      start: "top 65%",
+                      end: "bottom 80%", // Optional: Define an end point
+                      toggleActions: "play none none reverse",
+                      id: "timeline-items"
+                  }
+              });
+          } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
+      }
 
 
-        // --- Navigation Dots & Theme Switching ---
-        function initNavigation() {
-            const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
-            const navDots = document.querySelectorAll('.nav-dot');
-            const headerLinks = document.querySelectorAll('.site-header nav a');
-            const body = document.body;
+      // --- Initialize Header Animation ---
+      function initHeader() {
+          const header = document.getElementById('site-header'); if (!header) { console.warn("Site header not found."); return; }
+          ScrollTrigger.create({
+              start: 50,
+              end: 99999,
+              toggleClass: { className: "header-scrolled", targets: header },
+              id: "header-scroll-toggle"
+          });
 
-            if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
-            if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
-
-            navDots.forEach(dot => {
-                dot.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
-                     const targetSection = document.getElementById(`section-${sectionIndex}`);
-                     if (targetSection) {
-                         gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
-                     } else { console.error(`Target section #section-${sectionIndex} not found.`); }
-                });
-            });
-
-            sections.forEach((section, index) => {
-                let startPoint = "top center";
-                let endPoint = "bottom center";
-                const theme = section.getAttribute('data-theme') || 'dark';
-
-                if (section.classList.contains('timeline')) {
-                     startPoint = "top top+=100px";
-                     endPoint = "bottom bottom-=100px";
-                     if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
-                } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                     startPoint = "top bottom-=100px";
-                     endPoint = "bottom top+=100px";
-                }
-
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: startPoint,
-                    end: endPoint,
-                    id: `section-nav-${index}`,
-                    onEnter: () => updateActiveState(index, theme),
-                    onEnterBack: () => updateActiveState(index, theme),
-                    // markers: true,
-                });
-            });
-
-            function updateActiveState(activeIndex, activeTheme) {
-                 navDots.forEach((dot) => {
-                     const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                     dot.classList.toggle('active', dotSecIndex === activeIndex);
-                 });
-
-                 const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
-                 if (activeTheme !== currentBodyTheme) {
-                    if (activeTheme === 'light') {
-                        body.classList.add('on-light-section');
-                        if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
-                    } else {
-                        body.classList.remove('on-light-section');
-                        if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                    }
-                 }
-            }
-
-            ScrollTrigger.create({ start: 50, onEnter: () => body.classList.add('scrolled'), onLeaveBack: () => body.classList.remove('scrolled') });
-        }
-
-        // --- Initialize All Animations & Functionality ---
-        function initAll() {
-         console.log("Initializing animations...");
-         initHeader();
-         initFooter(); // Make sure this is called
-         initCanvasWelcome();
-         initIntro();
-         initProduct();
-         initFeatures();
-         initNetworkGraph();
-         initTimeline();
-         initNavigation(); // Call navigation last
-
-         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-           if (!anchor.closest('.site-header nav')) {
-             anchor.addEventListener('click', function(e) {
-               const href = this.getAttribute('href');
-               if (href && href.startsWith('#') && href.length > 1) {
-                 try {
+          const headerLinks = document.querySelectorAll('.site-header nav a');
+          headerLinks.forEach(anchor => {
+              anchor.addEventListener('click', function(e) {
+                  const href = this.getAttribute('href');
+                  if (href && href.startsWith('#') && href.length > 1) {
                       const target = document.querySelector(href);
-                      if (target) { e.preventDefault(); gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" }); }
-                 } catch (error) { console.warn("Could not find target for anchor:", href, error); }
-               } else if (href === "#") { e.preventDefault(); }
-             });
-           }
-         });
+                      if (target) {
+                          e.preventDefault();
+                          gsap.to(window, {
+                              duration: 1.2,
+                              scrollTo: { y: target, offsetY: 0 },
+                              ease: "power2.inOut"
+                          });
+                      }
+                  }
+              });
+          });
+      }
 
-           setTimeout(() => {
-               ScrollTrigger.refresh();
-               console.log("ScrollTrigger refreshed initially.");
+      // --- Initialize Footer Animation ---
+      function initFooter() {
+          // Select the footer specifically INSIDE section-5
+          const footer = document.querySelector('#section-5 .site-footer');
+          const copyrightYearSpan = document.getElementById('copyright-year');
 
-               let mostCenteredIndex = -1;
-               let minCenterDist = window.innerHeight;
-               const viewportCenter = window.innerHeight / 2;
-               let activeTheme = 'dark';
-               const body = document.body;
-               const headerLinks = document.querySelectorAll('.site-header nav a');
-               const navDots = document.querySelectorAll('.nav-dot');
-               const sections = document.querySelectorAll('section[id^="section-"]');
+          // Check if the footer element was found correctly
+          if (!footer) {
+              console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
+              return; // Stop if footer isn't where it's expected
+          }
 
-               sections.forEach((section, index) => {
-                   const rect = section.getBoundingClientRect();
-                   const sectionCenter = rect.top + rect.height / 2;
-                   const dist = Math.abs(viewportCenter - sectionCenter);
-                   const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          // Set copyright year if the span exists
+          if(copyrightYearSpan) {
+              copyrightYearSpan.textContent = new Date().getFullYear();
+          } else {
+              console.warn("Copyright year span (#copyright-year) not found in footer.");
+          }
 
-                   if (isVisible && dist < minCenterDist) {
-                       minCenterDist = dist;
-                       mostCenteredIndex = index;
-                       activeTheme = section.getAttribute('data-theme') || activeTheme;
-                   }
-               });
+          // --- MODIFIED CODE STARTS HERE ---
+          // Animate footer in using GSAP with the simpler trigger condition for testing
+          gsap.to(footer, {
+              opacity: 1,
+              y: 0, // Target state (animate from CSS's translateY(30px) to 0)
+              duration: 1.0,
+              ease: 'power2.out',
+              scrollTrigger: {
+                  trigger: '#section-5', // The element that triggers the animation
+                  // NEW Start Condition: Trigger when the top of section 5 hits the middle of the viewport
+                  start: "top center",
+                  // You might want to define an end too, e.g., end: "bottom center",
+                  toggleActions: "play none none reverse", // Play when entering, reverse when leaving
+                  markers: true, // Keep markers on for this test
+                  id: "footer-reveal-test" // Changed ID for the test
+              }
+          });
+          // --- MODIFIED CODE ENDS HERE ---
 
-                if(mostCenteredIndex !== -1) {
-                     navDots.forEach((dot) => {
-                         const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
-                         dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
-                     });
-                     if (activeTheme === 'light') {
-                         body.classList.add('on-light-section');
-                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
-                     } else {
-                         body.classList.remove('on-light-section');
-                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                     }
-                     console.log(`Initial active section determined as ${mostCenteredIndex}, theme ${activeTheme}`);
-                } else {
+           console.log("Footer animation initialized for element:", footer); // Add confirmation
+      }
+
+
+      // --- Navigation Dots & Theme Switching ---
+      function initNavigation() {
+          const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
+          const navDots = document.querySelectorAll('.nav-dot');
+          const headerLinks = document.querySelectorAll('.site-header nav a');
+          const body = document.body;
+
+          if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
+          if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
+
+          navDots.forEach(dot => {
+              dot.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
+                   const targetSection = document.getElementById(`section-${sectionIndex}`);
+                   if (targetSection) {
+                      gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
+                   } else { console.error(`Target section #section-${sectionIndex} not found.`); }
+              });
+          });
+
+          sections.forEach((section, index) => {
+              let startPoint = "top center";
+              let endPoint = "bottom center";
+              const theme = section.getAttribute('data-theme') || 'dark';
+
+              if (section.classList.contains('timeline')) {
+                   startPoint = "top top+=100px";
+                   endPoint = "bottom bottom-=100px";
+                   if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
+              } else if (section.offsetHeight < window.innerHeight * 0.5) {
+                   startPoint = "top bottom-=100px";
+                   endPoint = "bottom top+=100px";
+              }
+
+              ScrollTrigger.create({
+                  trigger: section,
+                  start: startPoint,
+                  end: endPoint,
+                  id: `section-nav-${index}`,
+                  onEnter: () => updateActiveState(index, theme),
+                  onEnterBack: () => updateActiveState(index, theme),
+                  // markers: true, // Uncomment to debug navigation triggers
+              });
+          });
+
+          function updateActiveState(activeIndex, activeTheme) {
+              navDots.forEach((dot) => {
+                  const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                  dot.classList.toggle('active', dotSecIndex === activeIndex);
+              });
+
+              const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
+              if (activeTheme !== currentBodyTheme) {
+                 if (activeTheme === 'light') {
+                     body.classList.add('on-light-section');
+                     if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
+                 } else {
                      body.classList.remove('on-light-section');
                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                     if(navDots.length > 0) navDots[0].classList.add('active');
-                     console.log("Initial active section not clearly determined, defaulting to dark theme / first dot.");
-                }
+                 }
+              }
+          }
 
-           }, 250); // Slightly increased delay
+          ScrollTrigger.create({ start: 50, onEnter: () => body.classList.add('scrolled'), onLeaveBack: () => body.classList.remove('scrolled') });
+      }
 
-           let resizeTimer;
-           window.addEventListener('resize', () => {
-               clearTimeout(resizeTimer);
-               resizeTimer = setTimeout(() => {
-                   console.log("Resizing - Refreshing ScrollTrigger...");
-                   ScrollTrigger.refresh();
-               }, 250);
+      // --- Initialize All Animations & Functionality ---
+      function initAll() {
+       console.log("Initializing animations...");
+       initHeader();
+       initFooter(); // Make sure this is called
+       initCanvasWelcome();
+       initIntro();
+       initProduct();
+       initFeatures();
+       initNetworkGraph();
+       initTimeline();
+       initNavigation(); // Call navigation last
+
+       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+         if (!anchor.closest('.site-header nav')) {
+           anchor.addEventListener('click', function(e) {
+             const href = this.getAttribute('href');
+             if (href && href.startsWith('#') && href.length > 1) {
+               try {
+                   const target = document.querySelector(href);
+                   if (target) { e.preventDefault(); gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" }); }
+               } catch (error) { console.warn("Could not find target for anchor:", href, error); }
+             } else if (href === "#") { e.preventDefault(); }
            });
+         }
+       });
 
-         console.log("Initialization sequence complete.");
-        }
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+            console.log("ScrollTrigger refreshed initially.");
 
-        // Start everything when the DOM is fully loaded
-         window.addEventListener('load', initAll);
+            let mostCenteredIndex = -1;
+            let minCenterDist = window.innerHeight;
+            const viewportCenter = window.innerHeight / 2;
+            let activeTheme = 'dark';
+            const body = document.body;
+            const headerLinks = document.querySelectorAll('.site-header nav a');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const sections = document.querySelectorAll('section[id^="section-"]');
 
-     </script>
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                const sectionCenter = rect.top + rect.height / 2;
+                const dist = Math.abs(viewportCenter - sectionCenter);
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                if (isVisible && dist < minCenterDist) {
+                    minCenterDist = dist;
+                    mostCenteredIndex = index;
+                    activeTheme = section.getAttribute('data-theme') || activeTheme;
+                }
+            });
+
+             if(mostCenteredIndex !== -1) {
+                  navDots.forEach((dot) => {
+                      const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
+                      dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
+                  });
+                  if (activeTheme === 'light') {
+                      body.classList.add('on-light-section');
+                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
+                  } else {
+                      body.classList.remove('on-light-section');
+                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
+                  }
+                  console.log(`Initial active section determined as ${mostCenteredIndex}, theme ${activeTheme}`);
+             } else {
+                  body.classList.remove('on-light-section');
+                  if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
+                  if(navDots.length > 0) navDots[0].classList.add('active');
+                  console.log("Initial active section not clearly determined, defaulting to dark theme / first dot.");
+             }
+
+        }, 250); // Slightly increased delay
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                console.log("Resizing - Refreshing ScrollTrigger...");
+                ScrollTrigger.refresh();
+            }, 250);
+        });
+
+       console.log("Initialization sequence complete.");
+      }
+
+      // Start everything when the DOM is fully loaded
+       window.addEventListener('load', initAll);
+
+    </script>
 </body>
 </html>
