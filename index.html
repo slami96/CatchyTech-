@@ -24,8 +24,6 @@
 
       body {
           overflow-y: auto;
-          /* Smooth scroll behavior (optional, GSAP handles scroll typically) */
-          /* scroll-behavior: smooth; */
       }
 
       /* --- BASE STYLES --- */
@@ -50,88 +48,79 @@
       .site-header {
           position: fixed;
           top: 0;
-          left: 0; /* Stretch across */
+          left: 0;
           right: 0;
           width: 100%;
-          padding: 10px 0; /* Vertical padding, horizontal handled by centering */
-          z-index: 100; /* High z-index */
-          display: flex; /* Use flex to center nav */
-          justify-content: center; /* Center nav horizontally */
+          padding: 10px 0;
+          z-index: 100;
+          display: flex;
+          justify-content: center;
           align-items: center;
-          opacity: 0; /* Start hidden */
-          transform: translateY(-100%); /* Start off-screen */
+          opacity: 0;
+          transform: translateY(-100%);
           transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-          /* Optional subtle bg/blur that appears on scroll */
-          /* background: transparent; */
-          /* backdrop-filter: blur(0px); */
-          /* transition: opacity 0.5s ease-out, transform 0.5s ease-out, background 0.3s ease, backdrop-filter 0.3s ease; */
       }
 
       .site-header.header-scrolled {
           opacity: 1;
           transform: translateY(0);
-          /* background: rgba(0, 0, 0, 0.1); */ /* Example: Add bg on scroll */
-          /* backdrop-filter: blur(5px); */ /* Example: Add blur on scroll */
       }
 
       .site-header nav ul {
           list-style: none;
           display: flex;
-          gap: 35px; /* Increased space for labels */
-          padding: 0; /* Reset padding */
-          margin: 0; /* Reset margin */
+          gap: 35px;
+          padding: 0;
+          margin: 0;
       }
 
       .site-header nav li {
-          position: relative; /* Needed for absolute positioning of the label */
+          position: relative;
       }
 
       .site-header nav a {
           text-decoration: none;
-          color: var(--header-icon-color-dark); /* Default icon color */
-          font-size: 1.3rem; /* Slightly larger icons */
+          color: var(--header-icon-color-dark);
+          font-size: 1.3rem;
           transition: transform 0.3s ease, color 0.3s ease;
-          display: flex; /* Use flex for icon+label alignment */
+          display: flex;
           flex-direction: column;
           align-items: center;
-          position: relative; /* Context for label */
+          position: relative;
       }
 
-       /* Adjust color for light sections using body class */
       body.on-light-section .site-header nav a {
          color: var(--header-icon-color-light);
       }
 
 
       .site-header nav a:hover {
-          transform: scale(1.1); /* Icon hover effect */
+          transform: scale(1.1);
           color: var(--header-hover-color);
       }
 
-      /* Style for the hidden text label */
       .nav-label {
           position: absolute;
-          top: 100%; /* Position below the icon */
-          margin-top: 8px; /* Space between icon and label */
-          background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+          top: 100%;
+          margin-top: 8px;
+          background-color: rgba(0, 0, 0, 0.7);
           color: white;
           font-size: 0.75rem;
           padding: 4px 8px;
           border-radius: 4px;
-          white-space: nowrap; /* Prevent wrapping */
-          opacity: 0; /* Start hidden */
-          visibility: hidden; /* Start hidden */
-          transform: translateY(5px) scale(0.9); /* Start slightly down and smaller */
-          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; /* Delay visibility change */
-          pointer-events: none; /* Don't block hover on icon */
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(5px) scale(0.9);
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
+          pointer-events: none;
       }
 
-      /* Reveal label on link hover */
       .site-header nav a:hover .nav-label {
           opacity: 1;
           visibility: visible;
           transform: translateY(0) scale(1);
-          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s; /* Remove delay */
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s;
       }
 
 
@@ -139,6 +128,14 @@
       /* Parent section needs position relative */
       section.timeline {
           position: relative; /* Ensure footer positions relative to this */
+          /* Other timeline styles */
+          background-color: var(--bg-light-1);
+          color: var(--text-dark);
+          height: auto;
+          min-height: 170vh;
+          padding: 10vh 0 20vh; /* Note padding-bottom */
+          display: block;
+          overflow: visible;
       }
 
       /* Footer container positioned absolutely within the last section */
@@ -147,54 +144,51 @@
           bottom: 30px; /* Position near bottom of parent section */
           left: 0;
           width: 100%;
-          padding: 0 30px; /* Side padding */
+          padding: 0 30px;
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 15px;
-          z-index: 5; /* Above section content but below nav dots */
-          opacity: 0; /* Start hidden */
+          z-index: 5;
+          opacity: 0; /* Start hidden for animation */
           transform: translateY(30px); /* Start slightly down */
-          /* GSAP will handle animation, transition is a fallback */
-          /* transition: opacity 0.6s ease, transform 0.6s ease; */
       }
 
       .site-footer .copyright {
           font-size: 0.85rem;
-          color: #888; /* Muted color */
+          color: #888;
           text-align: center;
       }
 
       .site-footer .social-icons {
           display: flex;
-          justify-content: center; /* Center icons horizontally */
+          justify-content: center;
           gap: 20px;
       }
 
       .site-footer .social-icons a {
           text-decoration: none;
-          color: #aaa; /* Muted icon color */
+          color: #aaa;
           font-size: 1.2rem;
           transition: transform 0.3s ease, color 0.3s ease;
           display: inline-block;
       }
 
       .site-footer .social-icons a:hover {
-          transform: scale(1.15); /* Slightly larger hover effect */
-          color: var(--accent-color-4); /* Example hover color */
+          transform: scale(1.15);
+          color: var(--accent-color-4);
       }
 
 
-      /* --- SECTION STYLES (Remain largely the same) --- */
+      /* --- SECTION STYLES --- */
       section {
-        /* Default height, can be overridden */
         height: 100vh;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative; /* Important for positioning child elements and for ScrollTrigger */
-        overflow: hidden; /* Prevent content spill unless specifically overridden */
+        position: relative;
+        overflow: hidden;
       }
 
       /* Canvas Section (First) */
@@ -208,34 +202,33 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 0; /* Behind text */
+        z-index: 0;
       }
 
       .canvas-text {
         position: relative;
-        z-index: 1; /* Above canvas */
+        z-index: 1;
         color: var(--text-light);
         text-align: center;
-        padding: 20px; /* Add padding */
+        padding: 20px;
       }
 
       .canvas-title {
         font-size: 60px;
         font-weight: 800;
         margin-bottom: 20px;
-        /* Gradient text effect */
         background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-4), #FFCC70);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        opacity: 0; /* Start hidden */
+        opacity: 0;
       }
 
       .canvas-description {
         font-size: 24px;
         max-width: 600px;
         margin: 0 auto;
-        opacity: 0; /* Start hidden */
+        opacity: 0;
       }
 
       /* Intro Section */
@@ -248,7 +241,7 @@
         position: relative;
         width: 300px;
         height: 300px;
-        z-index: 1; /* Ensure logo is above particles */
+        z-index: 1;
       }
 
       .logo-circle {
@@ -269,7 +262,7 @@
         font-size: 36px;
         font-weight: 900;
         letter-spacing: 1px;
-        opacity: 0; /* Start hidden for animation */
+        opacity: 0;
       }
 
       .particles-container {
@@ -278,7 +271,7 @@
         height: 100%;
         top: 0;
         left: 0;
-        z-index: 0; /* Behind logo */
+        z-index: 0;
       }
 
       .particle {
@@ -399,7 +392,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.2); /* Slight overlay */
+        background-color: rgba(0, 0, 0, 0.2);
       }
 
       .phone-notch {
@@ -416,7 +409,7 @@
 
       .phone-button {
         position: absolute;
-        right: -5px; /* Slightly outside */
+        right: -5px;
         top: 120px;
         width: 5px;
         height: 60px;
@@ -437,8 +430,8 @@
           rgba(255, 255, 255, 0) 80%,
           rgba(255, 255, 255, 0.1) 100%
         );
-        border-radius: 30px; /* Match screen radius */
-        pointer-events: none; /* Don't interfere with mouse events */
+        border-radius: 30px;
+        pointer-events: none;
       }
 
       /* Features Section */
@@ -550,30 +543,19 @@
           transform: translateY(30px);
       }
 
-      /* Vertical Timeline Section */
-      .timeline {
-          background-color: var(--bg-light-1);
-          color: var(--text-dark);
-          height: auto; /* Let content determine height */
-          min-height: 170vh; /* Increase min-height for scroll room */
-          padding: 10vh 0 20vh; /* Add padding top and significant padding bottom */
-          display: block; /* Override section default flex */
-          position: relative; /* Needed for absolute footer positioning */
-          overflow: visible; /* Allow content overflow if needed */
-      }
-
+      /* Vertical Timeline Section - STYLES MOVED TO section.timeline ABOVE */
       .timeline-wrapper {
           width: 90%;
-          max-width: 800px; /* Constrain width for readability */
-          margin: 0 auto; /* Center the content */
-          position: relative; /* Context for absolute children if any */
+          max-width: 800px;
+          margin: 0 auto;
+          position: relative;
       }
 
       .timeline-title-area {
           text-align: center;
-          margin-bottom: 80px; /* Space below title */
-          opacity: 0; /* Start hidden */
-          transform: translateY(-30px); /* Start slightly up */
+          margin-bottom: 80px;
+          opacity: 0;
+          transform: translateY(-30px);
       }
 
        .timeline-main-title {
@@ -588,16 +570,16 @@
        }
 
       .timeline-container {
-          display: flex; /* Use flex for vertical stacking */
-          flex-direction: column; /* Stack items vertically */
-          align-items: center; /* Center items horizontally */
-          gap: 60px; /* Space between timeline items */
-          position: relative; /* For potential line drawing later */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 60px;
+          position: relative;
       }
 
       .timeline-item {
-          width: 100%; /* Take full width of the container */
-          max-width: 600px; /* Limit item width */
+          width: 100%;
+          max-width: 600px;
           height: auto;
           background-color: var(--bg-light-2);
           border-radius: 15px;
@@ -605,20 +587,20 @@
           padding: 30px;
           display: flex;
           flex-direction: column;
-          opacity: 0; /* Start hidden for animation */
-          transform: translateY(60px) scale(0.98); /* Start further down and slightly smaller */
-          transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add hover effect */
+          opacity: 0;
+          transform: translateY(60px) scale(0.98);
+          transition: box-shadow 0.3s ease, transform 0.3s ease;
       }
       .timeline-item:hover {
            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-           transform: translateY(55px) scale(1.0); /* Slight lift on hover */
+           transform: translateY(55px) scale(1.0);
       }
 
 
       .timeline-item-year {
           font-size: 14px;
           font-weight: 600;
-          color: var(--accent-color-4); /* Accent color */
+          color: var(--accent-color-4);
           margin-bottom: 10px;
       }
 
@@ -643,29 +625,28 @@
         transform: translateY(-50%);
         display: flex;
         flex-direction: column;
-        z-index: 101; /* Above header */
+        z-index: 101;
       }
 
       .nav-dot {
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.3); /* Default light for dark bg */
+        background-color: rgba(255, 255, 255, 0.3);
         margin: 10px 0;
         cursor: pointer;
         transition: background-color 0.3s, transform 0.3s;
       }
-       /* Adjust dot color based on section background */
       body.on-light-section .nav-dot {
-          background-color: rgba(0, 0, 0, 0.2); /* Dark dots for light sections */
+          background-color: rgba(0, 0, 0, 0.2);
       }
 
       .nav-dot.active {
-        background-color: white; /* Default active */
+        background-color: white;
         transform: scale(1.3);
       }
       body.on-light-section .nav-dot.active {
-           background-color: #333; /* Active dark */
+           background-color: #333;
       }
 
       /* --- Scroll Indicator (First Section) --- */
@@ -679,8 +660,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        z-index: 5; /* Above canvas but below nav dots */
-        opacity: 0.8; /* Start visible */
+        z-index: 5;
+        opacity: 0.8;
         transition: opacity 0.5s ease;
       }
 
@@ -700,7 +681,6 @@
         100% { transform: rotate(45deg) translate(10px, 10px); opacity: 0.4; }
       }
 
-      /* Hide scroll indicator after first scroll */
       body.scrolled .scroll-indicator {
           opacity: 0;
           pointer-events: none;
@@ -713,7 +693,7 @@
           .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
           .network-title { font-size: 40px; }
           .timeline { min-height: 150vh; padding: 8vh 0 15vh; } .timeline-main-title { font-size: 40px; } .timeline-container { gap: 50px; }
-          .site-header { padding: 10px 0; } .site-header nav ul { gap: 25px; } /* Adjust gap if needed */
+          .site-header { padding: 10px 0; } .site-header nav ul { gap: 25px; }
       }
        @media (max-width: 768px) {
           .features-title { font-size: 36px; } .canvas-title { font-size: 40px; } .canvas-description { font-size: 18px; }
@@ -721,9 +701,9 @@
           .product-text, .product-image-container { width: 90%; } .product-image { width: 220px; height: 440px; }
           .timeline { min-height: 140vh; padding: 6vh 0 10vh; } .timeline-wrapper { width: 95%; } .timeline-title-area { margin-bottom: 60px; } .timeline-main-title { font-size: 32px; } .timeline-subtitle { font-size: 16px; } .timeline-container { gap: 40px; } .timeline-item { padding: 25px; }
           .network-title { font-size: 32px; } .network-description { font-size: 16px; }
-          .site-header { padding: 8px 0; background: rgba(0, 0, 0, 0.2); /* Add slight background for mobile contrast */ }
+          .site-header { padding: 8px 0; background: rgba(0, 0, 0, 0.2); }
           .site-header nav ul { gap: 20px; } .site-header nav a { font-size: 1.1rem; }
-          .nav-label { display: none; /* Hide labels on mobile for less clutter */ }
+          .nav-label { display: none; }
           .site-footer { bottom: 20px; } .site-footer .copyright { font-size: 0.75rem; } .site-footer .social-icons { gap: 15px; } .site-footer .social-icons a { font-size: 1.1rem; }
       }
     </style>
@@ -825,6 +805,7 @@
                  <div class="timeline-item"><div class="timeline-item-year">Future</div><h3 class="timeline-item-title">Next Horizons</h3><p class="timeline-item-description">Continuing to innovate with upcoming projects in AI integration and sustainable tech.</p></div>
             </div>
         </div>
+
         <footer class="site-footer">
             <div class="social-icons">
                 <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
@@ -834,15 +815,12 @@
             </div>
             <p class="copyright">&copy; <span id="copyright-year"></span> Nova Corp. All rights reserved.</p>
         </footer>
-        </section>
-
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        </section> <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
      <script>
         // --- JavaScript Code ---
-        // Register plugins
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
         // --- Particle Creation (Intro Section) ---
@@ -890,23 +868,60 @@
 
         // --- Initialize Vertical Timeline Section Animations ---
         function initTimeline() {
-            const section = document.querySelector('.timeline'); const titleArea = section.querySelector('.timeline-title-area'); const timelineItems = gsap.utils.toArray('.timeline-item');
-            if (!section || !titleArea || timelineItems.length === 0) { console.warn("Timeline section or elements missing."); return; }
-            gsap.to(titleArea, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse", id: "timeline-title" } });
-            gsap.to(timelineItems, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out', stagger: 0.3, scrollTrigger: { trigger: '.timeline-container', start: "top 65%", end: "bottom 80%", toggleActions: "play none none reverse", id: "timeline-items" } });
+            const section = document.querySelector('.timeline'); // Target the section itself
+            const titleArea = section.querySelector('.timeline-title-area');
+            const timelineItems = gsap.utils.toArray('.timeline-item'); // Target items within the section
+
+            // Check if the main section exists
+            if (!section) { console.warn("Timeline section (#section-5 / .timeline) not found."); return; }
+
+            // Animate title area if found
+            if (titleArea) {
+                gsap.to(titleArea, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.0,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: section, // Trigger based on the section
+                        start: "top 70%",
+                        toggleActions: "play none none reverse",
+                        id: "timeline-title"
+                    }
+                });
+            } else { console.warn("Timeline title area not found within .timeline section."); }
+
+            // Animate timeline items if found
+            if (timelineItems.length > 0) {
+                gsap.to(timelineItems, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    stagger: 0.3,
+                    scrollTrigger: {
+                        trigger: '.timeline-container', // Trigger based on the container holding the items
+                        start: "top 65%",
+                        end: "bottom 80%", // Optional: Define an end point
+                        toggleActions: "play none none reverse",
+                        id: "timeline-items"
+                    }
+                });
+            } else { console.warn("Timeline items (.timeline-item) not found within .timeline section."); }
         }
+
 
         // --- Initialize Header Animation ---
         function initHeader() {
             const header = document.getElementById('site-header'); if (!header) { console.warn("Site header not found."); return; }
             ScrollTrigger.create({
-                start: 50, // Pixels scrolled down
-                end: 99999, // Effectively always active after start
+                start: 50,
+                end: 99999,
                 toggleClass: { className: "header-scrolled", targets: header },
                 id: "header-scroll-toggle"
             });
 
-            // Add smooth scroll to section for header links
             const headerLinks = document.querySelectorAll('.site-header nav a');
             headerLinks.forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -916,8 +931,8 @@
                         if (target) {
                             e.preventDefault();
                             gsap.to(window, {
-                                duration: 1.2, // Match nav dot duration
-                                scrollTo: { y: target, offsetY: 0 }, // Adjust offsetY if header overlaps
+                                duration: 1.2,
+                                scrollTo: { y: target, offsetY: 0 },
                                 ease: "power2.inOut"
                             });
                         }
@@ -928,74 +943,72 @@
 
         // --- Initialize Footer Animation ---
         function initFooter() {
-            const footer = document.querySelector('#section-5 .site-footer'); // Target footer inside last section
+            // Select the footer specifically INSIDE section-5
+            const footer = document.querySelector('#section-5 .site-footer');
             const copyrightYearSpan = document.getElementById('copyright-year');
 
-            if (!footer) { console.warn("Site footer element not found in section 5."); return; }
+            // Check if the footer element was found correctly
+            if (!footer) {
+                console.warn("Site footer element specifically inside #section-5 not found. Animation cannot be initialized.");
+                return; // Stop if footer isn't where it's expected
+            }
 
-            // Set copyright year
+            // Set copyright year if the span exists
             if(copyrightYearSpan) {
                 copyrightYearSpan.textContent = new Date().getFullYear();
+            } else {
+                console.warn("Copyright year span (#copyright-year) not found in footer.");
             }
 
             // Animate footer in using GSAP
             gsap.to(footer, {
                 opacity: 1,
-                y: 0, // Animate from translateY(30px) to 0
+                y: 0, // Animate from CSS's translateY(30px) to 0
                 duration: 1.0,
                 ease: 'power2.out',
                 scrollTrigger: {
-                    trigger: '#section-5', // Trigger based on the last section
+                    trigger: '#section-5', // Trigger animation based on the last section
                     start: "bottom bottom-=100px", // Start when bottom of section is 100px from viewport bottom
                     toggleActions: "play none none reverse", // Play on enter, reverse on scroll up
-                    // markers: true, // Uncomment for debugging
+                    // markers: true, // Uncomment for debugging trigger points
                     id: "footer-reveal"
                 }
             });
+             console.log("Footer animation initialized for element:", footer); // Add confirmation
         }
 
 
         // --- Navigation Dots & Theme Switching ---
         function initNavigation() {
-            const sections = document.querySelectorAll('section[data-theme]');
+            const sections = document.querySelectorAll('section[id^="section-"]'); // Select all sections with ID starting "section-"
             const navDots = document.querySelectorAll('.nav-dot');
-            const headerLinks = document.querySelectorAll('.site-header nav a'); // Select the <a> tag
+            const headerLinks = document.querySelectorAll('.site-header nav a');
             const body = document.body;
 
-            if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or themed sections not found."); return;}
-            // Only warn if counts don't match, but proceed anyway
-            if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} themed sections.`); }
+            if (navDots.length === 0 || sections.length === 0) { console.warn("Nav dots or sections not found."); return;}
+            if (navDots.length !== sections.length) { console.warn(`Dot/Section mismatch: ${navDots.length} dots, ${sections.length} sections.`); }
 
             navDots.forEach(dot => {
                 dot.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sectionIndex = parseInt(dot.getAttribute('data-section'), 10);
-                     if (sectionIndex >= 0 && sectionIndex < sections.length) {
-                         // Use the actual sections array to find the target
-                         const targetSection = document.getElementById(`section-${sectionIndex}`); // Assuming sections have IDs like section-0, section-1 etc.
-                         if (targetSection) {
-                             gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
-                         } else {
-                              console.error(`Target section #section-${sectionIndex} not found.`);
-                         }
-                     } else { console.error("Invalid section index on dot:", sectionIndex); }
+                     const targetSection = document.getElementById(`section-${sectionIndex}`);
+                     if (targetSection) {
+                         gsap.to(window, { duration: 1.2, scrollTo: { y: targetSection, offsetY: 0 }, ease: "power2.inOut" });
+                     } else { console.error(`Target section #section-${sectionIndex} not found.`); }
                 });
             });
 
-            // Update active dot AND body theme class based on scroll position
             sections.forEach((section, index) => {
                 let startPoint = "top center";
                 let endPoint = "bottom center";
-                const theme = section.getAttribute('data-theme') || 'dark'; // Default to dark
+                const theme = section.getAttribute('data-theme') || 'dark';
 
                 if (section.classList.contains('timeline')) {
-                    // Use different trigger points for very tall sections like the timeline
-                     startPoint = "top top+=100px"; // Trigger sooner when entering from top
-                     endPoint = "bottom bottom-=100px"; // Trigger later when exiting towards bottom
-                     // Basic sanity check if timeline somehow becomes very short
+                     startPoint = "top top+=100px";
+                     endPoint = "bottom bottom-=100px";
                      if (section.offsetHeight < 200) { startPoint = "top center"; endPoint = "bottom center"; }
                 } else if (section.offsetHeight < window.innerHeight * 0.5) {
-                     // For very short sections, adjust triggers to avoid immediate exit
                      startPoint = "top bottom-=100px";
                      endPoint = "bottom top+=100px";
                 }
@@ -1007,56 +1020,45 @@
                     id: `section-nav-${index}`,
                     onEnter: () => updateActiveState(index, theme),
                     onEnterBack: () => updateActiveState(index, theme),
-                    // markers: true, // uncomment for debugging nav triggers
+                    // markers: true,
                 });
             });
 
             function updateActiveState(activeIndex, activeTheme) {
-                 // Update Nav Dots Activation
                  navDots.forEach((dot) => {
                      const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
                      dot.classList.toggle('active', dotSecIndex === activeIndex);
                  });
 
-                 // Update Body Class for Theme Styling & Header Link Color
                  const currentBodyTheme = body.classList.contains('on-light-section') ? 'light' : 'dark';
                  if (activeTheme !== currentBodyTheme) {
                     if (activeTheme === 'light') {
                         body.classList.add('on-light-section');
-                        // Directly set style for header links if they exist
                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
                     } else {
                         body.classList.remove('on-light-section');
                         if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
                     }
-                    // console.log(`Theme changed to: ${activeTheme}`);
                  }
-                 // console.log(`Entered Section ${activeIndex}, Theme: ${activeTheme}`);
             }
 
-            // Hide scroll indicator after first scroll
             ScrollTrigger.create({ start: 50, onEnter: () => body.classList.add('scrolled'), onLeaveBack: () => body.classList.remove('scrolled') });
         }
 
         // --- Initialize All Animations & Functionality ---
         function initAll() {
          console.log("Initializing animations...");
-         // Init structural elements first
          initHeader();
-         initFooter();
-         // Init sections
+         initFooter(); // Make sure this is called
          initCanvasWelcome();
          initIntro();
          initProduct();
          initFeatures();
          initNetworkGraph();
          initTimeline();
-         // Init navigation last, as it might depend on section dimensions/themes
-         initNavigation();
+         initNavigation(); // Call navigation last
 
-         // Add smooth scroll for non-header anchor links
          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-           // Check if the link is NOT inside the header nav
            if (!anchor.closest('.site-header nav')) {
              anchor.addEventListener('click', function(e) {
                const href = this.getAttribute('href');
@@ -1065,48 +1067,42 @@
                       const target = document.querySelector(href);
                       if (target) { e.preventDefault(); gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 0 }, ease: "power2.inOut" }); }
                  } catch (error) { console.warn("Could not find target for anchor:", href, error); }
-               } else if (href === "#") { e.preventDefault(); } // Prevent jump for href="#"
+               } else if (href === "#") { e.preventDefault(); }
              });
            }
          });
 
-          // Initial Refresh + Debounced Resize Refresh + Initial State Check
            setTimeout(() => {
                ScrollTrigger.refresh();
                console.log("ScrollTrigger refreshed initially.");
 
-               // Force update nav dots and theme after refresh based on what's currently most centered
                let mostCenteredIndex = -1;
                let minCenterDist = window.innerHeight;
                const viewportCenter = window.innerHeight / 2;
-               let activeTheme = 'dark'; // default theme
+               let activeTheme = 'dark';
                const body = document.body;
                const headerLinks = document.querySelectorAll('.site-header nav a');
                const navDots = document.querySelectorAll('.nav-dot');
-               const sections = document.querySelectorAll('section'); // Use all sections for positioning check
+               const sections = document.querySelectorAll('section[id^="section-"]');
 
                sections.forEach((section, index) => {
                    const rect = section.getBoundingClientRect();
                    const sectionCenter = rect.top + rect.height / 2;
                    const dist = Math.abs(viewportCenter - sectionCenter);
-                   // Check if section is at least partially visible and closer to center than previous
                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
                    if (isVisible && dist < minCenterDist) {
                        minCenterDist = dist;
-                       mostCenteredIndex = index; // Index based on all sections
-                       // Get theme from the section if it has one, otherwise keep current activeTheme
+                       mostCenteredIndex = index;
                        activeTheme = section.getAttribute('data-theme') || activeTheme;
                    }
                });
 
                 if(mostCenteredIndex !== -1) {
-                    // Update dots based on the found index
                      navDots.forEach((dot) => {
                          const dotSecIndex = parseInt(dot.getAttribute('data-section'), 10);
                          dot.classList.toggle('active', dotSecIndex === mostCenteredIndex);
                      });
-                     // Update theme based on the identified section's theme
                      if (activeTheme === 'light') {
                          body.classList.add('on-light-section');
                          if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-light)');
@@ -1116,14 +1112,13 @@
                      }
                      console.log(`Initial active section determined as ${mostCenteredIndex}, theme ${activeTheme}`);
                 } else {
-                     // Fallback if no section is clearly centered (e.g., page loaded scrolled weirdly)
-                     body.classList.remove('on-light-section'); // Default to dark
+                     body.classList.remove('on-light-section');
                      if(headerLinks.length > 0) headerLinks.forEach(link => link.style.color = 'var(--header-icon-color-dark)');
-                     if(navDots.length > 0) navDots[0].classList.add('active'); // Activate first dot
+                     if(navDots.length > 0) navDots[0].classList.add('active');
                      console.log("Initial active section not clearly determined, defaulting to dark theme / first dot.");
                 }
 
-           }, 200); // Delay allows layout shifts to settle before refreshing/checking
+           }, 250); // Slightly increased delay
 
            let resizeTimer;
            window.addEventListener('resize', () => {
@@ -1131,8 +1126,7 @@
                resizeTimer = setTimeout(() => {
                    console.log("Resizing - Refreshing ScrollTrigger...");
                    ScrollTrigger.refresh();
-                   // Potentially re-run the initial state check here too if needed after resize/refresh
-               }, 250); // Debounce resize events
+               }, 250);
            });
 
          console.log("Initialization sequence complete.");
